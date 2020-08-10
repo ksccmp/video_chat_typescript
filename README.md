@@ -1,1 +1,1 @@
-vidoe_chat_typescript
+* vidoe_chat_typescript
