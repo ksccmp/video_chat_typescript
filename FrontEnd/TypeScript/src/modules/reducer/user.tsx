@@ -3,6 +3,7 @@ import { Iuser } from '../../api/interface';
 
 export interface IinitUserState {
     user: Iuser;
+    isSignIn: boolean;
 }
 
 const initUserState: IinitUserState = {
@@ -17,6 +18,7 @@ const initUserState: IinitUserState = {
         rgstTm: '',
         updtTm: '',
     },
+    isSignIn: false,
 };
 
 const reducer = (state: IinitUserState = initUserState, action: actions.reducerAction) => {
@@ -25,7 +27,20 @@ const reducer = (state: IinitUserState = initUserState, action: actions.reducerA
         case actions.userSelectByUserId: {
             return {
                 ...state,
-                payload: action.payload,
+                payload: (action as actions.IuserSelectByUserIdAction).payload,
+            };
+        }
+
+        case actions.userSelectByUserToken: {
+            return {
+                ...state,
+            };
+        }
+
+        case actions.userInsert: {
+            return {
+                ...state,
+                payload: (action as actions.IuserInsertAction).payload,
             };
         }
 
@@ -33,7 +48,15 @@ const reducer = (state: IinitUserState = initUserState, action: actions.reducerA
         case actions.userSetUser:
             return {
                 ...state,
-                user: action.payload,
+                user: (action as actions.IuserSetUserAction).payload,
+                isSignIn: true,
+            };
+
+        case actions.userLogout:
+            return {
+                ...state,
+                user: initUserState.user,
+                isSignIn: false,
             };
 
         default:

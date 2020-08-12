@@ -1,45 +1,64 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Iuser, IuserAuth } from '../api/interface';
-import { userSetUserAction, userSelectByUserIdAction } from '../modules/actions';
-import { reducerState } from '../modules/reducer';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { userSelectByUserIdAction } from '../modules/actions';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { Typography, Button, TextField } from '@material-ui/core';
 
-const signIn = () => {
+const signIn: React.FC<RouteComponentProps> = ({ history }) => {
     const dispatch = useDispatch();
-    const user: Iuser = useSelector((state: reducerState) => state.user.user);
 
-    const testClick = () => {
-        const setUser: Iuser = {
-            userId: 'userId',
-            userPw: 'userPw',
-            userNm: 'userNm',
-            userGd: 'userGd',
-            userAge: 0,
-            userPh: 'userPh',
-            userMa: 'userMa',
-            rgstTm: 'rgstTm',
-            updtTm: 'updtTm',
-        };
+    const [userId, setUserId] = useState<string>('');
+    const [userPw, setUserPw] = useState<string>('');
 
-        dispatch(userSetUserAction(setUser));
+    const onUserId = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setUserId(e.target.value);
     };
 
-    const sagaTest = () => {
-        const testUser: IuserAuth = {
-            userId: 'asd',
-            userPw: 'asd',
-        };
-        dispatch(userSelectByUserIdAction(testUser));
+    const onUserPw = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setUserPw(e.target.value);
+    };
+
+    const onSignUp = () => {
+        history.push('/user/signUp');
+    };
+
+    const onSignIn = () => {
+        dispatch(userSelectByUserIdAction({ userId, userPw }));
+    };
+
+    const onSignInEnter = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter') {
+            onSignIn();
+        }
     };
 
     return (
-        <div>
-            <p>SignIn 페이지입니다.</p>
-            <input type="button" value="로그인" onClick={testClick}></input>
-            <input type="button" value="사가테스트" onClick={sagaTest}></input>
-            {user.userNm}
-        </div>
+        <>
+            <div>
+                <Typography variant="h3">SCVC Login</Typography>
+                <TextField id="standard-basic" label="아이디" onChange={onUserId} onKeyPress={onSignInEnter} required />
+                <br />
+                <TextField
+                    id="standard-basic"
+                    label="비밀번호"
+                    type="password"
+                    required
+                    onChange={onUserPw}
+                    onKeyPress={onSignInEnter}
+                />
+                <br /> <br />
+                <Button variant="contained" color="primary" onClick={onSignIn}>
+                    SignIn
+                </Button>
+                <Button variant="contained" color="primary" onClick={onSignUp}>
+                    SignUp
+                </Button>
+                <Button variant="contained" color="primary">
+                    Search
+                </Button>
+            </div>
+        </>
     );
 };
 
-export default signIn;
+export default withRouter(signIn);
