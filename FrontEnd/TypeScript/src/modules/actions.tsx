@@ -1,4 +1,4 @@
-import { Iuser, IuserAuth } from '../api/interface';
+import { Iuser, IuserAuth, Ichat } from '../api/interface';
 
 // Saga
 export const userSelectByUserId: string = 'userSelectByUserId';
@@ -42,6 +42,8 @@ export const userInsertAction = (res: Iuser): IuserInsertAction => {
 // Not Saga
 export const userSetUser: string = 'userSetUser';
 export const userLogout: string = 'userLogout';
+export const socketSetChatList: string = 'socketSetChatList';
+export const socketResetChatList: string = 'socketResetChatList';
 
 export interface IuserSetUserAction {
     type: typeof userSetUser;
@@ -50,6 +52,15 @@ export interface IuserSetUserAction {
 
 export interface IuserLogoutAction {
     type: typeof userLogout;
+}
+
+export interface IsocketSetChatList {
+    type: typeof socketSetChatList;
+    payload: Ichat;
+}
+
+export interface IsocketResetChatList {
+    type: typeof socketResetChatList;
 }
 
 export const userSetUserAction = (res: Iuser): IuserSetUserAction => {
@@ -65,10 +76,25 @@ export const userLogoutAction = (): IuserLogoutAction => {
     };
 };
 
+export const socketSetChatListAction = (res: Ichat): IsocketSetChatList => {
+    return {
+        type: socketSetChatList,
+        payload: res,
+    };
+};
+
+export const socketResetChatListAction = (): IsocketResetChatList => {
+    return {
+        type: socketResetChatList,
+    };
+};
+
 // return
 export type reducerAction =
     | IuserSelectByUserIdAction
     | IuserSetUserAction
     | IuserSelectByUserTokenAction
     | IuserLogoutAction
-    | IuserInsertAction;
+    | IuserInsertAction
+    | IsocketSetChatList
+    | IsocketResetChatList;

@@ -12,3 +12,11 @@ export interface Iuser extends IuserAuth {
     rgstTm: string;
     updtTm: string;
 }
+
+export interface Ichat {
+    roomId: string;
+    userId: string;
+    type: string;
+    contents: string;
+    rgstTm: string;
+}

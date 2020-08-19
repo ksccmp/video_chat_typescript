@@ -23,6 +23,7 @@ function* userSelectByUserIdSaga(action: actions.IuserSelectByUserIdAction) {
             yield put(actions.userSetUserAction(res.data.data));
             localStorage.userToken = res.headers['jwt-user-token']; // jwt-user-token으로 response온 값을 localStorage에 저장
             alert('로그인 성공');
+            window.location.href = '/main'; // 변경 필요
         }
     } catch (e) {
         alert(e);
@@ -51,6 +52,7 @@ function* userSelectByUserTokenSaga() {
         } catch (ee) {
             localStorage.removeItem('userToken'); // 갱신 토큰도 만료되었을 시 재 로그인
             alert('다시 로그인 해주세요');
+            window.location.href = '/user/signIn'; // 변경 필요
         }
     }
 }

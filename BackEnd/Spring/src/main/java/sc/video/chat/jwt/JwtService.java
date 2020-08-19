@@ -14,8 +14,8 @@ import sc.video.chat.dto.User;
 @Component
 public class JwtService {
 	private String secretKey = "video-chat"; // 암호화 알고리즘 적용 key
-    private Long expireTime = 1000L * 60 * 5; // 토큰의 유효시간
-    private Long refreshExpireTime = 1000L * 60 * 60 * 24 * 7; // 갱신 토큰의 유효시간
+    private Long expireTime = 1000L * 60 * 60 * 24; // 토큰의 유효시간
+    private Long refreshExpireTime = 1000L * 60 * 60 * 24 * 7 * 1000; // 갱신 토큰의 유효시간
 	
 	// 토큰 생성
 	public String createUserToken(User user) {
