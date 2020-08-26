@@ -57,23 +57,6 @@ const chatList = ({ socket, roomId, userId }: IchatList) => {
         setText(e.target.value);
     };
 
-    const Success = (mediaStream: MediaStream) => {
-        console.log(mediaStream);
-    };
-
-    const Error = (e: MediaStreamError) => {
-        console.log(e);
-    };
-
-    navigator.getUserMedia(
-        {
-            video: true,
-            audio: false,
-        },
-        Success,
-        Error,
-    );
-
     return (
         <>
             <div>
@@ -93,10 +76,6 @@ const chatList = ({ socket, roomId, userId }: IchatList) => {
                         {chat.type === 'alert' ? chat.contents : chat.userId + ' : ' + chat.contents}
                     </Typography>
                 ))}
-            </div>
-            <div>
-                <video autoPlay muted id="localVideo"></video>
-                <video autoPlay id="remoteVideo"></video>
             </div>
         </>
     );
