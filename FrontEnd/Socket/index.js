@@ -15,6 +15,11 @@ socketIO.on('connection', (socket) => {
         socketIO.to(msg.roomId).emit('receive message', msg);
     });
 
+    socket.on('send video', (msg) => {
+        console.log(msg);
+        console.log(msg.stream);
+    });
+
     socket.on('join room', (msg) => {
         console.log(msg);
         socket.roomId = msg.roomId;
@@ -32,5 +37,9 @@ socketIO.on('connection', (socket) => {
             contents: `${socket.userId}님이 퇴장하셨습니다`,
             rgstTm: '2020/08/07',
         });
+    });
+
+    socket.on('videoTest', (msg) => {
+        socketIO.to(msg.roomId).emit('receiveTest', msg);
     });
 });
