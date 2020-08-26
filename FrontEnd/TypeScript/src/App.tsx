@@ -3,7 +3,7 @@ import { Route, Redirect, Switch, RouteComponentProps, withRouter } from 'react-
 import SignIn from './pages/signIn';
 import SignUp from './pages/signUp';
 import Main from './pages/main';
-import Chat from './pages/socket/chat';
+import SocketMain from './pages/socket/socketMain';
 import { useDispatch, useSelector } from 'react-redux';
 import { reducerState } from './modules/reducer/index';
 import { userSelectByUserTokenAction } from './modules/actions';
@@ -29,7 +29,7 @@ const App: React.FC<RouteComponentProps> = ({ history }) => {
                 <Route path="/user/signIn" component={SignIn} />
                 <Route path="/user/signUp" component={SignUp} />
                 <Route path="/main" component={Main} />
-                <Route path="/socket/chat/:roomId/:userId" component={Chat} />
+                <Route path="/socket/chat/:roomId/:userId" component={SocketMain} />
             </Switch>
         </>
     );

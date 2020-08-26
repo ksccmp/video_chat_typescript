@@ -20,3 +20,10 @@ export interface Ichat {
     contents: string;
     rgstTm: string;
 }
+
+export interface Ivideochat {
+    type: string;
+    sdp?: RTCSessionDescription;
+    candidate?: RTCIceCandidate;
+    roomId: string;
+}
