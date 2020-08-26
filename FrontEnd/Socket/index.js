@@ -24,7 +24,7 @@ socketIO.on('connection', (socket) => {
     });
 
     socket.on('disconnect', () => {
-        console.log(`${socket.Id} disconnected`);
+        console.log(`${socket.id} disconnected`);
         socketIO.to(socket.roomId).emit('receive message', {
             roomId: socket.roomId,
             userId: socket.userId,

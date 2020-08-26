@@ -26,7 +26,6 @@ const chat: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
         dispatch(socketResetChatListAction());
         const connect: SocketIOClient.Socket = SocketIO.connect('http://localhost:4000');
         connect.id = match.params.userId;
-        console.log(connect);
         setSocket(connect);
 
         connect.emit('join room', {
@@ -74,6 +73,23 @@ const chat: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
         setText(e.target.value);
     };
 
+    const Success = (mediaStream: MediaStream) => {
+        console.log(mediaStream);
+    };
+
+    const Error = (e: MediaStreamError) => {
+        console.log(e);
+    };
+
+    navigator.getUserMedia(
+        {
+            video: true,
+            audio: false,
+        },
+        Success,
+        Error,
+    );
+
     return (
         <>
             <div>
@@ -93,6 +109,10 @@ const chat: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
                         {chat.type === 'alert' ? chat.contents : chat.userId + ' : ' + chat.contents}
                     </Typography>
                 ))}
+            </div>
+            <div>
+                <video autoPlay muted id="localVideo"></video>
+                <video autoPlay id="remoteVideo"></video>
             </div>
         </>
     );
