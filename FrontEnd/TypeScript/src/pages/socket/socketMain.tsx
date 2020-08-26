@@ -1,10 +1,12 @@
 import * as React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import SocketIO from 'socket.io-client';
 import { RouteComponentProps } from 'react-router';
 import Video from '../../components/socket/video';
 import ChatList from '../../components/socket/chatList';
 import { Ivideochat } from '../../api/interface';
+import { reducerState } from '../../modules/reducer';
+import { socketResetVideoListAction, socketSetVideoListAction } from '../../modules/actions';
 
 <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>;
 
@@ -14,8 +16,12 @@ interface ImatchParams {
 }
 
 const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
+    const dispatch = useDispatch();
+
     const [socket, setSocket] = React.useState<SocketIOClient.Socket | undefined>(undefined);
-    const [videos, setVideos] = React.useState<MediaStream[]>([]);
+    // const [videos, setVideos] = React.useState<MediaStream[]>([]);
+
+    const videoList: MediaStream[] = useSelector((state: reducerState) => state.socket.videoList);
 
     const pcConfig = {
         iceServers: [
@@ -28,6 +34,7 @@ const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
 
     React.useEffect(() => {
         Close();
+        dispatch(socketResetVideoListAction());
         const connect: SocketIOClient.Socket = SocketIO.connect('http://localhost:4000');
         connect.id = match.params.userId;
         setSocket(connect);
@@ -114,7 +121,8 @@ const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
             console.log(event.streams[0].getTracks());
 
             if (event.track.kind == 'video') {
-                setVideos([...videos, event.streams[0]]);
+                // setVideos([...videos, event.streams[0]]);
+                dispatch(socketSetVideoListAction(event.streams[0]));
             }
         };
 
@@ -127,6 +135,8 @@ const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
         pc2.ontrack = pc2track;
 
         navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((pc1stream) => {
+            dispatch(socketSetVideoListAction(pc1stream));
+            // setVideos([...videos, pc1stream]);
             pc1stream.getTracks().forEach((track) => {
                 console.log(track);
                 pc1.addTrack(track, pc1stream);
@@ -153,7 +163,7 @@ const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
                 ''
             )}
 
-            <div>{videos ? videos.map((video, index) => <Video stream={video} key={index} />) : ''}</div>
+            <div>{videoList ? videoList.map((video, index) => <Video stream={video} key={index} />) : ''}</div>
         </>
     );
 };

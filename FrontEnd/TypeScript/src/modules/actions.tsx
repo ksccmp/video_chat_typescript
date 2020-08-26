@@ -44,6 +44,8 @@ export const userSetUser: string = 'userSetUser';
 export const userLogout: string = 'userLogout';
 export const socketSetChatList: string = 'socketSetChatList';
 export const socketResetChatList: string = 'socketResetChatList';
+export const socketSetVideoList: string = 'socketSetVideoList';
+export const socketResetVideoList: string = 'socketResetVideoList';
 
 export interface IuserSetUserAction {
     type: typeof userSetUser;
@@ -61,6 +63,15 @@ export interface IsocketSetChatList {
 
 export interface IsocketResetChatList {
     type: typeof socketResetChatList;
+}
+
+export interface IsocketSetVideoListAction {
+    type: typeof socketSetVideoList;
+    payload: MediaStream;
+}
+
+export interface IsocketResetVideoListAction {
+    type: typeof socketResetVideoList;
 }
 
 export const userSetUserAction = (res: Iuser): IuserSetUserAction => {
@@ -89,6 +100,19 @@ export const socketResetChatListAction = (): IsocketResetChatList => {
     };
 };
 
+export const socketSetVideoListAction = (res: MediaStream): IsocketSetVideoListAction => {
+    return {
+        type: socketSetVideoList,
+        payload: res,
+    };
+};
+
+export const socketResetVideoListAction = (): IsocketResetVideoListAction => {
+    return {
+        type: socketResetVideoList,
+    };
+};
+
 // return
 export type reducerAction =
     | IuserSelectByUserIdAction
@@ -97,4 +121,6 @@ export type reducerAction =
     | IuserLogoutAction
     | IuserInsertAction
     | IsocketSetChatList
-    | IsocketResetChatList;
+    | IsocketResetChatList
+    | IsocketSetVideoListAction
+    | IsocketResetVideoListAction;

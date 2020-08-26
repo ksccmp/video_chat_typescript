@@ -3,10 +3,12 @@ import { Ichat } from '../../api/interface';
 
 export interface IinitSocketState {
     chatList: Ichat[];
+    videoList: MediaStream[];
 }
 
 const initSocketState: IinitSocketState = {
     chatList: [],
+    videoList: [],
 };
 
 const reducer = (state = initSocketState, action: actions.reducerAction) => {
@@ -24,6 +26,22 @@ const reducer = (state = initSocketState, action: actions.reducerAction) => {
             return {
                 ...state,
                 chatList: initSocketState.chatList,
+            };
+        }
+
+        case actions.socketSetVideoList: {
+            let newVideoList: MediaStream[] = state.videoList.slice();
+            newVideoList.push((action as actions.IsocketSetVideoListAction).payload);
+            return {
+                ...state,
+                videoList: newVideoList,
+            };
+        }
+
+        case actions.socketResetVideoList: {
+            return {
+                ...state,
+                videoList: initSocketState.videoList,
             };
         }
 
