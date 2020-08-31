@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/> <!-- camelcase 설정 -->
+	</settings>
+
+	<typeAliases>
+		<typeAlias type="sc.video.chat.dto.User" alias="user"/> <!-- DTO로 sc.video.chat.dto 패키지에 User라는 클래스를 생성 -->
+		<typeAlias type="sc.video.chat.dto.UserToken" alias="userToken"/>
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="mapper/usermapper.xml"/>  <!-- src/main/resources에 mapper라는 폴더를 생성하여 그 안에 xml파일 생성 -->
+	</mappers>
+</configuration>

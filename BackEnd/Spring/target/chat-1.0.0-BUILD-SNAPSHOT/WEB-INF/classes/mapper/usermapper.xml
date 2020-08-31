@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sc.video.chat.usermapper">
+	<insert id="insert" parameterType="user">
+		insert into User(user_id, user_pw, user_nm, user_gd, user_age, user_ph, user_ma, rgst_tm, updt_tm)
+		values (#{userId}, #{userPw}, #{userNm}, #{userGd}, #{userAge}, #{userPh}, #{userMa}, current_timestamp(), current_timestamp())
+	</insert>
+	
+	<insert id="insertToken" parameterType="user">
+		insert into UserToken(user_id, refresh_token, updt_tm)
+		values (#{userId}, null, null)
+	</insert>
+	
+	<select id="selectByUserId" parameterType="string" resultType="user">
+		select * 
+		from User 
+		where user_id = #{value}
+	</select>
+	
+	<select id="selectTokenByUserId" parameterType="string" resultType="usertoken">
+		select *
+		from UserToken
+		where user_id = #{value}
+	</select>
+	
+	<update id="updateToken" parameterType="userToken">
+		update UserToken
+		set refresh_token = #{refreshToken}, updt_tm = current_timestamp()
+		where user_id = #{userId}
+	</update>
+</mapper>
