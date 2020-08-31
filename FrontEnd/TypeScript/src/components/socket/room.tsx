@@ -15,11 +15,7 @@ const room = ({ roomId, createId, contents }: Iroom) => {
 
     const Open = () => {
         if (reduxUser.userId != '' && reduxUser.userId.length > 0) {
-            window.open(
-                `http://localhost:8888/socket/chat/${roomId}/${reduxUser.userId}`,
-                'windowName',
-                'toolbar=no, menubar=no',
-            );
+            window.open(`../socket/chat/${roomId}/${reduxUser.userId}`, 'windowName', 'toolbar=no, menubar=no');
         }
     };
 
