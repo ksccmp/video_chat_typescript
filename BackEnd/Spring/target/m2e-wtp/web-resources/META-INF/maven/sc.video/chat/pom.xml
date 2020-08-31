@@ -199,6 +199,7 @@
 		</dependency>        
 	</dependencies>
     <build>
+    	<defaultGoal>deploy</defaultGoal>
         <plugins>
             <plugin>
                 <artifactId>maven-eclipse-plugin</artifactId>

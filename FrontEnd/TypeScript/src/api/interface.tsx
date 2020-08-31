@@ -26,4 +26,5 @@ export interface Ivideochat {
     sdp?: RTCSessionDescription;
     candidate?: RTCIceCandidate;
     roomId: string;
+    userId: string;
 }

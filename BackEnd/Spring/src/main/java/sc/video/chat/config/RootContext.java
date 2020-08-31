@@ -20,7 +20,7 @@ public class RootContext {
 	public BasicDataSource dataSource() { // mysql연동
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/videochat?serverTimezone=UTC");
+		dataSource.setUrl("jdbc:mysql://192.168.0.122:3306/videochat?serverTimezone=UTC");
 		dataSource.setUsername("root");
 		dataSource.setPassword("root");
 		return dataSource;
