@@ -8,9 +8,9 @@ const video = ({ stream }: Ivideo) => {
     const [videoData, setVideoData] = React.useState<HTMLMediaElement | undefined>(undefined);
 
     React.useEffect(() => {
-        console.log('??');
         if (videoData) {
-            console.log('!!');
+            console.log('video');
+            console.log(stream);
             (videoData as HTMLMediaElement).srcObject = stream;
         }
     }, [videoData]);

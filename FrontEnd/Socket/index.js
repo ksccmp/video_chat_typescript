@@ -8,15 +8,15 @@ app.use(function (request, response, next) {
     next();
 });
 
-// const server = require('http').createServer(app); // 로컬
-const server = require('https').createServer(
-    {
-        key: fs.readFileSync('/etc/nginx/ssl/server.key'),
-        cert: fs.readFileSync('/etc/nginx/ssl/server.crt'),
-        ca: fs.readFileSync('/etc/nginx/ssl/CA.pem'),
-    },
-    app,
-); // 배포
+const server = require('http').createServer(app); // 로컬
+// const server = require('https').createServer(
+//     {
+//         key: fs.readFileSync('/etc/nginx/ssl/server.key'),
+//         cert: fs.readFileSync('/etc/nginx/ssl/server.crt'),
+//         ca: fs.readFileSync('/etc/nginx/ssl/CA.pem'),
+//     },
+//     app,
+// ); // 배포
 const port = 4000;
 const socketIO = require('socket.io')(server);
 
@@ -57,6 +57,7 @@ socketIO.on('connection', (socket) => {
     });
 
     socket.on('videoTest', (msg) => {
+        console.log(msg);
         socketIO.to(msg.roomId).emit('receiveTest', msg);
     });
 });

@@ -23,7 +23,7 @@ export interface Ichat {
 
 export interface Ivideochat {
     type: string;
-    sdp?: RTCSessionDescription;
+    sdp?: RTCSessionDescriptionInit;
     candidate?: RTCIceCandidate;
     roomId: string;
     userId: string;
