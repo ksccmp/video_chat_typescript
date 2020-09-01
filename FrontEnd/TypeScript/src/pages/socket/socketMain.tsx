@@ -33,8 +33,8 @@ const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
     React.useEffect(() => {
         Close();
         dispatch(socketResetVideoListAction());
-        const connect: SocketIOClient.Socket = SocketIO.connect('http://localhost:4000'); // 로컬
-        // const connect: SocketIOClient.Socket = SocketIO.connect('https://ksccmp.iptime.org/', { secure: true }); // 배포
+        // const connect: SocketIOClient.Socket = SocketIO.connect('http://localhost:4000'); // 로컬
+        const connect: SocketIOClient.Socket = SocketIO.connect('https://ksccmp.iptime.org/', { secure: true }); // 배포
         setSocket(connect);
 
         const handleVideoOfferMsg = (msg: Ivideochat) => {
