@@ -40,79 +40,35 @@ const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
         const handleVideoOfferMsg = (msg: Ivideochat) => {
             console.log('handleVideoOfferMsg');
             const desc = new RTCSessionDescription(msg.sdp);
-            pc2.setRemoteDescription(desc)
-                .then(() => {
-                    return pc2.createAnswer();
-                })
-                .then((answer) => {
-                    return pc2.setLocalDescription(answer);
-                })
-                .then(() => {
-                    connect.emit('videoTest', {
-                        type: 'video-answer',
-                        sdp: pc2.localDescription,
-                        roomId: match.params.roomId,
-                        userId: msg.userId,
-                    });
-                });
-
-            // pc.setRemoteDescription(desc)
+            // pc2.setRemoteDescription(desc)
             //     .then(() => {
-            //         return pc.createAnswer();
+            //         return pc2.createAnswer();
             //     })
             //     .then((answer) => {
-            //         return pc.setLocalDescription(answer);
+            //         return pc2.setLocalDescription(answer);
             //     })
             //     .then(() => {
             //         connect.emit('videoTest', {
             //             type: 'video-answer',
-            //             sdp: pc.localDescription,
+            //             sdp: pc2.localDescription,
             //             roomId: match.params.roomId,
             //             userId: msg.userId,
             //         });
-            //     })
-            //     .catch((e) => {
-            //         console.log(e);
             //     });
-        };
 
-        const handleVideoAnswerMsg = (msg: Ivideochat) => {
-            console.log('test');
-            console.log(msg.sdp);
-            const desc = new RTCSessionDescription(msg.sdp);
-            pc1.setRemoteDescription(desc);
-            // pc.setRemoteDescription(desc);
-        };
-
-        connect.on('receiveTest', (msg: Ivideochat) => {
-            console.log('receiveTest');
-            console.log(msg);
-            console.log(connect.id);
-            if (msg.type === 'video-offer') {
-                // if (msg.userId !== match.params.userId) {
-                handleVideoOfferMsg(msg);
-                // }
-            } else if (msg.type === 'video-answer') {
-                // if (msg.userId === match.params.userId) {
-                handleVideoAnswerMsg(msg);
-                // }
-            }
-        });
-
-        const pc1negotiationneeded = () => {
-            console.log('pc1negotiationneeded');
-            pc1.createOffer()
-                .then((offer) => {
-                    console.log('createOffer');
-                    console.log(offer);
-                    return pc1.setLocalDescription(offer);
+            pc.setRemoteDescription(desc)
+                .then(() => {
+                    return pc.createAnswer();
+                })
+                .then((answer) => {
+                    return pc.setLocalDescription(answer);
                 })
                 .then(() => {
                     connect.emit('videoTest', {
-                        type: 'video-offer',
-                        sdp: pc1.localDescription,
+                        type: 'video-answer',
+                        sdp: pc.localDescription,
                         roomId: match.params.roomId,
-                        userId: match.params.userId,
+                        userId: msg.userId,
                     });
                 })
                 .catch((e) => {
@@ -120,18 +76,41 @@ const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
                 });
         };
 
-        // const pcnegotiationneeded = () => {
-        //     console.log('pcnegotiationneeded');
-        //     pc.createOffer()
+        const handleVideoAnswerMsg = (msg: Ivideochat) => {
+            console.log('test');
+            console.log(msg.sdp);
+            const desc = new RTCSessionDescription(msg.sdp);
+            // pc1.setRemoteDescription(desc);
+            pc.setRemoteDescription(desc);
+        };
+
+        connect.on('receiveTest', (msg: Ivideochat) => {
+            console.log('receiveTest');
+            console.log(msg);
+            console.log(connect.id);
+            if (msg.type === 'video-offer') {
+                if (msg.userId !== match.params.userId) {
+                    handleVideoOfferMsg(msg);
+                }
+            } else if (msg.type === 'video-answer') {
+                if (msg.userId === match.params.userId) {
+                    handleVideoAnswerMsg(msg);
+                }
+            }
+        });
+
+        // const pc1negotiationneeded = () => {
+        //     console.log('pc1negotiationneeded');
+        //     pc1.createOffer()
         //         .then((offer) => {
         //             console.log('createOffer');
         //             console.log(offer);
-        //             return pc.setLocalDescription(offer);
+        //             return pc1.setLocalDescription(offer);
         //         })
         //         .then(() => {
         //             connect.emit('videoTest', {
         //                 type: 'video-offer',
-        //                 sdp: pc.localDescription,
+        //                 sdp: pc1.localDescription,
         //                 roomId: match.params.roomId,
         //                 userId: match.params.userId,
         //             });
@@ -141,51 +120,62 @@ const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
         //         });
         // };
 
-        const pc1icecandidate = (event: RTCPeerConnectionIceEvent) => {
-            console.log('pc1icecandidate');
-            console.log(event);
-            if (event.candidate) {
-                const candidate = new RTCIceCandidate(event.candidate);
-                pc1.addIceCandidate(candidate).catch((e) => {
+        const pcnegotiationneeded = () => {
+            console.log('pcnegotiationneeded');
+            pc.createOffer()
+                .then((offer) => {
+                    console.log('createOffer');
+                    console.log(offer);
+                    return pc.setLocalDescription(offer);
+                })
+                .then(() => {
+                    connect.emit('videoTest', {
+                        type: 'video-offer',
+                        sdp: pc.localDescription,
+                        roomId: match.params.roomId,
+                        userId: match.params.userId,
+                    });
+                })
+                .catch((e) => {
                     console.log(e);
                 });
-            }
         };
 
-        const pc2icecandidate = (event: RTCPeerConnectionIceEvent) => {
-            console.log('pc2icecandidate');
-            console.log(event);
-            if (event.candidate) {
-                const candidate = new RTCIceCandidate(event.candidate);
-                pc2.addIceCandidate(candidate).catch((e) => {
-                    console.log(e);
-                });
-            }
-        };
-
-        // const pcicecandidate = (event: RTCPeerConnectionIceEvent) => {
-        //     console.log('pcicecandidate');
+        // const pc1icecandidate = (event: RTCPeerConnectionIceEvent) => {
+        //     console.log('pc1icecandidate');
         //     console.log(event);
         //     if (event.candidate) {
         //         const candidate = new RTCIceCandidate(event.candidate);
-        //         pc.addIceCandidate(candidate).catch((e) => {
+        //         pc1.addIceCandidate(candidate).catch((e) => {
         //             console.log(e);
         //         });
         //     }
         // };
 
-        const pc2track = (event: RTCTrackEvent) => {
-            console.log('pc2track');
-            console.log(event.streams[0].getTracks());
+        // const pc2icecandidate = (event: RTCPeerConnectionIceEvent) => {
+        //     console.log('pc2icecandidate');
+        //     console.log(event);
+        //     if (event.candidate) {
+        //         const candidate = new RTCIceCandidate(event.candidate);
+        //         pc2.addIceCandidate(candidate).catch((e) => {
+        //             console.log(e);
+        //         });
+        //     }
+        // };
 
-            if (event.track.kind == 'video') {
-                // setVideos([...videos, event.streams[0]]);
-                dispatch(socketSetVideoListAction(event.streams[0]));
+        const pcicecandidate = (event: RTCPeerConnectionIceEvent) => {
+            console.log('pcicecandidate');
+            console.log(event);
+            if (event.candidate) {
+                const candidate = new RTCIceCandidate(event.candidate);
+                pc.addIceCandidate(candidate).catch((e) => {
+                    console.log(e);
+                });
             }
         };
 
-        // const pctrack = (event: RTCTrackEvent) => {
-        //     console.log('pctrack');
+        // const pc2track = (event: RTCTrackEvent) => {
+        //     console.log('pc2track');
         //     console.log(event.streams[0].getTracks());
 
         //     if (event.track.kind == 'video') {
@@ -194,31 +184,41 @@ const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
         //     }
         // };
 
-        const pc1: RTCPeerConnection = new RTCPeerConnection(pcConfig);
-        const pc2: RTCPeerConnection = new RTCPeerConnection(pcConfig);
-        // let pc: RTCPeerConnection;
+        const pctrack = (event: RTCTrackEvent) => {
+            console.log('pctrack');
+            console.log(event.streams[0].getTracks());
 
-        // const pcconnect = () => {
-        //     pc = new RTCPeerConnection(pcConfig);
+            if (event.track.kind == 'video') {
+                // setVideos([...videos, event.streams[0]]);
+                dispatch(socketSetVideoListAction(event.streams[0]));
+            }
+        };
 
-        //     pc.onicecandidate = pcicecandidate;
-        //     pc.onnegotiationneeded = pcnegotiationneeded;
-        //     pc.ontrack = pctrack;
-        // };
+        // const pc1: RTCPeerConnection = new RTCPeerConnection(pcConfig);
+        // const pc2: RTCPeerConnection = new RTCPeerConnection(pcConfig);
+        let pc: RTCPeerConnection;
 
-        pc1.onicecandidate = pc1icecandidate;
-        pc1.onnegotiationneeded = pc1negotiationneeded;
-        pc2.onicecandidate = pc2icecandidate;
-        pc2.ontrack = pc2track;
+        const pcconnect = () => {
+            pc = new RTCPeerConnection(pcConfig);
+
+            pc.onicecandidate = pcicecandidate;
+            pc.onnegotiationneeded = pcnegotiationneeded;
+            pc.ontrack = pctrack;
+        };
+
+        // pc1.onicecandidate = pc1icecandidate;
+        // pc1.onnegotiationneeded = pc1negotiationneeded;
+        // pc2.onicecandidate = pc2icecandidate;
+        // pc2.ontrack = pc2track;
 
         navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((pcstream) => {
-            // pcconnect();
+            pcconnect();
             dispatch(socketSetVideoListAction(pcstream));
             // setVideos([...videos, pc1stream]);
             pcstream.getTracks().forEach((track) => {
                 console.log(track);
                 // pc1.addTrack(track, pc1stream);
-                pc1.addTrack(track, pcstream);
+                pc.addTrack(track, pcstream);
             });
         });
     }, []);

@@ -11,9 +11,12 @@ app.use(function (request, response, next) {
 // const server = require('http').createServer(app); // 로컬
 const server = require('https').createServer(
     {
-        key: fs.readFileSync('/etc/nginx/ssl/server.key'),
-        cert: fs.readFileSync('/etc/nginx/ssl/server.crt'),
-        ca: fs.readFileSync('/etc/nginx/ssl/CA.pem'),
+        // key: fs.readFileSync('/etc/nginx/ssl/server.key'), // 사설 인증서
+        // cert: fs.readFileSync('/etc/nginx/ssl/server.crt'),
+        // ca: fs.readFileSync('/etc/nginx/ssl/CA.pem'),
+        key: fs.readFileSync('/etc/letsencrypt/live/ksccmp.iptime.org/privkey.pem'), // letsencrpyt 인증서
+        cert: fs.readFileSync('/etc/letsencrypt/live/ksccmp.iptime.org/fullchain.pem'),
+        ca: fs.readFileSync('/etc/letsencrypt/live/ksccmp.iptime.org/cert.pem'),
     },
     app,
 ); // 배포
