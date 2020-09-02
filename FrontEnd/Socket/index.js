@@ -63,4 +63,9 @@ socketIO.on('connection', (socket) => {
         console.log(msg);
         socketIO.to(msg.roomId).emit('receiveTest', msg);
     });
+
+    socket.on('messageServer', (msg) => {
+        console.log(msg);
+        socketIO.to(msg.roomId).emit('message', msg);
+    });
 });
