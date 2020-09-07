@@ -26,7 +26,8 @@ const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
             {
                 urls: 'stun:stun.l.google.com:19302',
             },
-            { urls: 'turn:numb.viagenie.ca', credential: 'muazkh', username: 'webrtc@live.com' },
+            // { urls: 'turn:numb.viagenie.ca', credential: 'muazkh', username: 'webrtc@live.com' },
+            { urls: 'turn:ksccmp.iptime.org', credential: 'centosuser', username: 'mynode' },
         ],
     };
 
