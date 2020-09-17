@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Route, Redirect, Switch, RouteComponentProps, withRouter } from 'react-router-dom';
+import { Route, Switch, RouteComponentProps, withRouter } from 'react-router-dom';
 import SignIn from './pages/signIn';
 import SignUp from './pages/signUp';
 import Main from './pages/main';
@@ -28,7 +28,7 @@ const App: React.FC<RouteComponentProps> = ({ history }) => {
             <Switch>
                 <Route path="/user/signIn" component={SignIn} />
                 <Route path="/user/signUp" component={SignUp} />
-                <Route path="/main" component={Main} />
+                <Route path="/main/:target" component={Main} />
                 <Route path="/socket/chat/:roomId/:userId" component={SocketMain} />
             </Switch>
         </>

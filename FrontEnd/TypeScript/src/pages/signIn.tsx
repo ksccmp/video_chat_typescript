@@ -2,7 +2,27 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { userSelectByUserIdAction } from '../modules/actions';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { Typography, Button, TextField } from '@material-ui/core';
+import { StyledInput1, StyledButton1 } from '../api/styled';
+
+const maindiv: React.CSSProperties = {
+    display: 'grid',
+    gridTemplateRows: '1fr 2fr 1fr',
+    height: '100%',
+};
+
+const div1: React.CSSProperties = {
+    backgroundImage: `url(${'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ88Yy_BflPIe1zW802_kEJBzouB59UYW5OUA&usqp=CAU'})`,
+    backgroundSize: '100%',
+    display: 'table',
+    height: '100%',
+    width: '100%',
+};
+
+const div2: React.CSSProperties = {
+    textAlign: 'center',
+    display: 'table-cell',
+    verticalAlign: 'middle',
+};
 
 const signIn: React.FC<RouteComponentProps> = ({ history }) => {
     const dispatch = useDispatch();
@@ -34,28 +54,35 @@ const signIn: React.FC<RouteComponentProps> = ({ history }) => {
 
     return (
         <>
-            <div>
-                <Typography variant="h3">SCVC Login</Typography>
-                <TextField id="standard-basic" label="아이디" onChange={onUserId} onKeyPress={onSignInEnter} required />
-                <br />
-                <TextField
-                    id="standard-basic"
-                    label="비밀번호"
-                    type="password"
-                    required
-                    onChange={onUserPw}
-                    onKeyPress={onSignInEnter}
-                />
-                <br /> <br />
-                <Button variant="contained" color="primary" onClick={onSignIn}>
-                    SignIn
-                </Button>
-                <Button variant="contained" color="primary" onClick={onSignUp}>
-                    SignUp
-                </Button>
-                <Button variant="contained" color="primary">
-                    Search
-                </Button>
+            <div style={maindiv}>
+                <header></header>
+
+                <div style={div1}>
+                    <div style={div2}>
+                        <h1>SCVC Login</h1>
+                        <StyledInput1
+                            type="text"
+                            placeholder="아이디"
+                            value={userId}
+                            onChange={onUserId}
+                            onKeyPress={onSignInEnter}
+                        ></StyledInput1>
+                        <br />
+                        <StyledInput1
+                            type="password"
+                            placeholder="비밀번호"
+                            value={userPw}
+                            onChange={onUserPw}
+                            onKeyPress={onSignInEnter}
+                        ></StyledInput1>
+                        <br /> <br />
+                        <StyledButton1 onClick={onSignIn}>SignIn</StyledButton1> <br />
+                        <StyledButton1 onClick={onSignUp}>SignUp</StyledButton1> <br />
+                        <StyledButton1>Search</StyledButton1>
+                    </div>
+                </div>
+
+                <footer></footer>
             </div>
         </>
     );

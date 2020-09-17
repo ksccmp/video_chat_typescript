@@ -23,7 +23,7 @@ function* userSelectByUserIdSaga(action: actions.IuserSelectByUserIdAction) {
             yield put(actions.userSetUserAction(res.data.data));
             localStorage.userToken = res.headers['jwt-user-token']; // jwt-user-token으로 response온 값을 localStorage에 저장
             alert('로그인 성공');
-            window.location.href = '/main'; // 변경 필요
+            window.location.href = '/main/home'; // 변경 필요
         }
     } catch (e) {
         alert(e);

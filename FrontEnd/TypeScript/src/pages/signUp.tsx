@@ -1,11 +1,28 @@
 import React, { useReducer } from 'react';
-import TextField from '@material-ui/core/TextField';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import Button from '@material-ui/core/Button';
+import { StyledButton1, StyledInput2, StyledSelect1, StyledOption1 } from '../api/styled';
 import { useDispatch } from 'react-redux';
 import { Iuser } from '../api/interface';
 import { userInsertAction } from '../modules/actions';
+
+const maindiv: React.CSSProperties = {
+    display: 'grid',
+    gridTemplateRows: '1fr 2fr 1fr',
+    height: '100%',
+};
+
+const div1: React.CSSProperties = {
+    backgroundImage: `url(${'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ88Yy_BflPIe1zW802_kEJBzouB59UYW5OUA&usqp=CAU'})`,
+    backgroundSize: '100%',
+    display: 'table',
+    height: '100%',
+    width: '100%',
+};
+
+const div2: React.CSSProperties = {
+    textAlign: 'center',
+    display: 'table-cell',
+    verticalAlign: 'middle',
+};
 
 const signUp = () => {
     const dispatch = useDispatch();
@@ -183,28 +200,36 @@ const signUp = () => {
 
     return (
         <>
-            <div>
-                <TextField id="standard-basic" label="아이디" onChange={setUserIdAction} required /> <br />
-                <TextField id="standard-basic" label="비밀번호" type="password" onChange={setUserPwAction} required />
-                <br />
-                <TextField id="standard-basic" label="이름" onChange={setUserNmAction} required /> <br />
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={localReducer.userGd}
-                    onChange={setUserGdAction}
-                >
-                    <MenuItem value="M">남자</MenuItem>
-                    <MenuItem value="W">여자</MenuItem>
-                </Select>
-                <br />
-                <TextField id="standard-basic" label="나이" type="number" onChange={setUserAgeAction} required /> <br />
-                <TextField id="standard-basic" label="전화번호" onChange={setUserPhAction} required /> <br />
-                <TextField id="standard-basic" label="이메일" onChange={setUserMaAction} required /> <br /> <br />
+            <div style={maindiv}>
+                <header></header>
+
+                <div style={div1}>
+                    <div style={div2}>
+                        <StyledInput2 type="text" placeholder="아이디" onChange={setUserIdAction}></StyledInput2> <br />
+                        <StyledInput2
+                            type="password"
+                            placeholder="비밀번호"
+                            onChange={setUserPwAction}
+                        ></StyledInput2>{' '}
+                        <br />
+                        <StyledInput2 type="text" placeholder="이름" onChange={setUserNmAction}></StyledInput2> <br />
+                        <StyledSelect1 onChange={setUserGdAction}>
+                            <StyledOption1 value="M">남자</StyledOption1>
+                            <StyledOption1 value="W">여자</StyledOption1>
+                        </StyledSelect1>
+                        <br />
+                        <StyledInput2 type="number" placeholder="나이" onChange={setUserAgeAction}></StyledInput2>
+                        <br />
+                        <StyledInput2 type="text" placeholder="전화번호" onChange={setUserPhAction}></StyledInput2>
+                        <br />
+                        <StyledInput2 type="number" placeholder="이메일" onChange={setUserMaAction}></StyledInput2>
+                        <br />
+                        <StyledButton1 onClick={userSignUp}>SignUp</StyledButton1>
+                    </div>
+                </div>
+
+                <footer></footer>
             </div>
-            <Button variant="contained" color="primary" onClick={userSignUp}>
-                SignUp
-            </Button>
         </>
     );
 };

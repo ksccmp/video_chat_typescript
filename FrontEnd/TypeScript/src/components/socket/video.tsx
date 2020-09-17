@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { StyledVideo1 } from '../../api/styled';
 
 interface Ivideo {
     stream: MediaStream;
@@ -17,9 +18,7 @@ const video = ({ stream }: Ivideo) => {
 
     return (
         <>
-            <div>
-                <video ref={(node: HTMLVideoElement) => setVideoData(node)} width="480px" autoPlay={true}></video>
-            </div>
+            <StyledVideo1 ref={(node: HTMLVideoElement) => setVideoData(node)} autoPlay={true}></StyledVideo1>
         </>
     );
 };
