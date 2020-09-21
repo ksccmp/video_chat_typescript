@@ -56,6 +56,7 @@ const sectionFooter1: React.CSSProperties = {
     width: '100%',
     height: '100%',
     border: '1px solid black',
+    overflow: 'hidden',
 };
 
 const div2: React.CSSProperties = {

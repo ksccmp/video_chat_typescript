@@ -37,6 +37,24 @@ export const StyledInput2 = styled.input`
     }
 `;
 
+export const StyledInput3 = styled.input`
+    border: 2px solid #6633cc;
+    border-radius: 4px;
+    margin: 0.3em;
+    width: 90%;
+    height: 1.3em;
+    &::placeholder {
+        text-align: center;
+    }
+    &:focus {
+        outline: none;
+        &::placeholder {
+            opacity: 0;
+            transition: 0.5s;
+        }
+    }
+`;
+
 export const StyledButton1 = styled.button`
     width: 10em;
     height: 2em;
@@ -281,12 +299,23 @@ export const StyledImage1 = styled.div`
 `;
 
 export const StyledKey = styled.div`
-    background-image: url('https://lh3.googleusercontent.com/proxy/4Wb5PskjwlDPAMOhA0hhYlonCX3UCiJgVKNR-fUky3ZDskAKmDgmwbQEJMF6SXxOtEMujQzb-ZJR9kMVKBL1dWZCVr-qWMtuq-JZWV3C9p7CWEwd2csb3qsZyJI');
+    background-image: url('https://lh3.googleusercontent.com/proxy/5XklicoLdHl1ptORPDCC2GVkRv5Ui-eDUfDeSLLf9CpHFeqqCQx0zDJCFt80cvTdBCa-IQr0LIcamjGuYibxyWsqz8BrQM1rRcnA6IqLFOLNkYVeZdGX0tD9M_Y');
     background-size: 70%;
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 50%;
     width: 10%;
+    height: 100%;
+    display: inline-block;
+`;
+
+export const StyledSend = styled.div`
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSqEXRiRu2iow-mACQR1rj1ppQ_3-BUU-4e7A&usqp=CAU');
+    background-size: 90%;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    width: 90%;
     height: 100%;
     display: inline-block;
 `;

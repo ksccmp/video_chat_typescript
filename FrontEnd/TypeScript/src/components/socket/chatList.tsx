@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { socketSetChatListAction, socketResetChatListAction } from '../../modules/actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { TextField, Button, Typography } from '@material-ui/core';
-import { Ichat } from '../../api/interface';
+import { Ichat, Iuser } from '../../api/interface';
 import { reducerState } from '../../modules/reducer';
+import { StyledInput3, StyledTableCell, StyledSend } from '../../api/styled';
+import ChatContents from './chatContents';
 
 interface IchatList {
     socket: SocketIOClient.Socket;
@@ -11,11 +12,50 @@ interface IchatList {
     userId: string;
 }
 
+const div1: React.CSSProperties = {
+    width: '98%',
+    height: '100%',
+    border: '1px solid black',
+    display: 'grid',
+    gridTemplateRows: '8.5fr 1.5fr',
+};
+
+const header1: React.CSSProperties = {
+    width: '100%',
+    height: '100%',
+    border: '1px solid black',
+    overflow: 'auto',
+};
+
+const footer1: React.CSSProperties = {
+    width: '100%',
+    height: '100%',
+    border: '1px solid black',
+    display: 'grid',
+    gridTemplateColumns: '8fr 1.5fr 0.5fr',
+    textAlign: 'center',
+};
+
+const div2: React.CSSProperties = {
+    width: '100%',
+    height: '100%',
+    border: '1px solid black',
+    display: 'table',
+};
+
+const div3: React.CSSProperties = {
+    width: '100%',
+    height: '100%',
+    border: '1px solid black',
+    display: 'table',
+};
+
 const chatList = ({ socket, roomId, userId }: IchatList) => {
     const dispatch = useDispatch();
 
     const [text, setText] = React.useState<string>('');
     const reduxChatList: Ichat[] = useSelector((state: reducerState) => state.socket.chatList);
+    const reduxUser: Iuser = useSelector((state: reducerState) => state.user.user);
 
     React.useEffect(() => {
         dispatch(socketResetChatListAction());
@@ -33,6 +73,11 @@ const chatList = ({ socket, roomId, userId }: IchatList) => {
             dispatch(socketSetChatListAction(msg));
         });
     }, []);
+
+    React.useEffect(() => {
+        const header1: HTMLDivElement = document.getElementById('header1') as HTMLDivElement;
+        header1.scrollTop = header1.scrollHeight;
+    }, [reduxChatList]);
 
     const Send = () => {
         if (text.length > 0) {
@@ -59,23 +104,34 @@ const chatList = ({ socket, roomId, userId }: IchatList) => {
 
     return (
         <>
-            <div>
-                <TextField
-                    id="standard-basic"
-                    label="대화"
-                    value={text}
-                    onChange={onText}
-                    onKeyPress={EnterSend}
-                    required
-                />
-                <Button variant="contained" color="secondary" onClick={Send}>
-                    Send
-                </Button>
-                {reduxChatList.map((chat, index) => (
-                    <Typography variant="h5" key={index}>
-                        {chat.type === 'alert' ? chat.contents : chat.userId + ' : ' + chat.contents}
-                    </Typography>
-                ))}
+            <div style={div1}>
+                <header style={header1} id="header1">
+                    {reduxChatList.map((chat, index) => (
+                        <ChatContents
+                            chat={chat}
+                            key={index}
+                            owner={reduxUser.userId === chat.userId ? true : false}
+                        ></ChatContents>
+                    ))}
+                </header>
+                <footer style={footer1}>
+                    <div style={div2}>
+                        <StyledTableCell>
+                            <StyledInput3
+                                type="text"
+                                placeholder="내용을 입력해주세요"
+                                onChange={onText}
+                                onKeyPress={EnterSend}
+                                value={text}
+                            ></StyledInput3>
+                        </StyledTableCell>
+                    </div>
+                    <div style={div3}>
+                        <StyledTableCell>
+                            <StyledSend onClick={Send}></StyledSend>
+                        </StyledTableCell>
+                    </div>
+                </footer>
             </div>
         </>
     );
