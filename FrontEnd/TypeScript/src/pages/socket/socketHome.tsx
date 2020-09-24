@@ -33,22 +33,20 @@ const div1: React.CSSProperties = {
 const section1: React.CSSProperties = {
     width: '100%',
     height: '100%',
-    border: '1px solid black',
 };
 
 const section2: React.CSSProperties = {
     width: '100%',
     height: '100%',
-    border: '1px solid black',
     display: 'grid',
     gridTemplateRows: '4fr 5fr',
     overflow: 'hidden',
 };
 
 const sectionHeader1: React.CSSProperties = {
+    border: '1px solid black',
     width: '100%',
     height: 'auto',
-    border: '1px solid black',
     overflow: 'auto',
 };
 
@@ -62,8 +60,7 @@ const sectionFooter1: React.CSSProperties = {
 const div2: React.CSSProperties = {
     width: '47%',
     float: 'left',
-    padding: '0.2em',
-    border: '1px solid black',
+    padding: '0.2em 0.2em 0px 0.2em',
 };
 
 const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
@@ -226,7 +223,7 @@ const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
                                     defaultChecked
                                 ></StyledTabRadio2>
                                 <StyledTabLabel2 htmlFor="tablabel1" onClick={Test}>
-                                    <StyledTableCell>Left</StyledTableCell>
+                                    <StyledTableCell>Me</StyledTableCell>
                                 </StyledTabLabel2>
                                 <StyledTabSubdiv2>
                                     {localStream !== undefined ? <Video stream={localStream}></Video> : ''}
@@ -235,16 +232,16 @@ const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
                             <StyledTabLi2>
                                 <StyledTabRadio2 type="radio" name="tab" id="tablabel2"></StyledTabRadio2>
                                 <StyledTabLabel2 htmlFor="tablabel2">
-                                    <StyledTableCell>Middle</StyledTableCell>
+                                    <StyledTableCell>Others</StyledTableCell>
                                 </StyledTabLabel2>
-                                <StyledTabSubdiv2>Middle</StyledTabSubdiv2>
+                                <StyledTabSubdiv2>Others</StyledTabSubdiv2>
                             </StyledTabLi2>
                             <StyledTabLi2>
                                 <StyledTabRadio2 type="radio" name="tab" id="tablabel3"></StyledTabRadio2>
                                 <StyledTabLabel2 htmlFor="tablabel3">
-                                    <StyledTableCell>Right</StyledTableCell>
+                                    <StyledTableCell>Board</StyledTableCell>
                                 </StyledTabLabel2>
-                                <StyledTabSubdiv2>Right</StyledTabSubdiv2>
+                                <StyledTabSubdiv2>Board</StyledTabSubdiv2>
                             </StyledTabLi2>
                         </StyledTabUl2>
                     </StyledTabDiv2>

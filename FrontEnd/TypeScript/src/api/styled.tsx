@@ -323,7 +323,6 @@ export const StyledSend = styled.div`
 export const StyledTabDiv2 = styled.div`
     width: 100%;
     height: 100%;
-    border: 1px solid black;
 `;
 
 export const StyledTabUl2 = styled.ul`
@@ -353,7 +352,7 @@ export const StyledTabRadio2 = styled.input`
     display: none;
     &:checked {
         & ~ label {
-            background-color: blue;
+            background-color: rgba(0, 0, 0, 0.3);
         }
 
         & ~ div {
@@ -363,7 +362,6 @@ export const StyledTabRadio2 = styled.input`
 `;
 
 export const StyledTabSubdiv2 = styled.div`
-    border: 1px solid black;
     display: none;
     position: absolute;
     left: 0;
@@ -373,4 +371,34 @@ export const StyledTabSubdiv2 = styled.div`
 
 export const StyledVideo1 = styled.video`
     width: 100%;
+`;
+
+interface IStyledChatContentsDiv1 {
+    owner: boolean;
+}
+
+export const StyledChatContentsDiv1 = styled.div`
+    width: 80%;
+    float: ${(props: IStyledChatContentsDiv1) => (props.owner ? 'right' : 'left')};
+`;
+
+export const StyledChatContentsHeader1 = styled.header`
+    clear: both;
+    float: ${(props: IStyledChatContentsDiv1) => (props.owner ? 'right' : 'left')};
+`;
+
+export const StyledChatContentsFooter1 = styled.footer`
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    clear: both;
+    float: ${(props: IStyledChatContentsDiv1) => (props.owner ? 'right' : 'left')};
+    padding: 0.2em 0.4em;
+    display: table;
+    margin-bottom: 0.2em;
+`;
+
+export const StyledChatContentsDiv2 = styled.div`
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
 `;

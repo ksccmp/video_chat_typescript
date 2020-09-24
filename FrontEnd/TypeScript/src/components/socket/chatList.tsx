@@ -15,7 +15,6 @@ interface IchatList {
 const div1: React.CSSProperties = {
     width: '98%',
     height: '100%',
-    border: '1px solid black',
     display: 'grid',
     gridTemplateRows: '8.5fr 1.5fr',
 };
@@ -23,30 +22,27 @@ const div1: React.CSSProperties = {
 const header1: React.CSSProperties = {
     width: '100%',
     height: '100%',
-    border: '1px solid black',
     overflow: 'auto',
 };
 
 const footer1: React.CSSProperties = {
+    borderTop: '1px solid black',
     width: '100%',
     height: '100%',
-    border: '1px solid black',
     display: 'grid',
-    gridTemplateColumns: '8fr 1.5fr 0.5fr',
+    gridTemplateColumns: '8fr 1.5fr',
     textAlign: 'center',
 };
 
 const div2: React.CSSProperties = {
     width: '100%',
     height: '100%',
-    border: '1px solid black',
     display: 'table',
 };
 
 const div3: React.CSSProperties = {
     width: '100%',
     height: '100%',
-    border: '1px solid black',
     display: 'table',
 };
 
