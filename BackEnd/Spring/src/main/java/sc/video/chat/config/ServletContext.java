@@ -45,7 +45,8 @@ public class ServletContext implements WebMvcConfigurer {
             "/v2/api-docs",
             "/swagger-resources/**", 
             "/swagger-ui.html/**",
-            "/webjars/**"
+            "/webjars/**",
+            "/kakao/data/**",
 	};
 	
 	@Override
