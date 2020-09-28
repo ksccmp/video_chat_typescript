@@ -22,9 +22,9 @@ export const StyledInput1 = styled.input`
 export const StyledInput2 = styled.input`
     border: 2px solid #6633cc;
     border-radius: 4px;
-    margin: 0.3em;
-    width: 10em;
-    height: 1.3em;
+    margin: 0.3rem;
+    width: 10rem;
+    height: 1.4rem;
     &::placeholder {
         text-align: center;
     }
@@ -55,6 +55,24 @@ export const StyledInput3 = styled.input`
     }
 `;
 
+export const StyledInput4 = styled.input`
+    border: 2px solid #6633cc;
+    border-radius: 4px;
+    margin: 0.3rem;
+    width: 90%;
+    height: 1.4rem;
+    &::placeholder {
+        text-align: center;
+    }
+    &:focus {
+        outline: none;
+        &::placeholder {
+            opacity: 0;
+            transition: 0.5s;
+        }
+    }
+`;
+
 export const StyledButton1 = styled.button`
     width: 10em;
     height: 2em;
@@ -71,8 +89,8 @@ export const StyledButton1 = styled.button`
 `;
 
 export const StyledButton2 = styled.button`
-    width: 4em;
-    height: 2em;
+    width: 4rem;
+    height: 2rem;
     background-color: #dda0dd;
     color: white;
     border-radius: 4px;
@@ -83,6 +101,22 @@ export const StyledButton2 = styled.button`
     &:hover {
         background-color: #d8bfd8;
         border: 2px solid #d8bfd8;
+    }
+`;
+
+export const StyledButton3 = styled.button`
+    width: 90%;
+    height: 2rem;
+    background-color: #e0ffff;
+    color: black;
+    border-radius: 4px;
+    border: 2px solid #e0ffff;
+    outline: none;
+    margin: 0.3em;
+    vertical-align: middle;
+    &:hover {
+        background-color: #f0f8ff;
+        border: 2px solid #f0f8ff;
     }
 `;
 
@@ -98,9 +132,18 @@ export const StyledSelect1 = styled.select`
 export const StyledSelect2 = styled.select`
     border: 2px solid #6633cc;
     border-radius: 4px;
-    margin: 0.3em;
-    width: 10.5em;
-    height: 1.8em;
+    margin: 0.3rem;
+    width: 10.5rem;
+    height: 1.8rem;
+    outline: none;
+`;
+
+export const StyledSelect3 = styled.select`
+    border: 2px solid #6633cc;
+    border-radius: 4px;
+    margin: 0.3rem;
+    width: 90%;
+    height: 1.8rem;
     outline: none;
 `;
 
@@ -109,6 +152,10 @@ export const StyledOption1 = styled.option`
 `;
 
 export const StyledOption2 = styled.option`
+    text-align: center;
+`;
+
+export const StyledOption3 = styled.option`
     text-align: center;
 `;
 
@@ -135,7 +182,7 @@ interface IStyledNavLi1 {
 export const StyledNavLi1 = styled.li`
     margin: 0 1em;
     display: table-cell;
-    width: 3em;
+    width: 3rem;
     text-align: center;
     vertical-align: middle;
     background-color: ${(props: IStyledNavLi1) => (props.select ? 'rgba(0, 0, 0, 0.3)' : '')};
@@ -184,8 +231,9 @@ export const StyledTabRadio1 = styled.input`
 `;
 
 export const StyledTabLabel1 = styled.label`
-    display: inline-block;
+    display: table;
     width: 100%;
+    height: 2rem;
 `;
 
 export const StyledTabSubdiv1 = styled.div`
@@ -259,30 +307,6 @@ export const StyledTableCell = styled.div`
     height: 100%;
 `;
 
-export const StyledH3 = styled.h3`
-    margin: 0;
-    padding: 0;
-    display: inline-block;
-`;
-
-export const StyledH4 = styled.h4`
-    margin: 0;
-    padding: 0;
-    display: inline-block;
-`;
-
-export const StyledH5 = styled.h5`
-    margin: 0;
-    padding: 0;
-    display: inline-block;
-`;
-
-export const StyledH6 = styled.h6`
-    margin: 0;
-    padding: 0;
-    display: inline-block;
-`;
-
 interface IStyledImage1 {
     image: string;
 }
@@ -299,7 +323,7 @@ export const StyledImage1 = styled.div`
 `;
 
 export const StyledKey = styled.div`
-    background-image: url('https://lh3.googleusercontent.com/proxy/5XklicoLdHl1ptORPDCC2GVkRv5Ui-eDUfDeSLLf9CpHFeqqCQx0zDJCFt80cvTdBCa-IQr0LIcamjGuYibxyWsqz8BrQM1rRcnA6IqLFOLNkYVeZdGX0tD9M_Y');
+    background-image: url('https://lh3.googleusercontent.com/proxy/FI7lPlMMUcAcboRuLLx5H3R1f7uwcnf_GZI3e_RK3UFqGiJvxjEzD8DkFklAFnSjjOMUTEQP1bxDoyxdTCincfbCCS_XQmk0VUsr9ItsDKUSbJY6aagEkQgxCwAAb4wV0JnuAzE9A5CmCDu9B5wpbHdq4kRv4EZzFWFvGw');
     background-size: 70%;
     background-position: center;
     background-repeat: no-repeat;
@@ -401,4 +425,74 @@ export const StyledChatContentsDiv2 = styled.div`
     width: 80%;
     margin: 0 auto;
     text-align: center;
+`;
+
+export const StyledModalDiv1 = styled.div`
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+export const StyledRoomModalDiv1 = styled.div`
+    width: 25rem;
+    height: 20rem;
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+`;
+
+export const StyledRadio1 = styled.input`
+    display: none;
+    &:checked {
+        & + label {
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+    }
+`;
+
+export const StyledLabel1 = styled.label`
+    border: 2px solid #6633cc;
+    border-radius: 4px;
+    background-color: white;
+    flex-grow: 1;
+    margin: 0 0.5rem;
+`;
+
+export const StyledH1 = styled.h1`
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+`;
+
+export const StyledH2 = styled.h2`
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+`;
+
+export const StyledH3 = styled.h3`
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+`;
+
+export const StyledH4 = styled.h4`
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+`;
+
+export const StyledH5 = styled.h5`
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+`;
+
+export const StyledH6 = styled.h6`
+    margin: 0;
+    padding: 0;
+    display: inline-block;
 `;

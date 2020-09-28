@@ -35,7 +35,7 @@ public class UserController {
 		try {
 			return response(uServ.insert(user), HttpStatus.OK, true);
 		} catch(RuntimeException e) {
-			return response(e.getMessage(), HttpStatus.CONFLICT, false);
+			return getError(e.getMessage());
 		}
 	}
 	
@@ -55,7 +55,7 @@ public class UserController {
 				return response(0, HttpStatus.OK, false);
 			}
 		} catch(RuntimeException e) {
-			return response(e.getMessage(), HttpStatus.CONFLICT, false);
+			return getError(e.getMessage());
 		}
 	}
 	
@@ -65,7 +65,7 @@ public class UserController {
 			Map<String, Object> userTokenMap = jServ.getUser(userToken);
 			return response(userTokenMap.get("user"), HttpStatus.OK, true);
 		} catch(RuntimeException e) {
-			return response(e.getMessage(), HttpStatus.CONFLICT, false);
+			return getError(e.getMessage());
 		}
 	}
 	
@@ -85,8 +85,12 @@ public class UserController {
 
 			return response(user, HttpStatus.OK, true);
 		} catch(RuntimeException e) {
-			return response(e.getMessage(), HttpStatus.CONFLICT, false);
+			return getError(e.getMessage());
 		}
+	}
+	
+	private ResponseEntity<Map<String, Object>> getError(String message) {
+		return response(message, HttpStatus.CONFLICT, false);
 	}
 	
 	private ResponseEntity<Map<String, Object>> response(Object data, HttpStatus httpstatus, boolean status) {

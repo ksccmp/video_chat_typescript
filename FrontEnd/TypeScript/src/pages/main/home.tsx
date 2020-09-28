@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { reducerState } from '../../modules/reducer/index';
-import { Iuser } from '../../api/interface';
-import { userLogoutAction } from '../../modules/actions';
+import { Iuser, Iroom } from '../../api/interface';
+import { userLogoutAction, roomOpenRoomModalAction } from '../../modules/actions';
 import Room from '../../components/main/room';
 import { RouteComponentProps } from 'react-router';
 import {
@@ -22,6 +22,8 @@ import {
     StyledImage1,
     StyledTableCell,
 } from '../../api/styled';
+import RoomModal from '../../components/common/roomModal';
+import axios from '../../api/axios';
 
 const div1: React.CSSProperties = {
     display: 'grid',
@@ -177,11 +179,32 @@ const home: React.FC<RouteComponentProps> = ({ history }) => {
     const dispatch = useDispatch();
 
     const reduxUser: Iuser = useSelector((state: reducerState) => state.user.user);
+    const openRoomModal: boolean = useSelector((state: reducerState) => state.room.openRoomModal);
+
+    const [existRoomList, setExistRoomList] = React.useState<Iroom[]>([]);
+
+    React.useEffect(() => {
+        roomSelectExist();
+    }, []);
 
     const Logout = () => {
         dispatch(userLogoutAction());
         localStorage.removeItem('userToken');
         history.push('/user/signIn');
+    };
+
+    const onOpenRoomModal = () => {
+        dispatch(roomOpenRoomModalAction(true));
+    };
+
+    const roomSelectExist = async () => {
+        const res = await axios.get('/room/selectExist', {
+            headers: {
+                'jwt-user-token': localStorage.userToken,
+            },
+        });
+
+        setExistRoomList(res.data.data);
     };
 
     return (
@@ -218,7 +241,9 @@ const home: React.FC<RouteComponentProps> = ({ history }) => {
                                     id="tablabel1"
                                     defaultChecked
                                 ></StyledTabRadio1>
-                                <StyledTabLabel1 htmlFor="tablabel1">친구</StyledTabLabel1>
+                                <StyledTabLabel1 htmlFor="tablabel1">
+                                    <StyledTableCell>친구</StyledTableCell>
+                                </StyledTabLabel1>
                                 <StyledTabSubdiv1>
                                     <ul>
                                         <li>aaa</li>
@@ -228,12 +253,16 @@ const home: React.FC<RouteComponentProps> = ({ history }) => {
                             </StyledTabLi1>
                             <StyledTabLi1>
                                 <StyledTabRadio1 type="radio" name="tab" id="tablabel2"></StyledTabRadio1>
-                                <StyledTabLabel1 htmlFor="tablabel2">Tab2</StyledTabLabel1>
+                                <StyledTabLabel1 htmlFor="tablabel2">
+                                    <StyledTableCell>Tab2</StyledTableCell>
+                                </StyledTabLabel1>
                                 <StyledTabSubdiv1>내용내용내용112121</StyledTabSubdiv1>
                             </StyledTabLi1>
                             <StyledTabLi1>
                                 <StyledTabRadio1 type="radio" name="tab" id="tablabel3"></StyledTabRadio1>
-                                <StyledTabLabel1 htmlFor="tablabel3">Tab3</StyledTabLabel1>
+                                <StyledTabLabel1 htmlFor="tablabel3">
+                                    <StyledTableCell>Tab3</StyledTableCell>
+                                </StyledTabLabel1>
                                 <StyledTabSubdiv1>헤헤헤헤헤헤 이런것도 되넹 신기하다!</StyledTabSubdiv1>
                             </StyledTabLi1>
                         </StyledTabUl1>
@@ -250,17 +279,22 @@ const home: React.FC<RouteComponentProps> = ({ history }) => {
                             </StyledSelect2>
                             <StyledInput2 type="text" placeholder="내용"></StyledInput2>
                             <StyledButton2>검색</StyledButton2>
+                            <StyledButton2 onClick={onOpenRoomModal}>생성</StyledButton2>
                         </div>
                     </div>
                     <div style={div6}>
                         <div style={div8}>
-                            <Room roomId="1" createId="KSC1" contents="첫 번째 개설 방입니다." />
-                            <Room roomId="2" createId="KSC2" contents="두 번째 개설 방입니다." />
-                            <Room roomId="3" createId="KSC3" contents="세 번째 개설 방입니다." />
-                            <Room roomId="3" createId="KSC3" contents="세 번째 개설 방입니다." />
-                            <Room roomId="3" createId="KSC3" contents="세 번째 개설 방입니다." />
-                            <Room roomId="3" createId="KSC3" contents="세 번째 개설 방입니다." />
-                            <Room roomId="3" createId="KSC3" contents="세 번째 개설 방입니다." />
+                            {existRoomList.map((existRoom) => {
+                                return (
+                                    <Room
+                                        roomId={existRoom.roomId}
+                                        createId={existRoom.createId}
+                                        contents={existRoom.contents}
+                                        type={existRoom.type}
+                                        existPassword={existRoom.password === '' ? false : true}
+                                    ></Room>
+                                );
+                            })}
                         </div>
                     </div>
                 </section>
@@ -274,6 +308,8 @@ const home: React.FC<RouteComponentProps> = ({ history }) => {
                     </div>
                 </aside>
             </div>
+
+            {openRoomModal ? <RoomModal></RoomModal> : ''}
         </>
     );
 };

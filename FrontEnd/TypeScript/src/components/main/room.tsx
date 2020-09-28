@@ -16,9 +16,11 @@ import {
 } from '../../api/styled';
 
 interface Iroom {
-    roomId: string;
+    roomId: number;
     createId: string;
     contents: string;
+    type: string;
+    existPassword: boolean;
 }
 
 const label1: React.CSSProperties = {
@@ -33,12 +35,21 @@ const span1: React.CSSProperties = {
     marginRight: '0.5em',
 };
 
+const span2: React.CSSProperties = {
+    color: 'blue',
+};
+
 const styledh4_1: React.CSSProperties = {
-    marginLeft: '0.5em',
+    marginLeft: '0.5rem',
+};
+
+const styledh4_2: React.CSSProperties = {
+    float: 'right',
+    marginRight: '0.5rem',
 };
 
 const styledh6_1: React.CSSProperties = {
-    marginLeft: '0.5em',
+    marginLeft: '0.5rem',
 };
 
 const div1: React.CSSProperties = {
@@ -48,7 +59,7 @@ const div1: React.CSSProperties = {
     height: '100%',
 };
 
-const room = ({ roomId, createId, contents }: Iroom) => {
+const room = ({ roomId, createId, contents, type, existPassword }: Iroom) => {
     const reduxUser: Iuser = useSelector((state: reducerState) => state.user.user);
 
     const Open = () => {
@@ -68,14 +79,15 @@ const room = ({ roomId, createId, contents }: Iroom) => {
                         <StyledH4 style={styledh4_1}>
                             <span style={span1}>{roomId}</span> {createId}
                         </StyledH4>
+                        <StyledH4 style={styledh4_2}>
+                            <span style={span2}>{type}</span>
+                        </StyledH4>
                     </StyledTableCell>
                 </header>
                 <StyledH6 style={styledh6_1}>{contents}</StyledH6>
             </StyledCardArticle1>
             <StyledCardFooter1>
-                <StyledCardFooterDiv1>
-                    <StyledKey></StyledKey>
-                </StyledCardFooterDiv1>
+                <StyledCardFooterDiv1>{existPassword ? <StyledKey></StyledKey> : ''}</StyledCardFooterDiv1>
             </StyledCardFooter1>
         </StyledCardDiv1>
     );

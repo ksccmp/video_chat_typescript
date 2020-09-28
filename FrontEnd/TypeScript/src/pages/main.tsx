@@ -9,7 +9,7 @@ import Intro from './main/intro';
 
 const div1: React.CSSProperties = {
     display: 'grid',
-    gridTemplateRows: '0.8fr 11.2fr',
+    gridTemplateRows: '0.7fr 11.3fr',
     width: '100%',
     height: '100%',
 };

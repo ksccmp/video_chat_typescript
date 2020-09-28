@@ -6,6 +6,7 @@ set charset utf8;
 alter database videochat default character set utf8;
 alter table User convert to character set utf8;
 alter table UserToken convert to character set utf8;
+alter table Room convert to character set utf8;
 
 create table User (
 	user_id varchar(100) primary key, -- 사용자 아이디
@@ -25,8 +26,19 @@ create table UserToken (
     updt_tm datetime -- 수정시간
 );
 
+create table Room (
+	room_id int primary key auto_increment,
+    create_id varchar(100),
+    contents varchar(500),
+    password varchar(30),
+    type enum('자유', '회의', '스터디'),
+    max int,
+    number int
+);
+
 select * from User;
 select * from UserToken;
+select * from Room;
 
 update UserToken set user_token = null, updt_tm = null where user_id = 'asd';
 
@@ -35,3 +47,4 @@ delete from UserToken where user_id ='';
 
 drop table User;
 drop table UserToken;
+drop table Room;

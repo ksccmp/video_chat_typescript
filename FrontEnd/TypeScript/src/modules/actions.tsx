@@ -1,9 +1,10 @@
-import { Iuser, IuserAuth, Ichat } from '../api/interface';
+import { Iuser, IuserAuth, Ichat, Iroom } from '../api/interface';
 
 // Saga
 export const userSelectByUserId: string = 'userSelectByUserId';
 export const userSelectByUserToken: string = 'userSelectByUserToken';
 export const userInsert: string = 'userInsert';
+export const roomInsert: string = 'roomInsert';
 
 export interface IuserSelectByUserIdAction {
     type: typeof userSelectByUserId;
@@ -17,6 +18,11 @@ export interface IuserSelectByUserTokenAction {
 export interface IuserInsertAction {
     type: typeof userInsert;
     payload: Iuser;
+}
+
+export interface IroomInsertAction {
+    type: typeof roomInsert;
+    payload: Iroom;
 }
 
 export const userSelectByUserIdAction = (res: IuserAuth): IuserSelectByUserIdAction => {
@@ -39,6 +45,13 @@ export const userInsertAction = (res: Iuser): IuserInsertAction => {
     };
 };
 
+export const roomInsertAction = (res: Iroom): IroomInsertAction => {
+    return {
+        type: roomInsert,
+        payload: res,
+    };
+};
+
 // Not Saga
 export const userSetUser: string = 'userSetUser';
 export const userLogout: string = 'userLogout';
@@ -46,6 +59,7 @@ export const socketSetChatList: string = 'socketSetChatList';
 export const socketResetChatList: string = 'socketResetChatList';
 export const socketSetVideoList: string = 'socketSetVideoList';
 export const socketResetVideoList: string = 'socketResetVideoList';
+export const roomOpenRoomModal: string = 'roomOpenRoomModal';
 
 export interface IuserSetUserAction {
     type: typeof userSetUser;
@@ -72,6 +86,11 @@ export interface IsocketSetVideoListAction {
 
 export interface IsocketResetVideoListAction {
     type: typeof socketResetVideoList;
+}
+
+export interface IroomOpenRoomModalAction {
+    type: typeof roomOpenRoomModal;
+    payload: boolean;
 }
 
 export const userSetUserAction = (res: Iuser): IuserSetUserAction => {
@@ -113,6 +132,13 @@ export const socketResetVideoListAction = (): IsocketResetVideoListAction => {
     };
 };
 
+export const roomOpenRoomModalAction = (res: boolean): IroomOpenRoomModalAction => {
+    return {
+        type: roomOpenRoomModal,
+        payload: res,
+    };
+};
+
 // return
 export type reducerAction =
     | IuserSelectByUserIdAction
@@ -123,4 +149,6 @@ export type reducerAction =
     | IsocketSetChatList
     | IsocketResetChatList
     | IsocketSetVideoListAction
-    | IsocketResetVideoListAction;
+    | IsocketResetVideoListAction
+    | IroomInsertAction
+    | IroomOpenRoomModalAction;

@@ -30,3 +30,13 @@ export interface Ivideochat {
     roomId: string;
     userId: string;
 }
+
+export interface Iroom {
+    roomId: number;
+    createId: string;
+    contents: string;
+    password: string;
+    type: string;
+    max: number;
+    number: number;
+}
