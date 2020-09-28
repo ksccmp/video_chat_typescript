@@ -34,6 +34,7 @@ const div2: React.CSSProperties = {
     display: 'grid',
     gridTemplateColumns: '1fr 3fr 1fr',
     border: '1px solid black',
+    overflow: 'hidden',
 };
 
 const aside1: React.CSSProperties = {
@@ -50,12 +51,15 @@ const section1: React.CSSProperties = {
     border: '1px solid black',
     display: 'grid',
     gridTemplateRows: '1fr 9fr',
+    overflow: 'hidden',
 };
 
 const aside2: React.CSSProperties = {
     width: '100%',
     height: '100%',
     border: '1px solid black',
+    display: 'grid',
+    gridTemplateRows: '1fr 1fr',
 };
 
 const profile: React.CSSProperties = {
@@ -145,6 +149,7 @@ const div6: React.CSSProperties = {
     width: '100%',
     height: '100%',
     border: '1px solid black',
+    overflow: 'hidden',
 };
 
 const div7: React.CSSProperties = {
@@ -156,9 +161,16 @@ const div7: React.CSSProperties = {
 const div8: React.CSSProperties = {
     width: '90%',
     margin: 'auto',
-    height: '31.5em',
+    height: '100%',
     border: '1px solid black',
     overflow: 'auto',
+};
+
+const div9: React.CSSProperties = {
+    width: '100%',
+    height: '100%',
+    textAlign: 'center',
+    display: 'table',
 };
 
 const home: React.FC<RouteComponentProps> = ({ history }) => {
@@ -207,7 +219,12 @@ const home: React.FC<RouteComponentProps> = ({ history }) => {
                                     defaultChecked
                                 ></StyledTabRadio1>
                                 <StyledTabLabel1 htmlFor="tablabel1">친구</StyledTabLabel1>
-                                <StyledTabSubdiv1>내용내용내용내용내용내용내용내용내용내용</StyledTabSubdiv1>
+                                <StyledTabSubdiv1>
+                                    <ul>
+                                        <li>aaa</li>
+                                        <li>qqq</li>
+                                    </ul>
+                                </StyledTabSubdiv1>
                             </StyledTabLi1>
                             <StyledTabLi1>
                                 <StyledTabRadio1 type="radio" name="tab" id="tablabel2"></StyledTabRadio1>
@@ -248,7 +265,14 @@ const home: React.FC<RouteComponentProps> = ({ history }) => {
                     </div>
                 </section>
 
-                <aside style={aside2}></aside>
+                <aside style={aside2}>
+                    <div style={div9}>
+                        <StyledTableCell>광고 두실 분 찾습니다.</StyledTableCell>
+                    </div>
+                    <div style={div9}>
+                        <StyledTableCell>광고 두실 분 찾습니다.</StyledTableCell>
+                    </div>
+                </aside>
             </div>
         </>
     );
