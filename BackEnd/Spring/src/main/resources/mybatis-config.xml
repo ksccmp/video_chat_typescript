@@ -11,10 +11,14 @@
 		<typeAlias type="sc.video.chat.dto.User" alias="user"/> <!-- DTO로 sc.video.chat.dto 패키지에 User라는 클래스를 생성 -->
 		<typeAlias type="sc.video.chat.dto.UserToken" alias="userToken"/>
 		<typeAlias type="sc.video.chat.dto.Room" alias="room"/>
+		<typeAlias type="sc.video.chat.dto.UpdateRoomNumber" alias="updateRoomNumber"/>
+		<typeAlias type="sc.video.chat.dto.TopicRoom" alias="topicRoom"/>
+		<typeAlias type="sc.video.chat.dto.UserInfo" alias="userInfo"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mapper/usermapper.xml"/>  <!-- src/main/resources에 mapper라는 폴더를 생성하여 그 안에 xml파일 생성 -->
 		<mapper resource="mapper/roommapper.xml"/>
+		<mapper resource="mapper/userinfomapper.xml"/>
 	</mappers>
 </configuration>

@@ -5,6 +5,7 @@ import { Ichat, Iuser } from '../../api/interface';
 import { reducerState } from '../../modules/reducer';
 import { StyledInput3, StyledTableCell, StyledSend } from '../../api/styled';
 import ChatContents from './chatContents';
+import axios from '../../api/axios';
 
 interface IchatList {
     socket: SocketIOClient.Socket;
@@ -59,9 +60,8 @@ const chatList = ({ socket, roomId, userId }: IchatList) => {
         socket.emit('join room', {
             roomId: roomId,
             userId: userId,
-            type: 'alert',
+            type: 'connect',
             contents: `${userId}님이 입장하셨습니다`,
-            rgstTm: '2020/08/23',
         });
 
         socket.on('receive message', (msg: Ichat) => {

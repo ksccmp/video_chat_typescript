@@ -11,7 +11,7 @@ const initSocketState: IinitSocketState = {
     videoList: [],
 };
 
-const reducer = (state = initSocketState, action: actions.reducerAction) => {
+const reducer = (state: IinitSocketState = initSocketState, action: actions.reducerAction) => {
     switch (action.type) {
         case actions.socketSetChatList: {
             let newChatList: Ichat[] = state.chatList.slice();

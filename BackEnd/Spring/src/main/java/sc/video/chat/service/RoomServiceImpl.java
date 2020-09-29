@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import sc.video.chat.dto.Room;
+import sc.video.chat.dto.TopicRoom;
+import sc.video.chat.dto.UpdateRoomNumber;
 import sc.video.chat.repository.RoomRepository;
 
 @Service
@@ -27,8 +29,18 @@ public class RoomServiceImpl implements RoomService{
 	}
 	
 	@Override
+	public Room selectByRoomId(int roomId) {
+		return rRepo.selectByRoomId(roomId);
+	}
+	
+	@Override
+	public List<Room> selectByTopic(TopicRoom topicRoom) {
+		return rRepo.selectByTopic(topicRoom);
+	}
+	
+	@Override
 	@Transactional
-	public int updateNumber(Room room) {
-		return rRepo.updateNumber(room);
+	public int updateNumber(UpdateRoomNumber updateRoomNumber) {
+		return rRepo.updateNumber(updateRoomNumber);
 	}
 }

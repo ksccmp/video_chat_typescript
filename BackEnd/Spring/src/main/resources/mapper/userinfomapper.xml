@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sc.video.chat.userinfomapper">
+	<insert id="insert" parameterType="userinfo">
+		insert into UserInfo(user_id, use_count, use_time)
+		values (#{userId}, #{useCount}, #{useTime})
+	</insert>
+	
+	<select id="selectByUserId" parameterType="string" resultType="userinfo">
+		select *
+		from UserInfo
+		where user_id = #{value}
+	</select>
+	
+	<update id="updateTime" parameterType="userinfo">
+		update UserInfo
+		set use_count = use_count + 1, use_time = use_time + #{useTime}
+		where user_id = #{userId}
+	</update>
+</mapper>

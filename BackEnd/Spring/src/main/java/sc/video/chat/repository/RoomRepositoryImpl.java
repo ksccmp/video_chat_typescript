@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import sc.video.chat.dto.Room;
+import sc.video.chat.dto.TopicRoom;
+import sc.video.chat.dto.UpdateRoomNumber;
 
 @Repository
 public class RoomRepositoryImpl implements RoomRepository {
@@ -27,7 +29,17 @@ public class RoomRepositoryImpl implements RoomRepository {
 	}
 	
 	@Override
-	public int updateNumber(Room room) {
-		return session.update(ns + "updateNumber", room);
+	public Room selectByRoomId(int roomId) {
+		return session.selectOne(ns + "selectByRoomId", roomId);
+	}
+	
+	@Override
+	public List<Room> selectByTopic(TopicRoom topicRoom) {
+		return session.selectList(ns + "selectByTopic", topicRoom);
+	}
+	
+	@Override
+	public int updateNumber(UpdateRoomNumber updateRoomNumber) {
+		return session.update(ns + "updateNumber", updateRoomNumber);
 	}
 }

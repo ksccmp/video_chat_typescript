@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import sc.video.chat.dto.Room;
+import sc.video.chat.dto.TopicRoom;
+import sc.video.chat.dto.UpdateRoomNumber;
 import sc.video.chat.service.RoomService;
 
 @RestController
@@ -41,10 +44,28 @@ public class RoomController {
 		}
 	}
 	
-	@PutMapping("/room/updateNumber")
-	public ResponseEntity<Map<String, Object>> roomUpdateNumber(@RequestBody Room room) {
+	@GetMapping("/room/selectByRoomId")
+	public ResponseEntity<Map<String, Object>> roomSelectByRoomId(@RequestParam int roomId) {
 		try {
-			return response(rServ.updateNumber(room), HttpStatus.OK, true);
+			return response(rServ.selectByRoomId(roomId), HttpStatus.OK, true);
+		} catch(RuntimeException e) {
+			return getError(e.getMessage());
+		}
+	}
+	
+	@GetMapping("/room/selectByTopic")
+	public ResponseEntity<Map<String, Object>> roomSelectByTopic(TopicRoom topicRoom) {
+		try {
+			return response(rServ.selectByTopic(topicRoom), HttpStatus.OK, true);
+		} catch(RuntimeException e) {
+			return getError(e.getMessage());
+		}
+	}
+	
+	@PutMapping("/room/updateNumber")
+	public ResponseEntity<Map<String, Object>> roomUpdateNumber(@RequestBody UpdateRoomNumber updateRoomNumber) {
+		try {
+			return response(rServ.updateNumber(updateRoomNumber), HttpStatus.OK, true);
 		} catch(RuntimeException e) {
 			return getError(e.getMessage());
 		}

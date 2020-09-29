@@ -18,7 +18,7 @@ export interface Ichat {
     userId: string;
     type: string;
     contents: string;
-    rgstTm: string;
+    rgstTm?: Date;
 }
 
 export interface Ivideochat {
@@ -39,4 +39,22 @@ export interface Iroom {
     type: string;
     max: number;
     number: number;
+}
+
+export interface IopenPasswordModal {
+    roomId: number;
+    password: string;
+    open: boolean;
+}
+
+export interface IuseTime {
+    roomId: number;
+    start: Date;
+    end: Date;
+}
+
+export interface IuserInfo {
+    userId: string;
+    useCount?: number;
+    useTime: number;
 }

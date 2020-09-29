@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { reducerState } from '../../modules/reducer/index';
-import { Iuser, Iroom } from '../../api/interface';
+import { Iuser, Iroom, IopenPasswordModal, IuseTime, IuserInfo } from '../../api/interface';
 import { userLogoutAction, roomOpenRoomModalAction } from '../../modules/actions';
 import Room from '../../components/main/room';
 import { RouteComponentProps } from 'react-router';
@@ -13,17 +13,18 @@ import {
     StyledTabRadio1,
     StyledTabLabel1,
     StyledTabSubdiv1,
-    StyledNav1,
-    StyledNavUl1,
-    StyledNavLi1,
     StyledTabDiv1,
     StyledTabUl1,
     StyledTabLi1,
     StyledImage1,
     StyledTableCell,
+    StyledH5,
 } from '../../api/styled';
-import RoomModal from '../../components/common/roomModal';
+import RoomModal from '../../components/main/roomModal';
+import PasswordModal from '../../components/main/passwordModal';
 import axios from '../../api/axios';
+import SocketIO from 'socket.io-client';
+import { getGabDefault } from '../../api/moment';
 
 const div1: React.CSSProperties = {
     display: 'grid',
@@ -180,8 +181,58 @@ const home: React.FC<RouteComponentProps> = ({ history }) => {
 
     const reduxUser: Iuser = useSelector((state: reducerState) => state.user.user);
     const openRoomModal: boolean = useSelector((state: reducerState) => state.room.openRoomModal);
+    const openPasswordModal: IopenPasswordModal = useSelector((state: reducerState) => state.room.openPasswordModal);
 
     const [existRoomList, setExistRoomList] = React.useState<Iroom[]>([]);
+    const [topic, setTopic] = React.useState<string>('roomId');
+    const [contents, setContents] = React.useState<string>('');
+    const [userInfo, setUserInfo] = React.useState<IuserInfo | undefined>(undefined);
+
+    React.useEffect(() => {
+        if (reduxUser.userId !== '') {
+            const connect: SocketIOClient.Socket = SocketIO.connect('http://localhost:4000'); // 로컬
+            // const connect: SocketIOClient.Socket = SocketIO.connect('https://ksccmp.iptime.org', { secure: true }); // 배포
+
+            connect.emit('join page', {
+                userId: reduxUser.userId,
+            });
+
+            connect.on('self message', async (msg: IuseTime) => {
+                const userInfo: IuserInfo = {
+                    userId: reduxUser.userId,
+                    useCount: 1,
+                    useTime: getGabDefault(msg.end, msg.start),
+                };
+
+                const res1 = await axios.put('/userInfo/updateTime', userInfo, {
+                    headers: {
+                        'jwt-user-token': localStorage.userToken,
+                    },
+                });
+
+                const res2 = await axios.put(
+                    '/room/updateNumber',
+                    {
+                        roomId: msg.roomId,
+                        number: -1,
+                    },
+                    {
+                        headers: {
+                            'jwt-user-token': localStorage.userToken,
+                        },
+                    },
+                );
+
+                if (res1.data.data === 1 && res2.data.data === 1) {
+                    userInfoSelectByUserId();
+                } else {
+                    alert('정보 저장 중 오류 발생');
+                }
+            });
+
+            userInfoSelectByUserId();
+        }
+    }, [reduxUser]);
 
     React.useEffect(() => {
         roomSelectExist();
@@ -207,6 +258,56 @@ const home: React.FC<RouteComponentProps> = ({ history }) => {
         setExistRoomList(res.data.data);
     };
 
+    const roomSelectByTopic = async () => {
+        const res = await axios.get('/room/selectByTopic', {
+            params: {
+                topic: topic,
+                contents: contents,
+            },
+            headers: {
+                'jwt-user-token': localStorage.userToken,
+            },
+        });
+
+        setExistRoomList(res.data.data);
+    };
+
+    const userInfoSelectByUserId = async () => {
+        const res = await axios.get('/userInfo/selectByUserId', {
+            params: {
+                userId: reduxUser.userId,
+            },
+            headers: {
+                'jwt-user-token': localStorage.userToken,
+            },
+        });
+
+        if (res.data.data === null) {
+            setUserInfo({
+                userId: reduxUser.userId,
+                useCount: 0,
+                useTime: 0,
+            });
+        } else {
+            res.data.data.useTime = Math.ceil(res.data.data.useTime / 60 / 1000);
+            setUserInfo(res.data.data);
+        }
+    };
+
+    const onTopic = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setTopic(e.target.value);
+    };
+
+    const onContents = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setContents(e.target.value);
+    };
+
+    const onPressEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            roomSelectByTopic();
+        }
+    };
+
     return (
         <>
             <div style={div2}>
@@ -221,14 +322,17 @@ const home: React.FC<RouteComponentProps> = ({ history }) => {
                             <aside style={profileHeaderRight}>
                                 <p style={p1}>
                                     반갑습니다! <br />
-                                    {reduxUser.userNm}님
+                                    {reduxUser.userNm}님 <br />
+                                    <StyledButton2 onClick={Logout}>
+                                        <StyledH5>Logout</StyledH5>
+                                    </StyledButton2>
                                 </p>
                             </aside>
                         </header>
                         <footer style={profileFooter}>
                             <ul style={ul2}>
-                                <li style={li2}>사용횟수 : 3건</li>
-                                <li style={li2}>사용시간 : 311분</li>
+                                <li style={li2}>사용횟수 : {userInfo ? (userInfo as IuserInfo).useCount : 0} 건</li>
+                                <li style={li2}>사용시간 : {userInfo ? (userInfo as IuserInfo).useTime : 0} 분</li>
                             </ul>
                         </footer>
                     </div>
@@ -272,29 +376,41 @@ const home: React.FC<RouteComponentProps> = ({ history }) => {
                 <section style={section1}>
                     <div style={div5}>
                         <div style={div7}>
-                            <StyledSelect2>
-                                <StyledOption2>방번호</StyledOption2>
-                                <StyledOption2>방제목</StyledOption2>
-                                <StyledOption2>생성자아이디</StyledOption2>
+                            <StyledSelect2 onChange={onTopic}>
+                                <StyledOption2 value="roomId">방번호</StyledOption2>
+                                <StyledOption2 value="contents">방내용</StyledOption2>
+                                <StyledOption2 value="createId">생성자아이디</StyledOption2>
                             </StyledSelect2>
-                            <StyledInput2 type="text" placeholder="내용"></StyledInput2>
-                            <StyledButton2>검색</StyledButton2>
+                            <StyledInput2
+                                type="text"
+                                placeholder="내용"
+                                onChange={onContents}
+                                onKeyPress={onPressEnter}
+                            ></StyledInput2>
+                            <StyledButton2 onClick={roomSelectByTopic}>검색</StyledButton2>
                             <StyledButton2 onClick={onOpenRoomModal}>생성</StyledButton2>
                         </div>
                     </div>
                     <div style={div6}>
                         <div style={div8}>
-                            {existRoomList.map((existRoom) => {
-                                return (
-                                    <Room
-                                        roomId={existRoom.roomId}
-                                        createId={existRoom.createId}
-                                        contents={existRoom.contents}
-                                        type={existRoom.type}
-                                        existPassword={existRoom.password === '' ? false : true}
-                                    ></Room>
-                                );
-                            })}
+                            {existRoomList.length !== 0 ? (
+                                existRoomList.map((existRoom, index) => {
+                                    return (
+                                        <Room
+                                            key={index}
+                                            roomId={existRoom.roomId}
+                                            createId={existRoom.createId}
+                                            contents={existRoom.contents}
+                                            type={existRoom.type}
+                                            password={existRoom.password}
+                                            max={existRoom.max}
+                                            number={existRoom.number}
+                                        ></Room>
+                                    );
+                                })
+                            ) : (
+                                <div>방없떠용!</div>
+                            )}
                         </div>
                     </div>
                 </section>
@@ -310,6 +426,7 @@ const home: React.FC<RouteComponentProps> = ({ history }) => {
             </div>
 
             {openRoomModal ? <RoomModal></RoomModal> : ''}
+            {openPasswordModal.open ? <PasswordModal></PasswordModal> : ''}
         </>
     );
 };

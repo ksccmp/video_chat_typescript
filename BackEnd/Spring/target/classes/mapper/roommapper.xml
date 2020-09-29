@@ -14,9 +14,35 @@
 		where number > 0
 	</select>
 	
-	<update id="updateNumber" parameterType="room">
+	<select id="selectByRoomId" parameterType="int" resultType="room">
+		select *
+		from Room
+		where room_id = #{value}
+	</select>
+	
+	<select id="selectByTopic" parameterType="topicRoom" resultType="room">
+		select *
+		from Room
+		where
+		<choose>
+			<when test="topic == 'roomId'">
+				room_id like concat('%', #{contents}, '%')
+			</when>
+			
+			<when test="topic == 'contents'">
+				contents like concat('%', #{contents}, '%')
+			</when>
+			
+			<when test="topic == 'createId'">
+				create_id like concat('%', #{contents}, '%')
+			</when>
+		</choose>
+		and number > 0
+	</select>
+	
+	<update id="updateNumber" parameterType="updateRoomNumber">
 		update Room
-		set number = #{number}
+		set number = number + #{number}
 		where room_id = #{roomId}
 	</update>
 </mapper>

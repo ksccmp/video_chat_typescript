@@ -16,6 +16,7 @@ import {
     StyledTableCell,
     StyledTabSubdiv2,
 } from '../../api/styled';
+import axios from '../../api/axios';
 
 interface ImatchParams {
     roomId: string;

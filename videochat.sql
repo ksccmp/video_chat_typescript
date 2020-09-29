@@ -40,7 +40,9 @@ select * from User;
 select * from UserToken;
 select * from Room;
 
-update UserToken set user_token = null, updt_tm = null where user_id = 'asd';
+update Room
+set number = number + (-1)
+where room_id = 3;
 
 delete from User where user_id ='';
 delete from UserToken where user_id ='';

@@ -17,7 +17,7 @@ interface IchatContents {
 const chatContents = ({ chat, owner }: IchatContents) => {
     return (
         <>
-            {chat.type !== 'alert' ? (
+            {chat.type === 'chat' ? (
                 <StyledChatContentsDiv1 owner={owner}>
                     {owner ? (
                         ''

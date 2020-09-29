@@ -1,4 +1,4 @@
-import { Iuser, IuserAuth, Ichat, Iroom } from '../api/interface';
+import { Iuser, IuserAuth, Ichat, Iroom, IopenPasswordModal } from '../api/interface';
 
 // Saga
 export const userSelectByUserId: string = 'userSelectByUserId';
@@ -60,6 +60,8 @@ export const socketResetChatList: string = 'socketResetChatList';
 export const socketSetVideoList: string = 'socketSetVideoList';
 export const socketResetVideoList: string = 'socketResetVideoList';
 export const roomOpenRoomModal: string = 'roomOpenRoomModal';
+export const roomOpenPasswordModal: string = 'roomOpenPasswordModal';
+export const roomResetOpenPasswordModal: string = 'roomResetOpenPasswordModal';
 
 export interface IuserSetUserAction {
     type: typeof userSetUser;
@@ -91,6 +93,15 @@ export interface IsocketResetVideoListAction {
 export interface IroomOpenRoomModalAction {
     type: typeof roomOpenRoomModal;
     payload: boolean;
+}
+
+export interface IroomOpenPasswordModalAction {
+    type: typeof roomOpenPasswordModal;
+    payload: IopenPasswordModal;
+}
+
+export interface IroomResetOpenPasswordModalAction {
+    type: typeof roomResetOpenPasswordModal;
 }
 
 export const userSetUserAction = (res: Iuser): IuserSetUserAction => {
@@ -139,6 +150,19 @@ export const roomOpenRoomModalAction = (res: boolean): IroomOpenRoomModalAction 
     };
 };
 
+export const roomOpenPasswordModalAction = (res: IopenPasswordModal): IroomOpenPasswordModalAction => {
+    return {
+        type: roomOpenPasswordModal,
+        payload: res,
+    };
+};
+
+export const roomResetOpenPasswordModalAction = (): IroomResetOpenPasswordModalAction => {
+    return {
+        type: roomResetOpenPasswordModal,
+    };
+};
+
 // return
 export type reducerAction =
     | IuserSelectByUserIdAction
@@ -151,4 +175,6 @@ export type reducerAction =
     | IsocketSetVideoListAction
     | IsocketResetVideoListAction
     | IroomInsertAction
-    | IroomOpenRoomModalAction;
+    | IroomOpenRoomModalAction
+    | IroomOpenPasswordModalAction
+    | IroomResetOpenPasswordModalAction;

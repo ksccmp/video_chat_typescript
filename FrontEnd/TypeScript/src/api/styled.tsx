@@ -73,6 +73,24 @@ export const StyledInput4 = styled.input`
     }
 `;
 
+export const StyledInput5 = styled.input`
+    border: 2px solid #6633cc;
+    border-radius: 4px;
+    margin: 0 auto;
+    width: 95%;
+    height: 1.4rem;
+    &::placeholder {
+        text-align: center;
+    }
+    &:focus {
+        outline: none;
+        &::placeholder {
+            opacity: 0;
+            transition: 0.5s;
+        }
+    }
+`;
+
 export const StyledButton1 = styled.button`
     width: 10em;
     height: 2em;
@@ -105,6 +123,22 @@ export const StyledButton2 = styled.button`
 `;
 
 export const StyledButton3 = styled.button`
+    width: 90%;
+    height: 2rem;
+    background-color: #e0ffff;
+    color: black;
+    border-radius: 4px;
+    border: 2px solid #e0ffff;
+    outline: none;
+    margin: 0.3em;
+    vertical-align: middle;
+    &:hover {
+        background-color: #f0f8ff;
+        border: 2px solid #f0f8ff;
+    }
+`;
+
+export const StyledButton4 = styled.button`
     width: 90%;
     height: 2rem;
     background-color: #e0ffff;
@@ -438,8 +472,8 @@ export const StyledModalDiv1 = styled.div`
 `;
 
 export const StyledRoomModalDiv1 = styled.div`
-    width: 25rem;
-    height: 20rem;
+    width: 25em;
+    height: 20em;
     background-color: rgba(255, 255, 255, 0.8);
     text-align: center;
 `;
@@ -459,6 +493,13 @@ export const StyledLabel1 = styled.label`
     background-color: white;
     flex-grow: 1;
     margin: 0 0.5rem;
+`;
+
+export const StyledPasswordModalDiv1 = styled.div`
+    width: 20%;
+    height: 15%;
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: center;
 `;
 
 export const StyledH1 = styled.h1`

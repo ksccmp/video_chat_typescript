@@ -36,26 +36,42 @@ socketIO.on('connection', (socket) => {
     });
 
     socket.on('join room', (msg) => {
+        const date = new Date();
+        msg.rgstTm = date;
+
         console.log(msg);
         socket.roomId = msg.roomId;
         socket.userId = msg.userId;
+        socket.rgstTm = date;
         socket.join(msg.roomId);
         socketIO.to(msg.roomId).emit('receive message', msg);
     });
 
     socket.on('disconnect', () => {
+        const date = new Date();
         console.log(`${socket.id} disconnected`);
         socketIO.to(socket.roomId).emit('receive message', {
             roomId: socket.roomId,
             userId: socket.userId,
-            type: 'alert',
+            type: 'disconnect',
             contents: `${socket.userId}님이 퇴장하셨습니다`,
-            rgstTm: '2020/08/07',
+            rgstTm: date,
+        });
+
+        socketIO.to(socket.userId).emit('self message', {
+            roomId: socket.roomId,
+            start: socket.rgstTm,
+            end: date,
         });
     });
 
     socket.on('send video', (msg) => {
         console.log(msg);
         socketIO.to(msg.roomId).emit('receive video', msg);
+    });
+
+    socket.on('join page', (msg) => {
+        console.log(msg);
+        socket.join(msg.userId);
     });
 });
