@@ -1,4 +1,4 @@
-import { Iuser, IuserAuth, Ichat, Iroom, IopenPasswordModal } from '../api/interface';
+import { Iuser, IuserAuth, Ichat, Iroom, IopenPasswordModal, IopenAlertModal } from '../api/interface';
 
 // Saga
 export const userSelectByUserId: string = 'userSelectByUserId';
@@ -62,6 +62,8 @@ export const socketResetVideoList: string = 'socketResetVideoList';
 export const roomOpenRoomModal: string = 'roomOpenRoomModal';
 export const roomOpenPasswordModal: string = 'roomOpenPasswordModal';
 export const roomResetOpenPasswordModal: string = 'roomResetOpenPasswordModal';
+export const commonOpenAlertModal: string = 'commonOpenAlertModal';
+export const commonResetOpenAlertModal: string = 'commonResetOpenAlertModal';
 
 export interface IuserSetUserAction {
     type: typeof userSetUser;
@@ -102,6 +104,15 @@ export interface IroomOpenPasswordModalAction {
 
 export interface IroomResetOpenPasswordModalAction {
     type: typeof roomResetOpenPasswordModal;
+}
+
+export interface IcommonOpenAlertModalAction {
+    type: typeof commonOpenAlertModal;
+    payload: IopenAlertModal;
+}
+
+export interface IcommonResetOpenAlertModalAction {
+    type: typeof commonResetOpenAlertModal;
 }
 
 export const userSetUserAction = (res: Iuser): IuserSetUserAction => {
@@ -163,6 +174,19 @@ export const roomResetOpenPasswordModalAction = (): IroomResetOpenPasswordModalA
     };
 };
 
+export const commonOpenAlertModalAction = (res: IopenAlertModal): IcommonOpenAlertModalAction => {
+    return {
+        type: commonOpenAlertModal,
+        payload: res,
+    };
+};
+
+export const commonResetOpenAlertModalAction = (): IcommonResetOpenAlertModalAction => {
+    return {
+        type: commonResetOpenAlertModal,
+    };
+};
+
 // return
 export type reducerAction =
     | IuserSelectByUserIdAction
@@ -177,4 +201,6 @@ export type reducerAction =
     | IroomInsertAction
     | IroomOpenRoomModalAction
     | IroomOpenPasswordModalAction
-    | IroomResetOpenPasswordModalAction;
+    | IroomResetOpenPasswordModalAction
+    | IcommonOpenAlertModalAction
+    | IcommonResetOpenAlertModalAction;

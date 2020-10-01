@@ -12,25 +12,21 @@ import {
     StyledH6,
     StyledTableCell,
     StyledHeaderChange1,
-    StyledKey,
+    StyledLockTwoTone,
 } from '../../api/styled';
 import axios from '../../api/axios';
 import { roomOpenPasswordModalAction } from '../../modules/actions';
-
-const label1: React.CSSProperties = {
-    right: '1em',
-    position: 'absolute',
-    top: '50%',
-    transform: 'translate(0, -50%)',
-};
+import Conference from '../../assets/img/conference.png';
+import Free from '../../assets/img/free.png';
+import Study from '../../assets/img/study.png';
 
 const span1: React.CSSProperties = {
-    color: 'red',
+    color: '#61b3cb',
     marginRight: '0.5em',
 };
 
 const span2: React.CSSProperties = {
-    color: 'blue',
+    color: '#61b3cb',
 };
 
 const styledh4_1: React.CSSProperties = {
@@ -70,9 +66,19 @@ const room = ({ roomId, createId, contents, type, password, max, number }: Iroom
         }
     };
 
+    const getImage = (type: string): string => {
+        if (type === '자유') {
+            return Free;
+        } else if (type === '회의') {
+            return Conference;
+        } else {
+            return Study;
+        }
+    };
+
     return (
         <StyledCardDiv1 onClick={Open}>
-            <StyledCardHeader1 image="https://www.sisajournal.com/news/photo/201909/190944_95563_5753.jpg">
+            <StyledCardHeader1 image={getImage(type)}>
                 <StyledHeaderChange1></StyledHeaderChange1>
             </StyledCardHeader1>
             <StyledCardArticle1>
@@ -91,7 +97,9 @@ const room = ({ roomId, createId, contents, type, password, max, number }: Iroom
                 <StyledH6 style={styledh6_1}>{contents}</StyledH6>
             </StyledCardArticle1>
             <StyledCardFooter1>
-                <StyledCardFooterDiv1>{password !== '' ? <StyledKey></StyledKey> : ''}</StyledCardFooterDiv1>
+                <StyledCardFooterDiv1>
+                    {password !== '' ? <StyledLockTwoTone></StyledLockTwoTone> : ''}
+                </StyledCardFooterDiv1>
             </StyledCardFooter1>
         </StyledCardDiv1>
     );

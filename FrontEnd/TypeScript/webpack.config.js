@@ -17,6 +17,10 @@ module.exports = {
                 loader: ['babel-loader', 'ts-loader'], // 오른쪽에서 왼쪽 방향으로 적용되기 때문에 ts-loader가 오른쪽에 위치
                 exclude: ['/node_modules/'],
             },
+            {
+                test: /\.(png|jpg|gif|svg)$/,
+                loader: 'file-loader',
+            },
         ],
     },
 

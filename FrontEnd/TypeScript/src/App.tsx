@@ -7,11 +7,14 @@ import SocketHome from './pages/socket/socketHome';
 import { useDispatch, useSelector } from 'react-redux';
 import { reducerState } from './modules/reducer/index';
 import { userSelectByUserTokenAction } from './modules/actions';
+import Alert from './common/alert';
+import { IopenAlertModal } from './api/interface';
 
 const App: React.FC<RouteComponentProps> = ({ history }) => {
     const dispatch = useDispatch();
 
     const reduxIsSignIn: boolean = useSelector((state: reducerState) => state.user.isSignIn);
+    const openAlertModal: IopenAlertModal = useSelector((state: reducerState) => state.common.openAlertModal);
 
     useEffect(() => {
         if (reduxIsSignIn === false && localStorage.userToken) {
@@ -31,6 +34,8 @@ const App: React.FC<RouteComponentProps> = ({ history }) => {
                 <Route path="/main/:target" component={Main} />
                 <Route path="/socket/chat/:roomId/:userId" component={SocketHome} />
             </Switch>
+
+            <Alert />
         </>
     );
 };

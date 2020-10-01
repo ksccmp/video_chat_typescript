@@ -11,6 +11,7 @@
   "author": "KSC",
   "license": "ISC",
   "dependencies": {
+    "@ant-design/icons": "^4.2.2",
     "@babel/core": "^7.11.1",
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-react": "^7.10.4",
@@ -29,6 +30,7 @@
     "axios": "^0.19.2",
     "babel-loader": "^8.1.0",
     "express": "^4.17.1",
+    "file-loader": "^6.1.0",
     "html-webpack-plugin": "^4.3.0",
     "jwt-decode": "^2.2.0",
     "moment": "^2.29.0",
@@ -47,6 +49,7 @@
     "ts-loader": "^8.0.2",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.7",
+    "url-loader": "^4.1.0",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"

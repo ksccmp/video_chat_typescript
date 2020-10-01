@@ -8,9 +8,9 @@ import {
     StyledButton4,
     StyledH5,
 } from '../../api/styled';
-import { roomResetOpenPasswordModalAction } from '../../modules/actions';
+import { roomResetOpenPasswordModalAction, commonOpenAlertModalAction } from '../../modules/actions';
 import axios from '../../api/axios';
-import { IopenPasswordModal, Iroom, Iuser } from '../../api/interface';
+import { IopenPasswordModal, Iroom, Iuser, IopenAlertModal } from '../../api/interface';
 import { reducerState } from '../../modules/reducer';
 
 const div1: React.CSSProperties = {
@@ -61,7 +61,12 @@ const passwordModal = () => {
         if (openPasswordModal.password === inputPassword) {
             openSocketHome();
         } else {
-            alert('비밀번호가 틀렸습니다.');
+            const openAlertModal: IopenAlertModal = {
+                contents: '비밀번호가 틀렸습니다.',
+                open: true,
+            };
+
+            dispatch(commonOpenAlertModalAction(openAlertModal));
         }
     };
 
@@ -102,7 +107,12 @@ const passwordModal = () => {
                 );
             }
         } else {
-            alert('방이 꽉찼습니다. 다른 방을 이용해주세요.');
+            const openAlertModal: IopenAlertModal = {
+                contents: '방이 꽉찼습니다. 다른 방을 이용해주세요.',
+                open: true,
+            };
+
+            dispatch(commonOpenAlertModalAction(openAlertModal));
         }
     };
 

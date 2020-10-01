@@ -58,3 +58,8 @@ export interface IuserInfo {
     useCount?: number;
     useTime: number;
 }
+
+export interface IopenAlertModal {
+    contents: string;
+    open: boolean;
+}

@@ -11,8 +11,7 @@ const maindiv: React.CSSProperties = {
 };
 
 const div1: React.CSSProperties = {
-    backgroundImage: `url(${'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ88Yy_BflPIe1zW802_kEJBzouB59UYW5OUA&usqp=CAU'})`,
-    backgroundSize: '100%',
+    backgroundColor: '#ece5da',
     display: 'table',
     height: '100%',
     width: '100%',

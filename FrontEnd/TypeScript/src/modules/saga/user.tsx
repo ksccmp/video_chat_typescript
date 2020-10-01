@@ -2,7 +2,7 @@ import { put, call, takeEvery } from 'redux-saga/effects';
 import * as actions from '../actions';
 import axios from '../../api/axios';
 import JwtDecode from 'jwt-decode';
-import { Iuser } from '../../api/interface';
+import { Iuser, IopenAlertModal } from '../../api/interface';
 
 interface IuserToken {
     user: Iuser;
@@ -18,11 +18,15 @@ function* userSelectByUserIdSaga(action: actions.IuserSelectByUserIdAction) {
         });
 
         if (res.data.data === 0) {
-            alert('로그인 실패');
+            const openAlertModal: IopenAlertModal = {
+                contents: '로그인 실패',
+                open: true,
+            };
+
+            yield put(actions.commonOpenAlertModalAction(openAlertModal));
         } else {
             yield put(actions.userSetUserAction(res.data.data));
             localStorage.userToken = res.headers['jwt-user-token']; // jwt-user-token으로 response온 값을 localStorage에 저장
-            alert('로그인 성공');
             window.location.href = '/main/home'; // 변경 필요
         }
     } catch (e) {
@@ -51,7 +55,13 @@ function* userSelectByUserTokenSaga() {
             localStorage.userToken = res.headers['jwt-user-token'];
         } catch (ee) {
             localStorage.removeItem('userToken'); // 갱신 토큰도 만료되었을 시 재 로그인
-            alert('다시 로그인 해주세요');
+            const openAlertModal: IopenAlertModal = {
+                contents: '다시 로그인 해주세요.',
+                open: true,
+            };
+
+            yield put(actions.commonOpenAlertModalAction(openAlertModal));
+
             window.location.href = '/user/signIn'; // 변경 필요
         }
     }
@@ -61,7 +71,13 @@ function* userInsertSaga(action: actions.IuserInsertAction) {
     try {
         const res = yield call([axios, 'post'], '/user/insert', action.payload);
         if (res.data.data === 1) {
-            alert('회원가입 성공');
+            const openAlertModal: IopenAlertModal = {
+                contents: '로그인 실패',
+                open: true,
+            };
+
+            yield put(actions.commonOpenAlertModalAction(openAlertModal));
+
             window.location.href = '/user/signIn'; // 변경 필요
         }
     } catch (e) {

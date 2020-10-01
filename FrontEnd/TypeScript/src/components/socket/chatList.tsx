@@ -3,7 +3,7 @@ import { socketSetChatListAction, socketResetChatListAction } from '../../module
 import { useDispatch, useSelector } from 'react-redux';
 import { Ichat, Iuser } from '../../api/interface';
 import { reducerState } from '../../modules/reducer';
-import { StyledInput3, StyledTableCell, StyledSend } from '../../api/styled';
+import { StyledInput3, StyledTableCell, StyledRightCircleTwoTone } from '../../api/styled';
 import ChatContents from './chatContents';
 import axios from '../../api/axios';
 
@@ -32,13 +32,13 @@ const footer1: React.CSSProperties = {
     height: '100%',
     display: 'grid',
     gridTemplateColumns: '8fr 1.5fr',
-    textAlign: 'center',
 };
 
 const div2: React.CSSProperties = {
     width: '100%',
     height: '100%',
     display: 'table',
+    textAlign: 'center',
 };
 
 const div3: React.CSSProperties = {
@@ -124,7 +124,7 @@ const chatList = ({ socket, roomId, userId }: IchatList) => {
                     </div>
                     <div style={div3}>
                         <StyledTableCell>
-                            <StyledSend onClick={Send}></StyledSend>
+                            <StyledRightCircleTwoTone onClick={Send}></StyledRightCircleTwoTone>
                         </StyledTableCell>
                     </div>
                 </footer>

@@ -1,6 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import * as actions from '../actions';
 import axios from '../../api/axios';
+import { IopenAlertModal } from '../../api/interface';
 
 function* roomInsertSaga(action: actions.IroomInsertAction) {
     try {
@@ -13,7 +14,12 @@ function* roomInsertSaga(action: actions.IroomInsertAction) {
             alert('방 생성이 완료되었습니다.');
             yield put(actions.roomOpenRoomModalAction(false));
         } else {
-            alert('방 생성에 실패했습니다.');
+            const openAlertModal: IopenAlertModal = {
+                contents: '방 생성에 실패했습니다.',
+                open: true,
+            };
+
+            yield put(actions.commonOpenAlertModalAction(openAlertModal));
         }
     } catch (e) {
         alert(e);

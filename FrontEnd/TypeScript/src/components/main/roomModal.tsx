@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { CSSProperties } from 'styled-components';
 import {
     StyledModalDiv1,
     StyledRoomModalDiv1,
@@ -9,17 +8,17 @@ import {
     StyledLabel1,
     StyledButton3,
 } from '../../api/styled';
-import { Iroom, Iuser } from '../../api/interface';
+import { Iroom, Iuser, IopenAlertModal } from '../../api/interface';
 import { useDispatch, useSelector } from 'react-redux';
-import { roomInsertAction, roomOpenRoomModalAction } from '../../modules/actions';
+import { roomInsertAction, roomOpenRoomModalAction, commonOpenAlertModalAction } from '../../modules/actions';
 import { reducerState } from '../../modules/reducer';
 
-const table1: CSSProperties = {
+const table1: React.CSSProperties = {
     width: '100%',
     textAlign: 'center',
 };
 
-const div1: CSSProperties = {
+const div1: React.CSSProperties = {
     width: '100%',
     display: 'flex',
 };
@@ -141,7 +140,12 @@ const roomModal = () => {
         };
 
         if (room.contents === '' || room.type === '' || room.max < 2) {
-            alert('정보를 확인해주세요');
+            const openAlertModal: IopenAlertModal = {
+                contents: '정보를 확인해주세요',
+                open: true,
+            };
+
+            dispatch(commonOpenAlertModalAction(openAlertModal));
         } else {
             dispatch(roomInsertAction(room));
         }

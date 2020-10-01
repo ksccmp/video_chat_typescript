@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { RightCircleTwoTone, LockTwoTone, CloseCircleTwoTone } from '@ant-design/icons';
 
 export const StyledInput1 = styled.input`
-    border: 2px solid skyblue;
+    border: 2px solid #c79c76;
     border-radius: 4px;
     width: 10em;
     margin: 0.3em;
@@ -20,7 +21,7 @@ export const StyledInput1 = styled.input`
 `;
 
 export const StyledInput2 = styled.input`
-    border: 2px solid #6633cc;
+    border: 2px solid #c79c76;
     border-radius: 4px;
     margin: 0.3rem;
     width: 10rem;
@@ -56,7 +57,7 @@ export const StyledInput3 = styled.input`
 `;
 
 export const StyledInput4 = styled.input`
-    border: 2px solid #6633cc;
+    border: 2px solid #c79c76;
     border-radius: 4px;
     margin: 0.3rem;
     width: 90%;
@@ -74,7 +75,7 @@ export const StyledInput4 = styled.input`
 `;
 
 export const StyledInput5 = styled.input`
-    border: 2px solid #6633cc;
+    border: 2px solid #c79c76;
     border-radius: 4px;
     margin: 0 auto;
     width: 95%;
@@ -94,63 +95,82 @@ export const StyledInput5 = styled.input`
 export const StyledButton1 = styled.button`
     width: 10em;
     height: 2em;
-    background-color: orange;
+    background-color: #c79c76;
     color: white;
     border-radius: 4px;
-    border: 2px solid orange;
+    border: 2px solid #c79c76;
     outline: none;
     margin: 0.3em;
     &:hover {
-        background-color: purple;
-        border: 2px solid purple;
+        background-color: #d0ad8d;
+        border: 2px solid #d0ad8d;
     }
 `;
 
 export const StyledButton2 = styled.button`
     width: 4rem;
     height: 2rem;
-    background-color: #dda0dd;
+    background-color: #c79c76;
     color: white;
     border-radius: 4px;
-    border: 2px solid #dda0dd;
+    border: 2px solid #c79c76;
     outline: none;
     margin: 0.3em;
     vertical-align: middle;
     &:hover {
-        background-color: #d8bfd8;
-        border: 2px solid #d8bfd8;
+        background-color: #d0ad8d;
+        border: 2px solid #d0ad8d;
     }
 `;
 
 export const StyledButton3 = styled.button`
     width: 90%;
     height: 2rem;
-    background-color: #e0ffff;
-    color: black;
+    background-color: #c79c76;
+    color: white;
     border-radius: 4px;
-    border: 2px solid #e0ffff;
+    border: 2px solid #c79c76;
     outline: none;
     margin: 0.3em;
     vertical-align: middle;
+    color: rgb(255, 255, 255);
     &:hover {
-        background-color: #f0f8ff;
-        border: 2px solid #f0f8ff;
+        background-color: #d0ad8d;
+        border: 2px solid #d0ad8d;
     }
 `;
 
 export const StyledButton4 = styled.button`
     width: 90%;
     height: 2rem;
-    background-color: #e0ffff;
-    color: black;
+    background-color: #c79c76;
+    color: white;
     border-radius: 4px;
-    border: 2px solid #e0ffff;
+    border: 2px solid #c79c76;
     outline: none;
     margin: 0.3em;
     vertical-align: middle;
+    color: rgb(255, 255, 255);
     &:hover {
-        background-color: #f0f8ff;
-        border: 2px solid #f0f8ff;
+        background-color: #d0ad8d;
+        border: 2px solid #d0ad8d;
+    }
+`;
+
+export const StyledButton5 = styled.button`
+    width: 50%;
+    height: 2rem;
+    background-color: #c79c76;
+    color: white;
+    border-radius: 4px;
+    border: 2px solid #c79c76;
+    outline: none;
+    margin: 0.3em;
+    vertical-align: middle;
+    color: rgb(255, 255, 255);
+    &:hover {
+        background-color: #d0ad8d;
+        border: 2px solid #d0ad8d;
     }
 `;
 
@@ -164,7 +184,7 @@ export const StyledSelect1 = styled.select`
 `;
 
 export const StyledSelect2 = styled.select`
-    border: 2px solid #6633cc;
+    border: 2px solid #c79c76;
     border-radius: 4px;
     margin: 0.3rem;
     width: 10.5rem;
@@ -194,9 +214,9 @@ export const StyledOption3 = styled.option`
 `;
 
 export const StyledNav1 = styled.nav`
-    background-color: #87ceeb;
+    background-color: #446a74;
     width: 100%;
-    height: 100%;
+    height: 3rem;
 `;
 
 export const StyledNavUl1 = styled.ul`
@@ -255,8 +275,8 @@ export const StyledTabRadio1 = styled.input`
     display: none;
     &:checked {
         & ~ label {
-            transition: 0.1s;
-            border-bottom: 2px solid blue;
+            transition: 0.2s;
+            border-bottom: 3px solid #c79c76;
         }
         & ~ div {
             display: block;
@@ -276,6 +296,8 @@ export const StyledTabSubdiv1 = styled.div`
     left: 0;
     padding: 1em;
     vertical-align: middle;
+    width: 90%;
+    height: 85%;
 `;
 
 export const StyledCardDiv1 = styled.div`
@@ -304,6 +326,8 @@ export const StyledCardHeader1 = styled.header`
     border-radius: 10px;
     background-image: url(${(props: IStyledCardHeader1) => props.image});
     background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
 `;
 
 export const StyledHeaderChange1 = styled.div`
@@ -353,28 +377,6 @@ export const StyledImage1 = styled.div`
     border-radius: 50%;
     width: 70%;
     height: 80%;
-    display: inline-block;
-`;
-
-export const StyledKey = styled.div`
-    background-image: url('https://lh3.googleusercontent.com/proxy/FI7lPlMMUcAcboRuLLx5H3R1f7uwcnf_GZI3e_RK3UFqGiJvxjEzD8DkFklAFnSjjOMUTEQP1bxDoyxdTCincfbCCS_XQmk0VUsr9ItsDKUSbJY6aagEkQgxCwAAb4wV0JnuAzE9A5CmCDu9B5wpbHdq4kRv4EZzFWFvGw');
-    background-size: 70%;
-    background-position: center;
-    background-repeat: no-repeat;
-    border-radius: 50%;
-    width: 10%;
-    height: 100%;
-    display: inline-block;
-`;
-
-export const StyledSend = styled.div`
-    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSqEXRiRu2iow-mACQR1rj1ppQ_3-BUU-4e7A&usqp=CAU');
-    background-size: 90%;
-    background-position: center;
-    background-repeat: no-repeat;
-    border-radius: 50%;
-    width: 90%;
-    height: 100%;
     display: inline-block;
 `;
 
@@ -474,7 +476,7 @@ export const StyledModalDiv1 = styled.div`
 export const StyledRoomModalDiv1 = styled.div`
     width: 25em;
     height: 20em;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: #f9f6f1;
     text-align: center;
 `;
 
@@ -482,13 +484,14 @@ export const StyledRadio1 = styled.input`
     display: none;
     &:checked {
         & + label {
-            background-color: rgba(0, 0, 0, 0.6);
+            color: rgb(255, 255, 255);
+            background-color: #d0ad8d;
         }
     }
 `;
 
 export const StyledLabel1 = styled.label`
-    border: 2px solid #6633cc;
+    border: 2px solid #c79c76;
     border-radius: 4px;
     background-color: white;
     flex-grow: 1;
@@ -496,10 +499,44 @@ export const StyledLabel1 = styled.label`
 `;
 
 export const StyledPasswordModalDiv1 = styled.div`
-    width: 20%;
-    height: 15%;
-    background-color: rgba(255, 255, 255, 0.8);
+    width: 25em;
+    height: 10em;
+    background-color: #f9f6f1;
     text-align: center;
+`;
+
+export const StyledRightCircleTwoTone = styled(RightCircleTwoTone)`
+    & > svg {
+        width: 2rem;
+        height: 2rem;
+    }
+`;
+
+export const StyledLockTwoTone = styled(LockTwoTone)`
+    & > svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        & path:nth-child(2n-1) {
+            fill: #c79c76;
+        }
+        & path:nth-child(2n) {
+            fill: #f9f6f1;
+        }
+    }
+`;
+
+export const StyledCloseCircleTwoTone = styled(CloseCircleTwoTone)`
+    & > svg {
+        width: 3rem;
+        height: 3rem;
+        & path:nth-child(2n-1) {
+            fill: #c79c76;
+        }
+        & path:nth-child(2n) {
+            fill: #f9f6f1;
+        }
+    }
+    margin-bottom: 1.5rem;
 `;
 
 export const StyledH1 = styled.h1`
