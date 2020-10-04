@@ -40,6 +40,11 @@
 		and number > 0
 	</select>
 	
+	<select id="selectMaxRoomId" resultType="int">
+		select max(room_id)
+		from Room
+	</select>
+	
 	<update id="updateNumber" parameterType="updateRoomNumber">
 		update Room
 		set number = number + #{number}

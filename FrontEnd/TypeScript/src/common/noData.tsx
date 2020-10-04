@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyledCloseCircleTwoTone } from '../api/styled';
+import { StyledCloseCircleTwoTone, StyledH3 } from '../api/styled';
 import styled from 'styled-components';
 
 const Div1 = styled.div`
@@ -19,7 +19,7 @@ const noData = () => {
         <Div1>
             <Div2>
                 <StyledCloseCircleTwoTone /> <br />
-                데이터가 없습니다
+                <StyledH3>데이터가 없습니다</StyledH3>
             </Div2>
         </Div1>
     );

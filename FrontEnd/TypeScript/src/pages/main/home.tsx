@@ -19,6 +19,8 @@ import {
     StyledImage1,
     StyledTableCell,
     StyledH5,
+    StyledH4,
+    StyledH3,
 } from '../../api/styled';
 import RoomModal from '../../components/main/roomModal';
 import PasswordModal from '../../components/main/passwordModal';
@@ -32,14 +34,13 @@ import NoImage from '../../assets/img/noImage.png';
 const div2: React.CSSProperties = {
     display: 'grid',
     gridTemplateColumns: '1fr 3fr 1fr',
-    border: '1px solid black',
     overflow: 'hidden',
 };
 
 const aside1: React.CSSProperties = {
     width: '100%',
     height: '100%',
-    border: '1px solid black',
+    borderRight: '1px solid black',
     display: 'grid',
     gridTemplateRows: '1fr 1fr',
 };
@@ -47,7 +48,7 @@ const aside1: React.CSSProperties = {
 const section1: React.CSSProperties = {
     width: '100%',
     height: '100%',
-    border: '1px solid black',
+    borderRight: '1px solid black',
     display: 'grid',
     gridTemplateRows: '1fr 9fr',
     overflow: 'hidden',
@@ -56,7 +57,6 @@ const section1: React.CSSProperties = {
 const aside2: React.CSSProperties = {
     width: '100%',
     height: '100%',
-    border: '1px solid black',
     display: 'grid',
     gridTemplateRows: '1fr 1fr',
 };
@@ -64,7 +64,6 @@ const aside2: React.CSSProperties = {
 const profile: React.CSSProperties = {
     width: '100%',
     height: '100%',
-    border: '1px solid black',
     display: 'grid',
     gridTemplateRows: '3fr 7fr',
 };
@@ -72,7 +71,7 @@ const profile: React.CSSProperties = {
 const profileHeader: React.CSSProperties = {
     width: '100%',
     height: '100%',
-    border: '1px solid black',
+    borderBottom: '1px solid black',
     display: 'grid',
     gridTemplateColumns: '4fr 6fr',
 };
@@ -80,7 +79,6 @@ const profileHeader: React.CSSProperties = {
 const profileHeaderLeft: React.CSSProperties = {
     width: '100%',
     height: '100%',
-    border: '1px solid black',
     textAlign: 'center',
     display: 'table',
 };
@@ -88,7 +86,6 @@ const profileHeaderLeft: React.CSSProperties = {
 const profileHeaderRight: React.CSSProperties = {
     width: '100%',
     height: '100%',
-    border: '1px solid black',
     textAlign: 'center',
     display: 'table',
 };
@@ -102,7 +99,7 @@ const p1: React.CSSProperties = {
 const profileFooter: React.CSSProperties = {
     width: '100%',
     height: '100%',
-    border: '1px solid black',
+    borderBottom: '1px solid black',
     display: 'table',
 };
 
@@ -118,7 +115,6 @@ const li2: React.CSSProperties = {
 const div4: React.CSSProperties = {
     width: '100%',
     height: '100%',
-    border: '1px solid black',
     position: 'relative',
 };
 
@@ -140,14 +136,12 @@ const li3: React.CSSProperties = {
 const div5: React.CSSProperties = {
     width: '100%',
     height: '100%',
-    border: '1px solid black',
     display: 'table',
 };
 
 const div6: React.CSSProperties = {
     width: '100%',
     height: '100%',
-    border: '1px solid black',
     overflow: 'hidden',
 };
 
@@ -161,7 +155,6 @@ const div8: React.CSSProperties = {
     width: '90%',
     margin: 'auto',
     height: '100%',
-    border: '1px solid black',
     overflow: 'auto',
 };
 
@@ -169,7 +162,19 @@ const div9: React.CSSProperties = {
     width: '100%',
     height: '100%',
     textAlign: 'center',
-    display: 'table',
+    borderBottom: '1px solid black',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+};
+
+const div10: React.CSSProperties = {
+    width: '100%',
+    height: '100%',
+    textAlign: 'center',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
 };
 
 const home: React.FC<RouteComponentProps> = ({ history }) => {
@@ -322,18 +327,22 @@ const home: React.FC<RouteComponentProps> = ({ history }) => {
                             </aside>
                             <aside style={profileHeaderRight}>
                                 <p style={p1}>
-                                    반갑습니다! <br />
-                                    {reduxUser.userNm}님 <br />
+                                    <StyledH3>반갑습니다!</StyledH3> <br />
+                                    <StyledH3>{reduxUser.userNm}님</StyledH3> <br />
                                     <StyledButton2 onClick={Logout}>
-                                        <StyledH5>Logout</StyledH5>
+                                        <StyledH4>Logout</StyledH4>
                                     </StyledButton2>
                                 </p>
                             </aside>
                         </header>
                         <footer style={profileFooter}>
                             <ul style={ul2}>
-                                <li style={li2}>사용횟수 : {userInfo ? (userInfo as IuserInfo).useCount : 0} 건</li>
-                                <li style={li2}>사용시간 : {userInfo ? (userInfo as IuserInfo).useTime : 0} 분</li>
+                                <li style={li2}>
+                                    <StyledH4>사용횟수 : {userInfo ? (userInfo as IuserInfo).useCount : 0} 건</StyledH4>
+                                </li>
+                                <li style={li2}>
+                                    <StyledH4>사용시간 : {userInfo ? (userInfo as IuserInfo).useTime : 0} 분</StyledH4>
+                                </li>
                             </ul>
                         </footer>
                     </div>
@@ -349,18 +358,18 @@ const home: React.FC<RouteComponentProps> = ({ history }) => {
                                 <StyledTabLabel1 htmlFor="tablabel1">
                                     <StyledTableCell>
                                         <TeamOutlined />
-                                        친구
+                                        <StyledH4>친구</StyledH4>
                                     </StyledTableCell>
                                 </StyledTabLabel1>
                                 <StyledTabSubdiv1>
                                     <ul style={{ padding: '0' }}>
                                         <li style={{ listStyleType: 'none', textAlign: 'initial' }}>
                                             <UserOutlined style={{ color: 'red', marginRight: '1rem' }} />
-                                            aaa
+                                            <StyledH5>aaa</StyledH5>
                                         </li>
                                         <li style={{ listStyleType: 'none', textAlign: 'initial' }}>
                                             <UserOutlined style={{ color: 'blue', marginRight: '1rem' }} />
-                                            qqq
+                                            <StyledH5>qqq</StyledH5>
                                         </li>
                                     </ul>
                                 </StyledTabSubdiv1>
@@ -368,7 +377,9 @@ const home: React.FC<RouteComponentProps> = ({ history }) => {
                             <StyledTabLi1>
                                 <StyledTabRadio1 type="radio" name="tab" id="tablabel2"></StyledTabRadio1>
                                 <StyledTabLabel1 htmlFor="tablabel2">
-                                    <StyledTableCell>Tab2</StyledTableCell>
+                                    <StyledTableCell>
+                                        <StyledH4>Tab2</StyledH4>
+                                    </StyledTableCell>
                                 </StyledTabLabel1>
                                 <StyledTabSubdiv1>
                                     <NoData />
@@ -377,7 +388,9 @@ const home: React.FC<RouteComponentProps> = ({ history }) => {
                             <StyledTabLi1>
                                 <StyledTabRadio1 type="radio" name="tab" id="tablabel3"></StyledTabRadio1>
                                 <StyledTabLabel1 htmlFor="tablabel3">
-                                    <StyledTableCell>Tab3</StyledTableCell>
+                                    <StyledTableCell>
+                                        <StyledH4>Tab3</StyledH4>
+                                    </StyledTableCell>
                                 </StyledTabLabel1>
                                 <StyledTabSubdiv1>
                                     <NoData />
@@ -401,8 +414,12 @@ const home: React.FC<RouteComponentProps> = ({ history }) => {
                                 onChange={onContents}
                                 onKeyPress={onPressEnter}
                             ></StyledInput2>
-                            <StyledButton2 onClick={roomSelectByTopic}>검색</StyledButton2>
-                            <StyledButton2 onClick={onOpenRoomModal}>생성</StyledButton2>
+                            <StyledButton2 onClick={roomSelectByTopic}>
+                                <StyledH4>검색</StyledH4>
+                            </StyledButton2>
+                            <StyledButton2 onClick={onOpenRoomModal}>
+                                <StyledH4>생성</StyledH4>
+                            </StyledButton2>
                         </div>
                     </div>
                     <div style={div6}>
@@ -431,10 +448,10 @@ const home: React.FC<RouteComponentProps> = ({ history }) => {
 
                 <aside style={aside2}>
                     <div style={div9}>
-                        <StyledTableCell>광고 두실 분 찾습니다.</StyledTableCell>
+                        <StyledH3>광고 두실 분 찾습니다.</StyledH3>
                     </div>
-                    <div style={div9}>
-                        <StyledTableCell>광고 두실 분 찾습니다.</StyledTableCell>
+                    <div style={div10}>
+                        <StyledH3>광고 두실 분 찾습니다.</StyledH3>
                     </div>
                 </aside>
             </div>

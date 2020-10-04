@@ -6,7 +6,7 @@ import {
     StyledH2,
     StyledInput5,
     StyledButton4,
-    StyledH5,
+    StyledH4,
 } from '../../api/styled';
 import { roomResetOpenPasswordModalAction, commonOpenAlertModalAction } from '../../modules/actions';
 import axios from '../../api/axios';
@@ -130,10 +130,10 @@ const passwordModal = () => {
                             </div>
                             <div style={div3}>
                                 <StyledButton4 onClick={openRoom}>
-                                    <StyledH5>확인</StyledH5>
+                                    <StyledH4>확인</StyledH4>
                                 </StyledButton4>
                                 <StyledButton4 onClick={cancleOpenRoom}>
-                                    <StyledH5>취소</StyledH5>
+                                    <StyledH4>취소</StyledH4>
                                 </StyledButton4>
                             </div>
                         </div>

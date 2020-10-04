@@ -1,30 +1,11 @@
 import React, { useReducer } from 'react';
-import { StyledButton1, StyledInput2, StyledSelect1, StyledOption1 } from '../api/styled';
+import { StyledButton1, StyledInput2, StyledSelect1, StyledOption1, StyledH4 } from '../../api/styled';
 import { useDispatch } from 'react-redux';
-import { Iuser } from '../api/interface';
-import { userInsertAction } from '../modules/actions';
+import { Iuser } from '../../api/interface';
+import { userInsertAction } from '../../modules/actions';
+import { RouteComponentProps, withRouter } from 'react-router';
 
-const maindiv: React.CSSProperties = {
-    display: 'grid',
-    gridTemplateRows: '1fr 2fr 1fr',
-    height: '100%',
-};
-
-const div1: React.CSSProperties = {
-    backgroundImage: `url(${'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ88Yy_BflPIe1zW802_kEJBzouB59UYW5OUA&usqp=CAU'})`,
-    backgroundSize: '100%',
-    display: 'table',
-    height: '100%',
-    width: '100%',
-};
-
-const div2: React.CSSProperties = {
-    textAlign: 'center',
-    display: 'table-cell',
-    verticalAlign: 'middle',
-};
-
-const signUp = () => {
+const signUp: React.FC<RouteComponentProps> = ({ history }) => {
     const dispatch = useDispatch();
 
     interface IinitState {
@@ -198,40 +179,35 @@ const signUp = () => {
         dispatch(userInsertAction(user));
     };
 
+    const Back = () => {
+        history.push('/user/signIn');
+    };
+
     return (
         <>
-            <div style={maindiv}>
-                <header></header>
-
-                <div style={div1}>
-                    <div style={div2}>
-                        <StyledInput2 type="text" placeholder="아이디" onChange={setUserIdAction}></StyledInput2> <br />
-                        <StyledInput2
-                            type="password"
-                            placeholder="비밀번호"
-                            onChange={setUserPwAction}
-                        ></StyledInput2>{' '}
-                        <br />
-                        <StyledInput2 type="text" placeholder="이름" onChange={setUserNmAction}></StyledInput2> <br />
-                        <StyledSelect1 onChange={setUserGdAction}>
-                            <StyledOption1 value="M">남자</StyledOption1>
-                            <StyledOption1 value="W">여자</StyledOption1>
-                        </StyledSelect1>
-                        <br />
-                        <StyledInput2 type="number" placeholder="나이" onChange={setUserAgeAction}></StyledInput2>
-                        <br />
-                        <StyledInput2 type="text" placeholder="전화번호" onChange={setUserPhAction}></StyledInput2>
-                        <br />
-                        <StyledInput2 type="number" placeholder="이메일" onChange={setUserMaAction}></StyledInput2>
-                        <br />
-                        <StyledButton1 onClick={userSignUp}>SignUp</StyledButton1>
-                    </div>
-                </div>
-
-                <footer></footer>
-            </div>
+            <StyledInput2 type="text" placeholder="아이디" onChange={setUserIdAction}></StyledInput2> <br />
+            <StyledInput2 type="password" placeholder="비밀번호" onChange={setUserPwAction}></StyledInput2> <br />
+            <StyledInput2 type="text" placeholder="이름" onChange={setUserNmAction}></StyledInput2> <br />
+            <StyledSelect1 onChange={setUserGdAction}>
+                <StyledOption1 value="M">남자</StyledOption1>
+                <StyledOption1 value="W">여자</StyledOption1>
+            </StyledSelect1>
+            <br />
+            <StyledInput2 type="number" placeholder="나이" onChange={setUserAgeAction}></StyledInput2>
+            <br />
+            <StyledInput2 type="text" placeholder="전화번호" onChange={setUserPhAction}></StyledInput2>
+            <br />
+            <StyledInput2 type="number" placeholder="이메일" onChange={setUserMaAction}></StyledInput2>
+            <br />
+            <StyledButton1 onClick={userSignUp}>
+                <StyledH4>SignUp</StyledH4>
+            </StyledButton1>
+            <br />
+            <StyledButton1 onClick={Back}>
+                <StyledH4>Back</StyledH4>
+            </StyledButton1>
         </>
     );
 };
 
-export default signUp;
+export default withRouter(signUp);

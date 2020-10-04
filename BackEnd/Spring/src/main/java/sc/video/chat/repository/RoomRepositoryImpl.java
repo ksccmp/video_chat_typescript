@@ -39,6 +39,11 @@ public class RoomRepositoryImpl implements RoomRepository {
 	}
 	
 	@Override
+	public int selectMaxRoomId() {
+		return session.selectOne(ns + "selectMaxRoomId");
+	}
+	
+	@Override
 	public int updateNumber(UpdateRoomNumber updateRoomNumber) {
 		return session.update(ns + "updateNumber", updateRoomNumber);
 	}

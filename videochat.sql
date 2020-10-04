@@ -7,6 +7,7 @@ alter database videochat default character set utf8;
 alter table User convert to character set utf8;
 alter table UserToken convert to character set utf8;
 alter table Room convert to character set utf8;
+alter table UserInfo convert to character set utf8;
 
 create table User (
 	user_id varchar(100) primary key, -- 사용자 아이디
@@ -36,13 +37,20 @@ create table Room (
     number int
 );
 
+create table UserInfo (
+	user_id varchar(100) primary key,
+    use_count int,
+    use_time long
+);
+
 select * from User;
 select * from UserToken;
 select * from Room;
+select * from UserInfo;
 
 update Room
-set number = number + (-1)
-where room_id = 3;
+set number = 1
+where room_id = 2;
 
 delete from User where user_id ='';
 delete from UserToken where user_id ='';

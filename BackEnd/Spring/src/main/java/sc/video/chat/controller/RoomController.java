@@ -29,7 +29,11 @@ public class RoomController {
 	@PostMapping("/room/insert")
 	public ResponseEntity<Map<String, Object>> roomInsert(@RequestBody Room room) {
 		try {
-			return response(rServ.insert(room), HttpStatus.CREATED, true);
+			if(rServ.insert(room) == 1) {
+				return response(rServ.selectMaxRoomId(), HttpStatus.CREATED, true);
+			} else {
+				return response(0, HttpStatus.OK, false);
+			}
 		} catch(RuntimeException e) {
 			return getError(e.getMessage());
 		}

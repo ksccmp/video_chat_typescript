@@ -12,10 +12,6 @@ const Div1 = styled.div`
     margin-bottom: 3rem;
 `;
 
-const H21 = styled.h2`
-    text-align: center;
-`;
-
 const Div2 = styled.div`
     display: table;
     width: 100%;
@@ -126,24 +122,35 @@ const LeftDiv1 = styled.div`
     }
 `;
 
+const H21 = styled.h2`
+    text-align: center;
+    color: #61b3cb;
+    font-family: 'Lato', sans-serif;
+`;
+
 const H31 = styled.h3`
     margin: 0;
     padding: 0;
+    color: #61b3cb;
+    font-family: 'Lato', sans-serif;
 `;
 
 const H41 = styled.h4`
     margin: 0;
     padding: 0;
+    font-family: 'Lato', sans-serif;
 `;
 
 const H51 = styled.h5`
     margin: 0;
     padding: 0;
+    font-family: 'Lato', sans-serif;
 `;
 
 const H61 = styled.h6`
     margin: 0;
     padding: 0;
+    font-family: 'Lato', sans-serif;
 `;
 
 const intro = () => {

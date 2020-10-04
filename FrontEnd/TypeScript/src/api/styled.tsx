@@ -39,11 +39,11 @@ export const StyledInput2 = styled.input`
 `;
 
 export const StyledInput3 = styled.input`
-    border: 2px solid #6633cc;
+    border: 2px solid #c79c76;
     border-radius: 4px;
-    margin: 0.3em;
+    margin: 0.3rem;
     width: 90%;
-    height: 1.3em;
+    height: 1.5rem;
     &::placeholder {
         text-align: center;
     }
@@ -93,7 +93,7 @@ export const StyledInput5 = styled.input`
 `;
 
 export const StyledButton1 = styled.button`
-    width: 10em;
+    width: 12.5em;
     height: 2em;
     background-color: #c79c76;
     color: white;
@@ -175,10 +175,10 @@ export const StyledButton5 = styled.button`
 `;
 
 export const StyledSelect1 = styled.select`
-    border: 2px solid #6633cc;
+    border: 2px solid #c79c76;
     border-radius: 4px;
     margin: 0.3em;
-    width: 10.5em;
+    width: 12.5em;
     height: 1.8em;
     outline: none;
 `;
@@ -216,7 +216,7 @@ export const StyledOption3 = styled.option`
 export const StyledNav1 = styled.nav`
     background-color: #446a74;
     width: 100%;
-    height: 3rem;
+    height: 3.2rem;
 `;
 
 export const StyledNavUl1 = styled.ul`
@@ -251,7 +251,6 @@ export const StyledNavLink1 = styled(Link)`
 export const StyledTabDiv1 = styled.div`
     width: 100%;
     height: 100%;
-    border: 1px solid black;
     position: relative;
 `;
 
@@ -386,6 +385,7 @@ export const StyledTabDiv2 = styled.div`
 `;
 
 export const StyledTabUl2 = styled.ul`
+    border: 1px solid black;
     list-style-type: none;
     padding: 0;
     margin: 0;
@@ -398,7 +398,6 @@ export const StyledTabUl2 = styled.ul`
 
 export const StyledTabLi2 = styled.li`
     display: table-cell;
-    border: 1px solid black;
     text-align: center;
 `;
 
@@ -412,7 +411,8 @@ export const StyledTabRadio2 = styled.input`
     display: none;
     &:checked {
         & ~ label {
-            background-color: rgba(0, 0, 0, 0.3);
+            background-color: #c79c76;
+            color: rgb(255, 255, 255);
         }
 
         & ~ div {
@@ -509,6 +509,15 @@ export const StyledRightCircleTwoTone = styled(RightCircleTwoTone)`
     & > svg {
         width: 2rem;
         height: 2rem;
+        & path:nth-child(1) {
+            fill: #f9f6f1;
+        }
+        & path:nth-child(2) {
+            fill: #c79c76;
+        }
+        & path:nth-child(3) {
+            fill: #c79c76;
+        }
     }
 `;
 
@@ -543,34 +552,40 @@ export const StyledH1 = styled.h1`
     margin: 0;
     padding: 0;
     display: inline-block;
+    font-family: 'Lato', sans-serif;
 `;
 
 export const StyledH2 = styled.h2`
     margin: 0;
     padding: 0;
     display: inline-block;
+    font-family: 'Lato', sans-serif;
 `;
 
 export const StyledH3 = styled.h3`
     margin: 0;
     padding: 0;
     display: inline-block;
+    font-family: 'Lato', sans-serif;
 `;
 
 export const StyledH4 = styled.h4`
     margin: 0;
     padding: 0;
     display: inline-block;
+    font-family: 'Lato', sans-serif;
 `;
 
 export const StyledH5 = styled.h5`
     margin: 0;
     padding: 0;
     display: inline-block;
+    font-family: 'Lato', sans-serif;
 `;
 
 export const StyledH6 = styled.h6`
     margin: 0;
     padding: 0;
     display: inline-block;
+    font-family: 'Lato', sans-serif;
 `;

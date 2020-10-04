@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { StyledButton5 } from '../api/styled';
+import { StyledButton5, StyledH3, StyledH4 } from '../api/styled';
 import { IopenAlertModal } from '../api/interface';
 import { useDispatch, useSelector } from 'react-redux';
 import { reducerState } from '../modules/reducer';
@@ -56,9 +56,13 @@ const Alert = () => {
     return (
         <Div1 open={openAlertModal.open}>
             <Div2 onClick={click}>
-                <Div3>{openAlertModal.contents}</Div3>
                 <Div3>
-                    <StyledButton5 onClick={click}>확인</StyledButton5>
+                    <StyledH3>{openAlertModal.contents}</StyledH3>
+                </Div3>
+                <Div3>
+                    <StyledButton5 onClick={click}>
+                        <StyledH4>확인</StyledH4>
+                    </StyledButton5>
                 </Div3>
             </Div2>
         </Div1>

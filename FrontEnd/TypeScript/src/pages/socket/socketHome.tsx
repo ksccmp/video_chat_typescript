@@ -15,8 +15,9 @@ import {
     StyledTabRadio2,
     StyledTableCell,
     StyledTabSubdiv2,
+    StyledH3,
 } from '../../api/styled';
-import axios from '../../api/axios';
+import NoData from '../../common/noData';
 
 interface ImatchParams {
     roomId: string;
@@ -24,14 +25,14 @@ interface ImatchParams {
 }
 
 const div1: React.CSSProperties = {
-    width: '100%',
-    height: '100%',
-    border: '1px solid black',
+    width: '99.9%',
+    height: '99.8%',
     display: 'grid',
     gridTemplateColumns: '3fr 1fr',
 };
 
 const section1: React.CSSProperties = {
+    borderRight: '1px solid black',
     width: '100%',
     height: '100%',
 };
@@ -45,16 +46,15 @@ const section2: React.CSSProperties = {
 };
 
 const sectionHeader1: React.CSSProperties = {
-    border: '1px solid black',
     width: '100%',
     height: 'auto',
+    borderBottom: '1px solid black',
     overflow: 'auto',
 };
 
 const sectionFooter1: React.CSSProperties = {
     width: '100%',
     height: '100%',
-    border: '1px solid black',
     overflow: 'hidden',
 };
 
@@ -224,7 +224,9 @@ const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
                                     defaultChecked
                                 ></StyledTabRadio2>
                                 <StyledTabLabel2 htmlFor="tablabel1" onClick={Test}>
-                                    <StyledTableCell>Me</StyledTableCell>
+                                    <StyledTableCell>
+                                        <StyledH3>Me</StyledH3>
+                                    </StyledTableCell>
                                 </StyledTabLabel2>
                                 <StyledTabSubdiv2>
                                     {localStream !== undefined ? <Video stream={localStream}></Video> : ''}
@@ -233,16 +235,24 @@ const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
                             <StyledTabLi2>
                                 <StyledTabRadio2 type="radio" name="tab" id="tablabel2"></StyledTabRadio2>
                                 <StyledTabLabel2 htmlFor="tablabel2">
-                                    <StyledTableCell>Others</StyledTableCell>
+                                    <StyledTableCell>
+                                        <StyledH3>Others</StyledH3>
+                                    </StyledTableCell>
                                 </StyledTabLabel2>
-                                <StyledTabSubdiv2>Others</StyledTabSubdiv2>
+                                <StyledTabSubdiv2>
+                                    <NoData />
+                                </StyledTabSubdiv2>
                             </StyledTabLi2>
                             <StyledTabLi2>
                                 <StyledTabRadio2 type="radio" name="tab" id="tablabel3"></StyledTabRadio2>
                                 <StyledTabLabel2 htmlFor="tablabel3">
-                                    <StyledTableCell>Board</StyledTableCell>
+                                    <StyledTableCell>
+                                        <StyledH3>Board</StyledH3>
+                                    </StyledTableCell>
                                 </StyledTabLabel2>
-                                <StyledTabSubdiv2>Board</StyledTabSubdiv2>
+                                <StyledTabSubdiv2>
+                                    <NoData />
+                                </StyledTabSubdiv2>
                             </StyledTabLi2>
                         </StyledTabUl2>
                     </StyledTabDiv2>

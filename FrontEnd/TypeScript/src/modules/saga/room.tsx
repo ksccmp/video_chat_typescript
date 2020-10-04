@@ -10,9 +10,16 @@ function* roomInsertSaga(action: actions.IroomInsertAction) {
                 'jwt-user-token': localStorage.userToken,
             },
         });
-        if (res.data.data === 1) {
-            alert('방 생성이 완료되었습니다.');
+        if (res.data.data !== 0) {
+            action.payload.roomId = res.data.data;
+
             yield put(actions.roomOpenRoomModalAction(false));
+
+            window.open(
+                `../socket/chat/${action.payload.roomId}/${action.payload.createId}`,
+                'windowName',
+                'toolbar=no, menubar=no',
+            );
         } else {
             const openAlertModal: IopenAlertModal = {
                 contents: '방 생성에 실패했습니다.',

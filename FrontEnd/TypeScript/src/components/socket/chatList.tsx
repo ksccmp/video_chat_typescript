@@ -5,7 +5,6 @@ import { Ichat, Iuser } from '../../api/interface';
 import { reducerState } from '../../modules/reducer';
 import { StyledInput3, StyledTableCell, StyledRightCircleTwoTone } from '../../api/styled';
 import ChatContents from './chatContents';
-import axios from '../../api/axios';
 
 interface IchatList {
     socket: SocketIOClient.Socket;
@@ -14,7 +13,7 @@ interface IchatList {
 }
 
 const div1: React.CSSProperties = {
-    width: '98%',
+    width: '100%',
     height: '100%',
     display: 'grid',
     gridTemplateRows: '8.5fr 1.5fr',
@@ -31,7 +30,7 @@ const footer1: React.CSSProperties = {
     width: '100%',
     height: '100%',
     display: 'grid',
-    gridTemplateColumns: '8fr 1.5fr',
+    gridTemplateColumns: '8.3fr 1.2fr',
 };
 
 const div2: React.CSSProperties = {

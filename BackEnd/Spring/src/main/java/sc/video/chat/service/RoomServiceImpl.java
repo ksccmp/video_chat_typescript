@@ -39,6 +39,11 @@ public class RoomServiceImpl implements RoomService{
 	}
 	
 	@Override
+	public int selectMaxRoomId() {
+		return rRepo.selectMaxRoomId();
+	}
+	
+	@Override
 	@Transactional
 	public int updateNumber(UpdateRoomNumber updateRoomNumber) {
 		return rRepo.updateNumber(updateRoomNumber);

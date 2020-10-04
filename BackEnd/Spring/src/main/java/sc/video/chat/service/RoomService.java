@@ -15,5 +15,7 @@ public interface RoomService {
 	
 	public List<Room> selectByTopic(TopicRoom topicRoom);
 	
+	public int selectMaxRoomId();
+	
 	public int updateNumber(UpdateRoomNumber updateRoomNumber);
 }

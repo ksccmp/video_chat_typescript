@@ -7,11 +7,14 @@ import {
     StyledRadio1,
     StyledLabel1,
     StyledButton3,
+    StyledH4,
+    StyledH5,
 } from '../../api/styled';
 import { Iroom, Iuser, IopenAlertModal } from '../../api/interface';
 import { useDispatch, useSelector } from 'react-redux';
 import { roomInsertAction, roomOpenRoomModalAction, commonOpenAlertModalAction } from '../../modules/actions';
 import { reducerState } from '../../modules/reducer';
+import { getMax } from '../../api/constant';
 
 const table1: React.CSSProperties = {
     width: '100%',
@@ -28,10 +31,15 @@ const roomModal = () => {
 
     const user: Iuser = useSelector((state: reducerState) => state.user.user);
 
+    const [useMax, setUseMax] = React.useState<boolean>(false);
     const [usePassword, setUsePassword] = React.useState<boolean>(false);
 
     const onUsePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUsePassword(e.target.checked);
+    };
+
+    const onUseMax = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setUseMax(e.target.checked);
     };
 
     interface IinitState {
@@ -135,7 +143,7 @@ const roomModal = () => {
             contents: localReducer.contents,
             password: usePassword ? localReducer.password : '',
             type: localReducer.type,
-            max: localReducer.max,
+            max: useMax ? localReducer.max : getMax(),
             number: 1,
         };
 
@@ -162,7 +170,9 @@ const roomModal = () => {
                 <table style={table1}>
                     <tbody>
                         <tr>
-                            <td>내용</td>
+                            <td>
+                                <StyledH4>내용</StyledH4>
+                            </td>
                             <td></td>
                             <td>
                                 <StyledInput4 type="text" onChange={setContentsAction}></StyledInput4>
@@ -170,7 +180,9 @@ const roomModal = () => {
                         </tr>
 
                         <tr>
-                            <td>타입</td>
+                            <td>
+                                <StyledH4>타입</StyledH4>
+                            </td>
                             <td></td>
                             <td>
                                 <div style={div1}>
@@ -182,7 +194,9 @@ const roomModal = () => {
                                         onChange={setTypeAction}
                                         defaultChecked
                                     ></StyledRadio1>
-                                    <StyledLabel1 htmlFor="radio1">자유</StyledLabel1>
+                                    <StyledLabel1 htmlFor="radio1">
+                                        <StyledH5>자유</StyledH5>
+                                    </StyledLabel1>
                                     <StyledRadio1
                                         type="radio"
                                         name="type"
@@ -190,7 +204,9 @@ const roomModal = () => {
                                         value="회의"
                                         onChange={setTypeAction}
                                     ></StyledRadio1>
-                                    <StyledLabel1 htmlFor="radio2">회의</StyledLabel1>
+                                    <StyledLabel1 htmlFor="radio2">
+                                        <StyledH5>회의</StyledH5>
+                                    </StyledLabel1>
                                     <StyledRadio1
                                         type="radio"
                                         name="type"
@@ -198,32 +214,42 @@ const roomModal = () => {
                                         value="스터디"
                                         onChange={setTypeAction}
                                     ></StyledRadio1>
-                                    <StyledLabel1 htmlFor="radio3">스터디</StyledLabel1>
+                                    <StyledLabel1 htmlFor="radio3">
+                                        <StyledH5>스터디</StyledH5>
+                                    </StyledLabel1>
                                 </div>
                             </td>
                         </tr>
 
                         <tr>
-                            <td>최대 인원</td>
-                            <td></td>
+                            <td>
+                                <StyledH4>최대인원</StyledH4>
+                            </td>
+                            <td>
+                                <input type="checkbox" checked={useMax} onChange={onUseMax}></input>
+                            </td>
                             <td>
                                 <StyledInput4
                                     type="number"
-                                    value={localReducer.max}
+                                    value={useMax ? localReducer.max : ''}
                                     min="2"
                                     onChange={setMaxAction}
+                                    disabled={useMax ? false : true}
                                 ></StyledInput4>
                             </td>
                         </tr>
 
                         <tr>
-                            <td>비밀번호</td>
+                            <td>
+                                <StyledH4>비밀번호</StyledH4>
+                            </td>
                             <td>
                                 <input type="checkbox" checked={usePassword} onChange={onUsePassword}></input>
                             </td>
                             <td>
                                 <StyledInput4
                                     type="password"
+                                    value={usePassword ? localReducer.password : ''}
                                     disabled={usePassword ? false : true}
                                     onChange={setPasswordAction}
                                 ></StyledInput4>
@@ -231,8 +257,12 @@ const roomModal = () => {
                         </tr>
                     </tbody>
                 </table>
-                <StyledButton3 onClick={createRoom}>생성</StyledButton3>
-                <StyledButton3 onClick={cancleCreateRoom}>취소</StyledButton3>
+                <StyledButton3 onClick={createRoom}>
+                    <StyledH4>생성</StyledH4>
+                </StyledButton3>
+                <StyledButton3 onClick={cancleCreateRoom}>
+                    <StyledH4>취소</StyledH4>
+                </StyledButton3>
             </StyledRoomModalDiv1>
         </StyledModalDiv1>
     );
