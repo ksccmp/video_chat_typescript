@@ -448,13 +448,14 @@ export const StyledChatContentsHeader1 = styled.header`
 `;
 
 export const StyledChatContentsFooter1 = styled.footer`
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: #c79c76;
     border-radius: 10px;
     clear: both;
     float: ${(props: IStyledChatContentsDiv1) => (props.owner ? 'right' : 'left')};
     padding: 0.2em 0.4em;
     display: table;
     margin-bottom: 0.2em;
+    color: rgb(255, 255, 255);
 `;
 
 export const StyledChatContentsDiv2 = styled.div`

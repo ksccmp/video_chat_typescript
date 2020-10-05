@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Ichat } from '../../api/interface';
 import {
     StyledH6,
+    StyledH5,
     StyledTableCell,
     StyledChatContentsDiv1,
     StyledChatContentsHeader1,
@@ -34,7 +35,7 @@ const chatContents = ({ chat, owner }: IchatContents) => {
                 </StyledChatContentsDiv1>
             ) : (
                 <StyledChatContentsDiv2>
-                    <StyledH6>{chat.contents}</StyledH6>
+                    <StyledH5>{chat.contents}</StyledH5>
                 </StyledChatContentsDiv2>
             )}
         </>

@@ -16,7 +16,7 @@ const div1: React.CSSProperties = {
     width: '100%',
     height: '100%',
     display: 'grid',
-    gridTemplateRows: '8.5fr 1.5fr',
+    gridTemplateRows: '9fr 1fr',
 };
 
 const header1: React.CSSProperties = {
@@ -26,7 +26,6 @@ const header1: React.CSSProperties = {
 };
 
 const footer1: React.CSSProperties = {
-    borderTop: '1px solid black',
     width: '100%',
     height: '100%',
     display: 'grid',
