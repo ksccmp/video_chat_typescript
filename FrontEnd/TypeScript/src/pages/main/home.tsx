@@ -34,7 +34,7 @@ import NoImage from '../../assets/img/noImage.png';
 const div2: React.CSSProperties = {
     display: 'grid',
     gridTemplateColumns: '1fr 3fr 1fr',
-    overflow: 'hidden',
+    overflow: 'auto',
 };
 
 const aside1: React.CSSProperties = {
@@ -90,7 +90,7 @@ const profileHeaderRight: React.CSSProperties = {
     display: 'table',
 };
 
-const p1: React.CSSProperties = {
+const div11: React.CSSProperties = {
     margin: '0',
     display: 'table-cell',
     verticalAlign: 'middle',
@@ -326,13 +326,13 @@ const home: React.FC<RouteComponentProps> = ({ history }) => {
                                 </StyledTableCell>
                             </aside>
                             <aside style={profileHeaderRight}>
-                                <p style={p1}>
+                                <div style={div11}>
                                     <StyledH3>반갑습니다!</StyledH3> <br />
                                     <StyledH3>{reduxUser.userNm}님</StyledH3> <br />
                                     <StyledButton2 onClick={Logout}>
                                         <StyledH4>Logout</StyledH4>
                                     </StyledButton2>
-                                </p>
+                                </div>
                             </aside>
                         </header>
                         <footer style={profileFooter}>
@@ -415,10 +415,10 @@ const home: React.FC<RouteComponentProps> = ({ history }) => {
                                 onKeyPress={onPressEnter}
                             ></StyledInput2>
                             <StyledButton2 onClick={roomSelectByTopic}>
-                                <StyledH4>검색</StyledH4>
+                                <StyledH4>Search</StyledH4>
                             </StyledButton2>
                             <StyledButton2 onClick={onOpenRoomModal}>
-                                <StyledH4>생성</StyledH4>
+                                <StyledH4>Create</StyledH4>
                             </StyledButton2>
                         </div>
                     </div>

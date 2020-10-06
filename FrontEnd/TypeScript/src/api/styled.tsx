@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { RightCircleTwoTone, LockTwoTone, CloseCircleTwoTone } from '@ant-design/icons';
+import Video from '../components/socket/video';
 
 export const StyledInput1 = styled.input`
     border: 2px solid #c79c76;
@@ -427,10 +428,23 @@ export const StyledTabSubdiv2 = styled.div`
     left: 0;
     text-align: left;
     padding: 0.5em;
+    width: 59rem;
+    height: 35.5rem;
+`;
+
+export const StyledTabSubdiv3 = styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
 `;
 
 export const StyledVideo1 = styled.video`
     width: 100%;
+`;
+
+export const StyledVideo2 = styled.video`
+    height: 100%;
 `;
 
 interface IStyledChatContentsDiv1 {
@@ -554,6 +568,7 @@ export const StyledH1 = styled.h1`
     padding: 0;
     display: inline-block;
     font-family: 'Lato', sans-serif;
+    font-size: 1.6rem;
 `;
 
 export const StyledH2 = styled.h2`
@@ -561,6 +576,7 @@ export const StyledH2 = styled.h2`
     padding: 0;
     display: inline-block;
     font-family: 'Lato', sans-serif;
+    font-size: 1.4rem;
 `;
 
 export const StyledH3 = styled.h3`
@@ -568,6 +584,7 @@ export const StyledH3 = styled.h3`
     padding: 0;
     display: inline-block;
     font-family: 'Lato', sans-serif;
+    font-size: 1.2rem;
 `;
 
 export const StyledH4 = styled.h4`
@@ -575,6 +592,7 @@ export const StyledH4 = styled.h4`
     padding: 0;
     display: inline-block;
     font-family: 'Lato', sans-serif;
+    font-size: 0.8rem;
 `;
 
 export const StyledH5 = styled.h5`
@@ -582,6 +600,7 @@ export const StyledH5 = styled.h5`
     padding: 0;
     display: inline-block;
     font-family: 'Lato', sans-serif;
+    font-size: 0.6rem;
 `;
 
 export const StyledH6 = styled.h6`
@@ -589,4 +608,5 @@ export const StyledH6 = styled.h6`
     padding: 0;
     display: inline-block;
     font-family: 'Lato', sans-serif;
+    font-size: 0.4rem;
 `;

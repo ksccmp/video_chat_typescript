@@ -36,11 +36,13 @@ const styledh4_2: React.CSSProperties = {
 };
 
 const styledh6_1: React.CSSProperties = {
-    marginLeft: '0.5rem',
+    margin: '0.2rem',
 };
 
 const div1: React.CSSProperties = {
-    display: 'table',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     borderBottom: '1px solid black',
     width: '100%',
     height: '100%',
@@ -80,15 +82,13 @@ const room = ({ roomId, createId, contents, type, password, max, number }: Iroom
             </StyledCardHeader1>
             <StyledCardArticle1>
                 <header style={div1}>
-                    <StyledTableCell>
-                        <StyledH4 style={styledh4_1}>
-                            <span style={span1}>{roomId}</span>
-                            {createId}
-                        </StyledH4>
-                        <StyledH4 style={styledh4_2}>
-                            {type} ({number}/{max == getMax() ? '∞' : max})
-                        </StyledH4>
-                    </StyledTableCell>
+                    <StyledH4 style={styledh4_1}>
+                        <span style={span1}>{roomId}</span>
+                        {createId}
+                    </StyledH4>
+                    <StyledH4 style={styledh4_2}>
+                        {type} ({number}/{max == getMax() ? '∞' : max})
+                    </StyledH4>
                 </header>
                 <StyledH6 style={styledh6_1}>{contents}</StyledH6>
             </StyledCardArticle1>

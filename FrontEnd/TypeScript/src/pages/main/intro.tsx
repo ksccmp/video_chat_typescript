@@ -39,7 +39,6 @@ const Ul1 = styled.ul`
     list-style-type: none;
     margin: 0;
     padding: 0;
-    width: 70%;
 `;
 
 const RightLi1 = styled.li`

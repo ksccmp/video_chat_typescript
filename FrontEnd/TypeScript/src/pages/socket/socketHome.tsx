@@ -16,6 +16,7 @@ import {
     StyledTableCell,
     StyledTabSubdiv2,
     StyledH3,
+    StyledTabSubdiv3,
 } from '../../api/styled';
 import NoData from '../../common/noData';
 
@@ -229,7 +230,13 @@ const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
                                     </StyledTableCell>
                                 </StyledTabLabel2>
                                 <StyledTabSubdiv2>
-                                    {localStream !== undefined ? <Video stream={localStream}></Video> : ''}
+                                    <StyledTabSubdiv3>
+                                        {localStream !== undefined ? (
+                                            <Video stream={localStream} sort="main"></Video>
+                                        ) : (
+                                            ''
+                                        )}
+                                    </StyledTabSubdiv3>
                                 </StyledTabSubdiv2>
                             </StyledTabLi2>
                             <StyledTabLi2>
@@ -262,7 +269,7 @@ const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
                         {videoList
                             ? videoList.map((video, index) => (
                                   <div style={div2}>
-                                      <Video stream={video} key={index} />
+                                      <Video stream={video} sort="sub" key={index} />
                                   </div>
                               ))
                             : ''}
