@@ -1,13 +1,12 @@
 import * as React from 'react';
-import { StyledVideo1, StyledVideo2 } from '../../api/styled';
+import { StyledVideo1 } from '../../api/styled';
 
 interface Ivideo {
     stream: MediaStream;
-    sort: string;
     key?: number;
 }
 
-const video = ({ stream, sort }: Ivideo) => {
+const video = ({ stream }: Ivideo) => {
     const [videoData, setVideoData] = React.useState<HTMLMediaElement | undefined>(undefined);
 
     React.useEffect(() => {
@@ -20,11 +19,7 @@ const video = ({ stream, sort }: Ivideo) => {
 
     return (
         <>
-            {sort === 'main' ? (
-                <StyledVideo2 ref={(node: HTMLVideoElement) => setVideoData(node)} autoPlay={true}></StyledVideo2>
-            ) : (
-                <StyledVideo1 ref={(node: HTMLVideoElement) => setVideoData(node)} autoPlay={true}></StyledVideo1>
-            )}
+            <StyledVideo1 ref={(node: HTMLVideoElement) => setVideoData(node)} autoPlay={true}></StyledVideo1>
         </>
     );
 };

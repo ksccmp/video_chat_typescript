@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { RightCircleTwoTone, LockTwoTone, CloseCircleTwoTone } from '@ant-design/icons';
-import Video from '../components/socket/video';
+import { RightCircleTwoTone, LockTwoTone, CloseCircleTwoTone, LeftOutlined, RightOutlined } from '@ant-design/icons';
 
 export const StyledInput1 = styled.input`
     border: 2px solid #c79c76;
@@ -441,9 +440,6 @@ export const StyledTabSubdiv3 = styled.div`
 
 export const StyledVideo1 = styled.video`
     width: 100%;
-`;
-
-export const StyledVideo2 = styled.video`
     height: 100%;
 `;
 
@@ -520,6 +516,38 @@ export const StyledPasswordModalDiv1 = styled.div`
     text-align: center;
 `;
 
+export const StyledSlideDiv1 = styled.div`
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+`;
+
+export const StyledSlideFooter1 = styled.footer`
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1;
+`;
+
+interface IStyledSlideSubFooter1 {
+    open: boolean;
+}
+
+export const StyledSlideSubFooter1 = styled.footer`
+    background-color: #c79c76;
+    color: rgb(255, 255, 255);
+    width: 10%;
+    height: 8%;
+    display: ${(props: IStyledSlideSubFooter1) => (props.open ? 'flex' : 'none')};
+    align-items: center;
+    justify-content: center;
+`;
+
 export const StyledRightCircleTwoTone = styled(RightCircleTwoTone)`
     & > svg {
         width: 2rem;
@@ -561,6 +589,52 @@ export const StyledCloseCircleTwoTone = styled(CloseCircleTwoTone)`
         }
     }
     margin-bottom: 1.5rem;
+`;
+
+export const StyledLeftOutlined = styled(LeftOutlined)`
+    margin-left: 0.5rem;
+    opacity: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    outline: none;
+
+    &:hover {
+        opacity: 0.8;
+        transition: 2s;
+        cursor: initial;
+    }
+
+    & > svg {
+        width: 3rem;
+        height: 3rem;
+        & > path {
+            fill: #c97c76;
+        }
+    }
+`;
+
+export const StyledRightOutlined = styled(RightOutlined)`
+    margin-right: 0.5rem;
+    opacity: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    outline: none;
+
+    &:hover {
+        opacity: 0.8;
+        transition: 2s;
+        cursor: initial;
+    }
+
+    & > svg {
+        width: 3rem;
+        height: 3rem;
+        & > path {
+            fill: #c97c76;
+        }
+    }
 `;
 
 export const StyledH1 = styled.h1`

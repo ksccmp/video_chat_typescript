@@ -8,21 +8,21 @@ import { Ivideochat } from '../../api/interface';
 import { reducerState } from '../../modules/reducer';
 import { socketResetVideoListAction, socketSetVideoListAction } from '../../modules/actions';
 import {
-    StyledTabDiv2,
-    StyledTabUl2,
-    StyledTabLi2,
-    StyledTabLabel2,
-    StyledTabRadio2,
-    StyledTableCell,
-    StyledTabSubdiv2,
-    StyledH3,
-    StyledTabSubdiv3,
+    StyledLeftOutlined,
+    StyledRightOutlined,
+    StyledSlideDiv1,
+    StyledSlideFooter1,
+    StyledSlideSubFooter1,
 } from '../../api/styled';
-import NoData from '../../common/noData';
 
 interface ImatchParams {
     roomId: string;
     userId: string;
+}
+
+interface IsubFooterOpen {
+    open: boolean;
+    contents?: string;
 }
 
 const div1: React.CSSProperties = {
@@ -34,6 +34,7 @@ const div1: React.CSSProperties = {
 
 const section1: React.CSSProperties = {
     borderRight: '1px solid black',
+    position: 'relative',
     width: '100%',
     height: '100%',
 };
@@ -65,11 +66,25 @@ const div2: React.CSSProperties = {
     padding: '0.2em 0.2em 0px 0.2em',
 };
 
+const div3: React.CSSProperties = {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+};
+
 const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
     const dispatch = useDispatch();
 
     const [socket, setSocket] = React.useState<SocketIOClient.Socket | undefined>(undefined);
     const [localStream, setLocalStream] = React.useState<MediaStream | undefined>(undefined);
+    const [subFooterOpen, setSubFooterOpen] = React.useState<IsubFooterOpen>({
+        open: false,
+        contents: 'Me',
+    });
+    const [slideShow, setSlideShow] = React.useState<number>(0);
+    const maxSlideShow: number = 2;
 
     const videoList: MediaStream[] = useSelector((state: reducerState) => state.socket.videoList);
 
@@ -79,7 +94,7 @@ const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
                 urls: 'stun:stun.l.google.com:19302',
             },
             // { urls: 'turn:numb.viagenie.ca', credential: 'muazkh', username: 'webrtc@live.com' },
-            { urls: 'turn:ksccmp.iptime.org:5349', username: 'mynode', credential: 'centosuser' },
+            { urls: 'turn:192.168.0.122:5349', username: 'sctest', credential: 'sctest' },
         ],
     });
 
@@ -207,69 +222,53 @@ const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
         }
     };
 
-    const Test = () => {
-        dispatch(socketSetVideoListAction(localStream as MediaStream));
+    const getSlideShowContents = (index: number): string => {
+        if (index == 0) {
+            return 'Me';
+        } else {
+            return 'Other';
+        }
     };
+
+    const onSubFooterOpen = () => {
+        setSubFooterOpen({
+            open: true,
+            contents: getSlideShowContents((slideShow + 1) % maxSlideShow),
+        });
+        console.log(getSlideShowContents((slideShow + 1) % maxSlideShow));
+        setSlideShow((slideShow + 1) % maxSlideShow);
+    };
+
+    React.useEffect(() => {
+        const timer = setTimeout(() => {
+            setSubFooterOpen({
+                open: false,
+            });
+        }, [2000]);
+        return () => clearTimeout(timer);
+    }, [subFooterOpen]);
 
     return (
         <>
             <div style={div1}>
                 <section style={section1}>
-                    <StyledTabDiv2>
-                        <StyledTabUl2>
-                            <StyledTabLi2>
-                                <StyledTabRadio2
-                                    type="radio"
-                                    name="tab"
-                                    id="tablabel1"
-                                    defaultChecked
-                                ></StyledTabRadio2>
-                                <StyledTabLabel2 htmlFor="tablabel1" onClick={Test}>
-                                    <StyledTableCell>
-                                        <StyledH3>Me</StyledH3>
-                                    </StyledTableCell>
-                                </StyledTabLabel2>
-                                <StyledTabSubdiv2>
-                                    <StyledTabSubdiv3>
-                                        {localStream !== undefined ? (
-                                            <Video stream={localStream} sort="main"></Video>
-                                        ) : (
-                                            ''
-                                        )}
-                                    </StyledTabSubdiv3>
-                                </StyledTabSubdiv2>
-                            </StyledTabLi2>
-                            <StyledTabLi2>
-                                <StyledTabRadio2 type="radio" name="tab" id="tablabel2"></StyledTabRadio2>
-                                <StyledTabLabel2 htmlFor="tablabel2">
-                                    <StyledTableCell>
-                                        <StyledH3>Others</StyledH3>
-                                    </StyledTableCell>
-                                </StyledTabLabel2>
-                                <StyledTabSubdiv2>
-                                    <NoData />
-                                </StyledTabSubdiv2>
-                            </StyledTabLi2>
-                            <StyledTabLi2>
-                                <StyledTabRadio2 type="radio" name="tab" id="tablabel3"></StyledTabRadio2>
-                                <StyledTabLabel2 htmlFor="tablabel3">
-                                    <StyledTableCell>
-                                        <StyledH3>Board</StyledH3>
-                                    </StyledTableCell>
-                                </StyledTabLabel2>
-                                <StyledTabSubdiv2>
-                                    <NoData />
-                                </StyledTabSubdiv2>
-                            </StyledTabLi2>
-                        </StyledTabUl2>
-                    </StyledTabDiv2>
+                    <StyledSlideDiv1>
+                        {localStream !== undefined ? <Video stream={localStream}></Video> : ''}
+                    </StyledSlideDiv1>
+                    <StyledSlideFooter1>
+                        <StyledLeftOutlined onClick={onSubFooterOpen} />
+                        <StyledSlideSubFooter1 open={subFooterOpen.open}>
+                            {subFooterOpen.contents}
+                        </StyledSlideSubFooter1>
+                        <StyledRightOutlined onClick={onSubFooterOpen} />
+                    </StyledSlideFooter1>
                 </section>
                 <section style={section2}>
                     <header style={sectionHeader1}>
                         {videoList
                             ? videoList.map((video, index) => (
                                   <div style={div2}>
-                                      <Video stream={video} sort="sub" key={index} />
+                                      <Video stream={video} key={index} />
                                   </div>
                               ))
                             : ''}
