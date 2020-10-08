@@ -516,11 +516,15 @@ export const StyledPasswordModalDiv1 = styled.div`
     text-align: center;
 `;
 
+interface IStyledSlideDiv1 {
+    open: boolean;
+}
+
 export const StyledSlideDiv1 = styled.div`
     position: absolute;
     width: 100%;
     height: 100%;
-    display: flex;
+    display: ${(props: IStyledSlideDiv1) => (props.open ? 'flex' : 'none')};
     justify-content: center;
 `;
 
@@ -541,11 +545,12 @@ interface IStyledSlideSubFooter1 {
 export const StyledSlideSubFooter1 = styled.footer`
     background-color: #c79c76;
     color: rgb(255, 255, 255);
-    width: 10%;
-    height: 8%;
+    width: 5rem;
+    height: 3rem;
     display: ${(props: IStyledSlideSubFooter1) => (props.open ? 'flex' : 'none')};
     align-items: center;
     justify-content: center;
+    opacity: 0.8;
 `;
 
 export const StyledRightCircleTwoTone = styled(RightCircleTwoTone)`
@@ -598,6 +603,7 @@ export const StyledLeftOutlined = styled(LeftOutlined)`
     display: flex;
     align-items: center;
     outline: none;
+    transition: 2s;
 
     &:hover {
         opacity: 0.8;
@@ -621,6 +627,7 @@ export const StyledRightOutlined = styled(RightOutlined)`
     display: flex;
     align-items: center;
     outline: none;
+    transition: 2s;
 
     &:hover {
         opacity: 0.8;
@@ -642,7 +649,7 @@ export const StyledH1 = styled.h1`
     padding: 0;
     display: inline-block;
     font-family: 'Lato', sans-serif;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
 `;
 
 export const StyledH2 = styled.h2`
@@ -650,7 +657,7 @@ export const StyledH2 = styled.h2`
     padding: 0;
     display: inline-block;
     font-family: 'Lato', sans-serif;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
 `;
 
 export const StyledH3 = styled.h3`
@@ -658,7 +665,7 @@ export const StyledH3 = styled.h3`
     padding: 0;
     display: inline-block;
     font-family: 'Lato', sans-serif;
-    font-size: 1.2rem;
+    font-size: 1rem;
 `;
 
 export const StyledH4 = styled.h4`

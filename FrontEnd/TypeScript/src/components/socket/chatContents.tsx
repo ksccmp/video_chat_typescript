@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Ichat } from '../../api/interface';
 import {
-    StyledH6,
+    StyledH4,
     StyledH5,
     StyledTableCell,
     StyledChatContentsDiv1,
@@ -24,18 +24,18 @@ const chatContents = ({ chat, owner }: IchatContents) => {
                         ''
                     ) : (
                         <StyledChatContentsHeader1 owner={owner}>
-                            <StyledH6>{chat.userId}</StyledH6>
+                            <StyledH5>{chat.userId}</StyledH5>
                         </StyledChatContentsHeader1>
                     )}
                     <StyledChatContentsFooter1 owner={owner}>
                         <StyledTableCell>
-                            <StyledH6>{chat.contents}</StyledH6>
+                            <StyledH5>{chat.contents}</StyledH5>
                         </StyledTableCell>
                     </StyledChatContentsFooter1>
                 </StyledChatContentsDiv1>
             ) : (
                 <StyledChatContentsDiv2>
-                    <StyledH5>{chat.contents}</StyledH5>
+                    <StyledH4>{chat.contents}</StyledH4>
                 </StyledChatContentsDiv2>
             )}
         </>

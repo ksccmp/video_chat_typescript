@@ -63,6 +63,13 @@ socketIO.on('connection', (socket) => {
             start: socket.rgstTm,
             end: date,
         });
+
+        socketIO.to(socket.roomId).emit('receive video', {
+            type: 'disconnect',
+            roomId: socket.roomId,
+            hostId: socket.userId,
+            senderId: socket.userId,
+        });
     });
 
     socket.on('send video', (msg) => {

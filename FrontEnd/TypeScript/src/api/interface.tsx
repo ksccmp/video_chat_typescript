@@ -28,7 +28,9 @@ export interface Ivideochat {
     id?: string | null;
     candidate?: string;
     roomId: string;
-    userId: string;
+    hostId: string;
+    senderId: string;
+    streamId?: string;
 }
 
 export interface Iroom {
@@ -62,4 +64,9 @@ export interface IuserInfo {
 export interface IopenAlertModal {
     contents: string;
     open: boolean;
+}
+
+export interface Ivideo {
+    userId: string;
+    video: MediaStream;
 }

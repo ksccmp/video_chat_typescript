@@ -1,4 +1,4 @@
-import { Iuser, IuserAuth, Ichat, Iroom, IopenPasswordModal, IopenAlertModal } from '../api/interface';
+import { Iuser, IuserAuth, Ichat, Iroom, IopenPasswordModal, IopenAlertModal, Ivideo } from '../api/interface';
 
 // Saga
 export const userSelectByUserId: string = 'userSelectByUserId';
@@ -59,6 +59,7 @@ export const socketSetChatList: string = 'socketSetChatList';
 export const socketResetChatList: string = 'socketResetChatList';
 export const socketSetVideoList: string = 'socketSetVideoList';
 export const socketResetVideoList: string = 'socketResetVideoList';
+export const socketFilterVideoList: string = 'socketFilterVideoList';
 export const roomOpenRoomModal: string = 'roomOpenRoomModal';
 export const roomOpenPasswordModal: string = 'roomOpenPasswordModal';
 export const roomResetOpenPasswordModal: string = 'roomResetOpenPasswordModal';
@@ -85,11 +86,16 @@ export interface IsocketResetChatList {
 
 export interface IsocketSetVideoListAction {
     type: typeof socketSetVideoList;
-    payload: MediaStream;
+    payload: Ivideo;
 }
 
 export interface IsocketResetVideoListAction {
     type: typeof socketResetVideoList;
+}
+
+export interface IsocketFilterVideoListAction {
+    type: typeof socketFilterVideoList;
+    payload: string;
 }
 
 export interface IroomOpenRoomModalAction {
@@ -141,7 +147,7 @@ export const socketResetChatListAction = (): IsocketResetChatList => {
     };
 };
 
-export const socketSetVideoListAction = (res: MediaStream): IsocketSetVideoListAction => {
+export const socketSetVideoListAction = (res: Ivideo): IsocketSetVideoListAction => {
     return {
         type: socketSetVideoList,
         payload: res,
@@ -151,6 +157,13 @@ export const socketSetVideoListAction = (res: MediaStream): IsocketSetVideoListA
 export const socketResetVideoListAction = (): IsocketResetVideoListAction => {
     return {
         type: socketResetVideoList,
+    };
+};
+
+export const socketFilterVideoListAction = (res: string): IsocketFilterVideoListAction => {
+    return {
+        type: socketFilterVideoList,
+        payload: res,
     };
 };
 
@@ -198,6 +211,7 @@ export type reducerAction =
     | IsocketResetChatList
     | IsocketSetVideoListAction
     | IsocketResetVideoListAction
+    | IsocketFilterVideoListAction
     | IroomInsertAction
     | IroomOpenRoomModalAction
     | IroomOpenPasswordModalAction

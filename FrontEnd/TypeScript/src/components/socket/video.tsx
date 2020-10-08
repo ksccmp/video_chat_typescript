@@ -11,8 +11,8 @@ const video = ({ stream }: Ivideo) => {
 
     React.useEffect(() => {
         if (videoData) {
-            console.log('video');
-            console.log(stream);
+            // console.log('video');
+            // console.log(stream);
             (videoData as HTMLMediaElement).srcObject = stream;
         }
     }, [videoData]);

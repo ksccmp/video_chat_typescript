@@ -365,11 +365,11 @@ const home: React.FC<RouteComponentProps> = ({ history }) => {
                                     <ul style={{ padding: '0' }}>
                                         <li style={{ listStyleType: 'none', textAlign: 'initial' }}>
                                             <UserOutlined style={{ color: 'red', marginRight: '1rem' }} />
-                                            <StyledH5>aaa</StyledH5>
+                                            <StyledH4>aaa</StyledH4>
                                         </li>
                                         <li style={{ listStyleType: 'none', textAlign: 'initial' }}>
                                             <UserOutlined style={{ color: 'blue', marginRight: '1rem' }} />
-                                            <StyledH5>qqq</StyledH5>
+                                            <StyledH4>qqq</StyledH4>
                                         </li>
                                     </ul>
                                 </StyledTabSubdiv1>
@@ -414,6 +414,7 @@ const home: React.FC<RouteComponentProps> = ({ history }) => {
                                 onChange={onContents}
                                 onKeyPress={onPressEnter}
                             ></StyledInput2>
+                            <br />
                             <StyledButton2 onClick={roomSelectByTopic}>
                                 <StyledH4>Search</StyledH4>
                             </StyledButton2>

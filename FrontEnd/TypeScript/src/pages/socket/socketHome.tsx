@@ -4,9 +4,13 @@ import SocketIO from 'socket.io-client';
 import { RouteComponentProps } from 'react-router';
 import Video from '../../components/socket/video';
 import ChatList from '../../components/socket/chatList';
-import { Ivideochat } from '../../api/interface';
+import { Ivideochat, Ivideo, Iuser } from '../../api/interface';
 import { reducerState } from '../../modules/reducer';
-import { socketResetVideoListAction, socketSetVideoListAction } from '../../modules/actions';
+import {
+    socketResetVideoListAction,
+    socketSetVideoListAction,
+    socketFilterVideoListAction,
+} from '../../modules/actions';
 import {
     StyledLeftOutlined,
     StyledRightOutlined,
@@ -14,6 +18,7 @@ import {
     StyledSlideFooter1,
     StyledSlideSubFooter1,
 } from '../../api/styled';
+import NoData from '../../common/noData';
 
 interface ImatchParams {
     roomId: string;
@@ -23,6 +28,11 @@ interface ImatchParams {
 interface IsubFooterOpen {
     open: boolean;
     contents?: string;
+}
+
+interface IstreamInfo {
+    id: string;
+    userId?: string;
 }
 
 const div1: React.CSSProperties = {
@@ -86,7 +96,14 @@ const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
     const [slideShow, setSlideShow] = React.useState<number>(0);
     const maxSlideShow: number = 2;
 
-    const videoList: MediaStream[] = useSelector((state: reducerState) => state.socket.videoList);
+    const videoList: Ivideo[] = useSelector((state: reducerState) => state.socket.videoList);
+    const reduxUser: Iuser = useSelector((state: reducerState) => state.user.user);
+
+    const streamInfo: IstreamInfo = {
+        id: '',
+    };
+
+    const remoteStreamInfo: IstreamInfo[] = [];
 
     const pc: RTCPeerConnection = new RTCPeerConnection({
         iceServers: [
@@ -106,8 +123,14 @@ const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
         setSocket(connect);
 
         const handleVideoOfferMsg = (msg: Ivideochat) => {
+            remoteStreamInfo.push({
+                id: msg.streamId as string,
+                userId: msg.senderId,
+            });
             console.log('handleVideoOfferMsg');
+            console.log(msg.sdp);
             const desc = new RTCSessionDescription(msg.sdp);
+            console.log(desc);
 
             pc.setRemoteDescription(desc)
                 .then(() => {
@@ -117,12 +140,15 @@ const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
                     return pc.setLocalDescription(answer);
                 })
                 .then(() => {
-                    connect.emit('send video', {
+                    const message: Ivideochat = {
                         type: 'video-answer',
-                        sdp: pc.localDescription,
+                        sdp: pc.localDescription as RTCSessionDescription,
                         roomId: match.params.roomId,
-                        userId: msg.userId,
-                    });
+                        hostId: msg.hostId,
+                        senderId: match.params.userId,
+                        streamId: streamInfo.id,
+                    };
+                    connect.emit('send video', message);
                 })
                 .catch((e) => {
                     console.log(e);
@@ -130,6 +156,10 @@ const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
         };
 
         const handleVideoAnswerMsg = (msg: Ivideochat) => {
+            remoteStreamInfo.push({
+                id: msg.streamId as string,
+                userId: msg.senderId,
+            });
             console.log('test');
             console.log(msg.sdp);
             const desc = new RTCSessionDescription(msg.sdp);
@@ -141,19 +171,21 @@ const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
             console.log(msg);
             console.log(connect.id);
             if (msg.type === 'video-offer') {
-                if (msg.userId !== match.params.userId) {
-                    handleVideoOfferMsg(msg);
-                }
+                // if (msg.userId !== match.params.userId) {
+                handleVideoOfferMsg(msg);
+                // }
             } else if (msg.type === 'video-answer') {
-                if (msg.userId === match.params.userId) {
-                    handleVideoAnswerMsg(msg);
-                }
+                // if (msg.userId === match.params.userId) {
+                handleVideoAnswerMsg(msg);
+                // }
             } else if (msg.type === 'candidate') {
                 const candidate: RTCIceCandidate = new RTCIceCandidate({
                     sdpMLineIndex: msg.label,
                     candidate: msg.candidate,
                 });
                 pc.addIceCandidate(candidate);
+            } else if (msg.type === 'disconnect') {
+                dispatch(socketFilterVideoListAction(msg.hostId));
             }
         });
 
@@ -166,12 +198,15 @@ const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
                     return pc.setLocalDescription(offer);
                 })
                 .then(() => {
-                    connect.emit('send video', {
+                    const message: Ivideochat = {
                         type: 'video-offer',
-                        sdp: pc.localDescription,
+                        sdp: pc.localDescription as RTCSessionDescription,
                         roomId: match.params.roomId,
-                        userId: match.params.userId,
-                    });
+                        hostId: match.params.userId,
+                        senderId: match.params.userId,
+                        streamId: streamInfo.id,
+                    };
+                    connect.emit('send video', message);
                 })
                 .catch((e) => {
                     console.log(e);
@@ -182,23 +217,34 @@ const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
             console.log('pcicecandidate');
             console.log(event);
             if (event.candidate) {
-                connect.emit('send video', {
+                const message: Ivideochat = {
                     type: 'candidate',
                     label: event.candidate.sdpMLineIndex,
                     id: event.candidate.sdpMid,
                     candidate: event.candidate.candidate,
                     roomId: match.params.roomId,
-                    userId: match.params.userId,
-                });
+                    hostId: match.params.userId,
+                    senderId: match.params.userId,
+                };
+                connect.emit('send video', message);
             }
         };
 
         const pctrack = (event: RTCTrackEvent) => {
             console.log('pctrack');
-            console.log(event.streams[0].getTracks());
+            const streamUser: IstreamInfo | undefined = remoteStreamInfo.find(
+                (info) => info.id === event.streams[0].id,
+            );
+            console.log(event);
+            console.log(event.streams[0]);
 
             if (event.track.kind == 'video') {
-                dispatch(socketSetVideoListAction(event.streams[0]));
+                dispatch(
+                    socketSetVideoListAction({
+                        userId: (streamUser as IstreamInfo).userId as string,
+                        video: event.streams[0],
+                    }),
+                );
             }
         };
 
@@ -206,12 +252,20 @@ const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
             pc.onicecandidate = pcicecandidate;
             pc.onnegotiationneeded = pcnegotiationneeded;
             pc.ontrack = pctrack;
-            setLocalStream(pcstream);
-            dispatch(socketSetVideoListAction(pcstream));
+            streamInfo.id = pcstream.id;
+            console.log(pcstream);
+
             pcstream.getTracks().forEach((track) => {
                 console.log(track);
                 pc.addTrack(track, pcstream);
             });
+
+            pcstream.getAudioTracks().forEach((track) => {
+                pcstream.removeTrack(track);
+            });
+
+            setLocalStream(pcstream);
+            dispatch(socketSetVideoListAction({ userId: match.params.userId, video: pcstream }));
         });
     }, []);
 
@@ -230,13 +284,20 @@ const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
         }
     };
 
-    const onSubFooterOpen = () => {
+    const onSubFooterOpenRight = () => {
         setSubFooterOpen({
             open: true,
             contents: getSlideShowContents((slideShow + 1) % maxSlideShow),
         });
-        console.log(getSlideShowContents((slideShow + 1) % maxSlideShow));
         setSlideShow((slideShow + 1) % maxSlideShow);
+    };
+
+    const onSubFooterOpenLeft = () => {
+        setSubFooterOpen({
+            open: true,
+            contents: getSlideShowContents((slideShow - 1 + maxSlideShow) % maxSlideShow),
+        });
+        setSlideShow((slideShow - 1 + maxSlideShow) % maxSlideShow);
     };
 
     React.useEffect(() => {
@@ -252,15 +313,18 @@ const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
         <>
             <div style={div1}>
                 <section style={section1}>
-                    <StyledSlideDiv1>
+                    <StyledSlideDiv1 open={slideShow === 0 ? true : false}>
                         {localStream !== undefined ? <Video stream={localStream}></Video> : ''}
                     </StyledSlideDiv1>
+                    <StyledSlideDiv1 open={slideShow === 1 ? true : false}>
+                        <NoData />
+                    </StyledSlideDiv1>
                     <StyledSlideFooter1>
-                        <StyledLeftOutlined onClick={onSubFooterOpen} />
+                        <StyledLeftOutlined onClick={onSubFooterOpenLeft} />
                         <StyledSlideSubFooter1 open={subFooterOpen.open}>
                             {subFooterOpen.contents}
                         </StyledSlideSubFooter1>
-                        <StyledRightOutlined onClick={onSubFooterOpen} />
+                        <StyledRightOutlined onClick={onSubFooterOpenRight} />
                     </StyledSlideFooter1>
                 </section>
                 <section style={section2}>
@@ -268,7 +332,7 @@ const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
                         {videoList
                             ? videoList.map((video, index) => (
                                   <div style={div2}>
-                                      <Video stream={video} key={index} />
+                                      <Video stream={video.video} key={index} />
                                   </div>
                               ))
                             : ''}
