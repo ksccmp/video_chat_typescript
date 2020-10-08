@@ -8,18 +8,18 @@ app.use(function (request, response, next) {
     next();
 });
 
-// const server = require('http').createServer(app); // 로컬
-const server = require('https').createServer(
-    {
-        // key: fs.readFileSync('/etc/nginx/ssl/server.key'), // 사설 인증서
-        // cert: fs.readFileSync('/etc/nginx/ssl/server.crt'),
-        // ca: fs.readFileSync('/etc/nginx/ssl/CA.pem'),
-        key: fs.readFileSync('/etc/letsencrypt/live/ksccmp.iptime.org/privkey.pem'), // letsencrpyt 인증서
-        cert: fs.readFileSync('/etc/letsencrypt/live/ksccmp.iptime.org/fullchain.pem'),
-        ca: fs.readFileSync('/etc/letsencrypt/live/ksccmp.iptime.org/cert.pem'),
-    },
-    app,
-); // 배포
+const server = require('http').createServer(app); // 로컬
+// const server = require('https').createServer(
+//     {
+//         // key: fs.readFileSync('/etc/nginx/ssl/server.key'), // 사설 인증서
+//         // cert: fs.readFileSync('/etc/nginx/ssl/server.crt'),
+//         // ca: fs.readFileSync('/etc/nginx/ssl/CA.pem'),
+//         key: fs.readFileSync('/etc/letsencrypt/live/ksccmp.iptime.org/privkey.pem'), // letsencrpyt 인증서
+//         cert: fs.readFileSync('/etc/letsencrypt/live/ksccmp.iptime.org/fullchain.pem'),
+//         ca: fs.readFileSync('/etc/letsencrypt/live/ksccmp.iptime.org/cert.pem'),
+//     },
+//     app,
+// ); // 배포
 const port = 4000;
 const socketIO = require('socket.io')(server);
 
@@ -62,6 +62,13 @@ socketIO.on('connection', (socket) => {
             roomId: socket.roomId,
             start: socket.rgstTm,
             end: date,
+        });
+
+        socketIO.to(socket.roomId).emit('receive video', {
+            type: 'disconnect',
+            roomId: socket.roomId,
+            hostId: socket.userId,
+            senderId: socket.userId,
         });
     });
 

@@ -1,9 +1,9 @@
 import * as actions from '../actions';
-import { Ichat } from '../../api/interface';
+import { Ichat, Ivideo } from '../../api/interface';
 
 export interface IinitSocketState {
     chatList: Ichat[];
-    videoList: MediaStream[];
+    videoList: Ivideo[];
 }
 
 const initSocketState: IinitSocketState = {
@@ -30,7 +30,7 @@ const reducer = (state: IinitSocketState = initSocketState, action: actions.redu
         }
 
         case actions.socketSetVideoList: {
-            let newVideoList: MediaStream[] = state.videoList.slice();
+            let newVideoList: Ivideo[] = state.videoList.slice();
             newVideoList.push((action as actions.IsocketSetVideoListAction).payload);
             return {
                 ...state,
@@ -42,6 +42,15 @@ const reducer = (state: IinitSocketState = initSocketState, action: actions.redu
             return {
                 ...state,
                 videoList: initSocketState.videoList,
+            };
+        }
+
+        case actions.socketFilterVideoList: {
+            return {
+                ...state,
+                videoList: state.videoList.filter(
+                    (video) => video.userId !== (action as actions.IsocketFilterVideoListAction).payload,
+                ),
             };
         }
 
