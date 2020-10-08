@@ -79,15 +79,15 @@ const socketMain: React.FC<RouteComponentProps<ImatchParams>> = ({ match }) => {
                 urls: 'stun:stun.l.google.com:19302',
             },
             // { urls: 'turn:numb.viagenie.ca', credential: 'muazkh', username: 'webrtc@live.com' },
-            { urls: 'turn:ksccmp.iptime.org:5349', username: 'mynode', credential: 'centosuser' },
+            { urls: 'turn:192.168.0.122:5349', username: 'sctest', credential: 'sctest' },
         ],
     });
 
     React.useEffect(() => {
         Close();
         dispatch(socketResetVideoListAction());
-        const connect: SocketIOClient.Socket = SocketIO.connect('http://localhost:4000'); // 로컬
-        // const connect: SocketIOClient.Socket = SocketIO.connect('https://ksccmp.iptime.org', { secure: true }); // 배포
+        // const connect: SocketIOClient.Socket = SocketIO.connect('http://localhost:4000'); // 로컬
+        const connect: SocketIOClient.Socket = SocketIO.connect('https://ksccmp.iptime.org', { secure: true }); // 배포
         setSocket(connect);
 
         const handleVideoOfferMsg = (msg: Ivideochat) => {
