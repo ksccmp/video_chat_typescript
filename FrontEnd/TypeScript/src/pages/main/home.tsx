@@ -191,8 +191,8 @@ const home: React.FC<RouteComponentProps> = ({ history }) => {
 
     React.useEffect(() => {
         if (reduxUser.userId !== '') {
-            const connect: SocketIOClient.Socket = SocketIO.connect('http://localhost:4000'); // 로컬
-            // const connect: SocketIOClient.Socket = SocketIO.connect('https://ksccmp.iptime.org', { secure: true }); // 배포
+            // const connect: SocketIOClient.Socket = SocketIO.connect('http://localhost:4000'); // 로컬
+            const connect: SocketIOClient.Socket = SocketIO.connect('https://ksccmp.iptime.org', { secure: true }); // 배포
 
             connect.emit('join page', {
                 userId: reduxUser.userId,

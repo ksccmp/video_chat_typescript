@@ -1,4 +1,4 @@
-import { Iuser, IuserAuth, Ichat, Iroom, IopenPasswordModal, IopenAlertModal, Ivideo } from '../api/interface';
+import { Iuser, IuserAuth, Ichat, Iroom, IopenPasswordModal, IopenAlertModal, IpeerInfo } from '../api/interface';
 
 // Saga
 export const userSelectByUserId: string = 'userSelectByUserId';
@@ -57,9 +57,10 @@ export const userSetUser: string = 'userSetUser';
 export const userLogout: string = 'userLogout';
 export const socketSetChatList: string = 'socketSetChatList';
 export const socketResetChatList: string = 'socketResetChatList';
-export const socketSetVideoList: string = 'socketSetVideoList';
-export const socketResetVideoList: string = 'socketResetVideoList';
-export const socketFilterVideoList: string = 'socketFilterVideoList';
+export const socketSetPeerInfoList: string = 'socketSetPeerInfoList';
+export const socketResetPeerInfoList: string = 'socketResetPeerInfoList';
+export const socketFilterPeerInfoList: string = 'socketFilterPeerInfoList';
+export const socketSetPeerStream: string = 'socketSetPeerStream';
 export const roomOpenRoomModal: string = 'roomOpenRoomModal';
 export const roomOpenPasswordModal: string = 'roomOpenPasswordModal';
 export const roomResetOpenPasswordModal: string = 'roomResetOpenPasswordModal';
@@ -84,18 +85,23 @@ export interface IsocketResetChatList {
     type: typeof socketResetChatList;
 }
 
-export interface IsocketSetVideoListAction {
-    type: typeof socketSetVideoList;
-    payload: Ivideo;
+export interface IsocketSetPeerInfoListAction {
+    type: typeof socketSetPeerInfoList;
+    payload: IpeerInfo;
 }
 
-export interface IsocketResetVideoListAction {
-    type: typeof socketResetVideoList;
+export interface IsocketResetPeerInfoListAction {
+    type: typeof socketResetPeerInfoList;
 }
 
-export interface IsocketFilterVideoListAction {
-    type: typeof socketFilterVideoList;
+export interface IsocketFilterPeerInfoListAction {
+    type: typeof socketFilterPeerInfoList;
     payload: string;
+}
+
+export interface IsocketSetPeerStreamAction {
+    type: typeof socketSetPeerStream;
+    payload: IpeerInfo;
 }
 
 export interface IroomOpenRoomModalAction {
@@ -147,22 +153,29 @@ export const socketResetChatListAction = (): IsocketResetChatList => {
     };
 };
 
-export const socketSetVideoListAction = (res: Ivideo): IsocketSetVideoListAction => {
+export const socketSetPeerInfoListAction = (res: IpeerInfo): IsocketSetPeerInfoListAction => {
     return {
-        type: socketSetVideoList,
+        type: socketSetPeerInfoList,
         payload: res,
     };
 };
 
-export const socketResetVideoListAction = (): IsocketResetVideoListAction => {
+export const socketResetPeerInfoListAction = (): IsocketResetPeerInfoListAction => {
     return {
-        type: socketResetVideoList,
+        type: socketResetPeerInfoList,
     };
 };
 
-export const socketFilterVideoListAction = (res: string): IsocketFilterVideoListAction => {
+export const socketFilterPeerInfoListAction = (res: string): IsocketFilterPeerInfoListAction => {
     return {
-        type: socketFilterVideoList,
+        type: socketFilterPeerInfoList,
+        payload: res,
+    };
+};
+
+export const socketSetPeerStreamAction = (res: IpeerInfo): IsocketSetPeerStreamAction => {
+    return {
+        type: socketSetPeerStream,
         payload: res,
     };
 };
@@ -209,9 +222,10 @@ export type reducerAction =
     | IuserInsertAction
     | IsocketSetChatList
     | IsocketResetChatList
-    | IsocketSetVideoListAction
-    | IsocketResetVideoListAction
-    | IsocketFilterVideoListAction
+    | IsocketSetPeerInfoListAction
+    | IsocketResetPeerInfoListAction
+    | IsocketFilterPeerInfoListAction
+    | IsocketSetPeerStreamAction
     | IroomInsertAction
     | IroomOpenRoomModalAction
     | IroomOpenPasswordModalAction

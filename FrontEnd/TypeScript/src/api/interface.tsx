@@ -28,8 +28,8 @@ export interface Ivideochat {
     id?: string | null;
     candidate?: string;
     roomId: string;
-    hostId: string;
     senderId: string;
+    receiverId: string;
     streamId?: string;
 }
 
@@ -66,7 +66,8 @@ export interface IopenAlertModal {
     open: boolean;
 }
 
-export interface Ivideo {
+export interface IpeerInfo {
     userId: string;
-    video: MediaStream;
+    peer: RTCPeerConnection;
+    video?: MediaStream;
 }

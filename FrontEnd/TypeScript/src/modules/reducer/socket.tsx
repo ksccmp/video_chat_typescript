@@ -1,14 +1,14 @@
 import * as actions from '../actions';
-import { Ichat, Ivideo } from '../../api/interface';
+import { Ichat, IpeerInfo } from '../../api/interface';
 
 export interface IinitSocketState {
     chatList: Ichat[];
-    videoList: Ivideo[];
+    peerInfoList: IpeerInfo[];
 }
 
 const initSocketState: IinitSocketState = {
     chatList: [],
-    videoList: [],
+    peerInfoList: [],
 };
 
 const reducer = (state: IinitSocketState = initSocketState, action: actions.reducerAction) => {
@@ -29,28 +29,43 @@ const reducer = (state: IinitSocketState = initSocketState, action: actions.redu
             };
         }
 
-        case actions.socketSetVideoList: {
-            let newVideoList: Ivideo[] = state.videoList.slice();
-            newVideoList.push((action as actions.IsocketSetVideoListAction).payload);
+        case actions.socketSetPeerInfoList: {
+            let newPeerInfoList: IpeerInfo[] = state.peerInfoList.slice();
+            newPeerInfoList.push((action as actions.IsocketSetPeerInfoListAction).payload);
             return {
                 ...state,
-                videoList: newVideoList,
+                peerInfoList: newPeerInfoList,
             };
         }
 
-        case actions.socketResetVideoList: {
+        case actions.socketResetPeerInfoList: {
             return {
                 ...state,
-                videoList: initSocketState.videoList,
+                peerInfoList: initSocketState.peerInfoList,
             };
         }
 
-        case actions.socketFilterVideoList: {
+        case actions.socketFilterPeerInfoList: {
+            let newPeerInfoList: IpeerInfo[] = state.peerInfoList.filter(
+                (peerInfo) => peerInfo.userId !== (action as actions.IsocketFilterPeerInfoListAction).payload,
+            );
+
+            console.log(`target: ${(action as actions.IsocketFilterPeerInfoListAction).payload}`);
+            console.log(newPeerInfoList);
             return {
                 ...state,
-                videoList: state.videoList.filter(
-                    (video) => video.userId !== (action as actions.IsocketFilterVideoListAction).payload,
-                ),
+                peerInfoList: newPeerInfoList,
+            };
+        }
+
+        case actions.socketSetPeerStream: {
+            let newPeerInfoList: IpeerInfo[] = state.peerInfoList.filter(
+                (peerInfo) => peerInfo.userId !== (action as actions.IsocketSetPeerStreamAction).payload.userId,
+            );
+            newPeerInfoList.push((action as actions.IsocketSetPeerInfoListAction).payload);
+            return {
+                ...state,
+                peerInfoList: newPeerInfoList,
             };
         }
 

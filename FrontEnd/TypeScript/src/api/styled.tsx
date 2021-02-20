@@ -443,6 +443,13 @@ export const StyledVideo1 = styled.video`
     height: 100%;
 `;
 
+export const StyledVideo2 = styled.video`
+    max-width: 10rem;
+    max-height: 7rem;
+    width: 100%;
+    height: 100%;
+`;
+
 interface IStyledChatContentsDiv1 {
     owner: boolean;
 }
